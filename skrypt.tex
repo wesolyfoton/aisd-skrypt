@@ -1,0 +1,121 @@
+\documentclass[10pt,b5paper]{book}
+\usepackage{polski}
+\usepackage{amsthm}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage[titletoc]{appendix}
+\usepackage{scrextend}
+\usepackage[ruled,vlined,commentsnumbered]{algorithm2e}
+
+%% Użyteczne komendy
+
+\newtheorem{theorem}{Twierdzenie}
+\newcommand{\komentarz}[1]{\textcolor{red}{(#1)}}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+
+%% Strona tytułowa
+
+\usepackage[load-headings]{exsheets}
+\DeclareInstance{exsheets-heading}{mylist}{default}{
+  runin = true ,
+  attach = {
+    main[l,vc]number[l,vc](-3em,0pt) ;
+    main[r,vc]points[l,vc](\linewidth+\marginparsep,0pt)
+  }
+}
+
+\SetupExSheets{
+  headings = mylist ,
+  headings-format = \normalfont ,
+  counter-format = se.qu ,
+  counter-within = section
+}
+
+\usepackage{etoolbox}
+\AtBeginEnvironment{question}{\addmargin[3em]{0em}}
+\AtEndEnvironment{question}{\endaddmargin}
+
+\newcommand*{\titleGM}{\begingroup
+\hbox{
+\hspace*{0.2\textwidth}
+\hspace*{0.05\textwidth}
+\parbox[b]{0.75\textwidth}{
+{\noindent\Huge\bfseries Skrypt \\[0.2\baselineskip] z Algorytmów \\[0.2\baselineskip] i struktur danych}\\[1\baselineskip]
+{\large \textit{Zbiór mniej lub bardziej ciekawych algorytmów i struktur danych, jakie bywały omawiane na wykładzie (albo nie).}}\\[3\baselineskip]
+{\Large \textsc{praca zbiorowa pod redakcją \\[0.1\baselineskip] Krzysztofa Piecucha}}
+
+\vspace{0.5\textheight}
+{\noindent Korzystać na własną odpowiedzialność.}\\[\baselineskip]
+}}
+\endgroup}
+
+\definecolor{titlepagecolor}{cmyk}{0.9,1,.6,.40}
+
+\newcommand\titlepagedecoration{%
+\begin{tikzpicture}[remember picture,overlay,shorten >= -10pt]
+
+\coordinate (aux1) at ([yshift=-15pt]current page.north west);
+\coordinate (aux2) at ([yshift=-410pt]current page.north west);
+\coordinate (aux3) at ([xshift=+4.5cm]current page.north west);
+\coordinate (aux4) at ([yshift=-150pt]current page.north west);
+
+\begin{scope}[titlepagecolor!60,line width=14pt,rounded corners=12pt]
+\draw
+  (aux1) -- coordinate (a)
+  ++(-45:5) --
+  ++(225:5.1) coordinate (b);
+\draw[shorten <= -10pt]
+  (aux3) --
+  (a) --
+  (aux1);
+\draw[opacity=0.4,titlepagecolor,shorten <= -10pt]
+  (b) --
+  ++(-45:2.2) --
+  ++(225:2.2);
+\end{scope}
+\draw[titlepagecolor,line width=9pt,rounded corners=8pt,shorten <= -10pt]
+  (aux4) --
+  ++(-45:1.2) --
+  ++(225:1.2);
+\begin{scope}[titlepagecolor!70,line width=6pt,rounded corners=6pt]
+\draw[shorten <= -10pt]
+  (aux2) --
+  ++(-45:3) coordinate[pos=0.45] (c) --
+  ++(225:3.1);
+\draw
+  (aux2) --
+  (c) --
+  ++(45:2.5) --
+  ++(135:2.5) --
+  ++(225:2.5) coordinate[pos=0.3] (d);   
+\draw 
+  (d) -- +(135:1);
+\end{scope}
+\end{tikzpicture}%
+}
+
+\begin{document}
+
+\pagestyle{empty}
+\titleGM
+\titlepagedecoration
+
+\chapter{To trzeba będzie mądrze podzielić na rozdziały, na razie nie wiem jak}
+
+\include{wiesniakow}
+
+\include{fibonacci}
+
+%% Dodatki
+
+\begin{appendices}
+
+\input{porownanie.tex}
+
+\end{appendices}
+
+\end{document}
