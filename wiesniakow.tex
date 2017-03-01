@@ -3,17 +3,24 @@
 Todo, todo, todo...
 
 \begin{algorithm}[h]
-  ap := a\;
-  bp := b\;
-  wynik := 0\;
-  \While{ap > 0}
+  \DontPrintSemicolon
+  
+  \algorithmicrequire{ $a$, $b$ - liczby naturalne}
+  
+  \algorithmicensure{ $wynik = a \cdot b$ }
+  \newline
+  
+  $ap \leftarrow a$\;
+  $bp \leftarrow b$\;
+  $wynik \leftarrow 0$\;
+  \While{\upshape $ap > 0$}
   {
-    \If{ap \textsf{mod} 2 = 1}
+    \If{\upshape $ap \textsf{ mod } 2 = 1$}
     {
-      wynik := wynik + bp\;
+      $wynik \leftarrow wynik + bp$\;
     }
-    ap := ap / 2\;
-    bp := bp * 2\;
+    $ap \leftarrow ap / 2$\;
+    $bp \leftarrow bp \cdot 2$\;
   }
   
   \caption{Algorytm rosyjskich wieśniaków}
