@@ -1,0 +1,28 @@
+\chapter{Kopce binarne}
+
+Kopiec binarny to struktura danych, która reprezentowana jest jako prawie pełne drzewo binarne\footnote{To znaczy wypełniony na wszystkich poziomach (poza, być może, ostatnim).} i na której zachowana jest własność kopca. Kopiec przechowuje klucze, które tworzą ciąg uporządkowany. W przypadku kopca typu \emph{min} ścieżka prowadząca od dowolnego liścia do korzenia tworzy ciąg malejący.
+
+Kopce można w prosty sposób reprezentować w tablicy jednowymiarowej \textendash kolejne poziomy drzewa zapisywane są po sobie.
+
+\tizkboxwithcaption{tikz/kopiec-warstwy.tikz}{Reprezentacja kolejnych warstw kopca w tablicy jednowymiarowej.}
+
+Warto zauważyć, że tak reprezentowane drzewo pozwala na łatwy dostęp do powiązanych węzłów. Synami węzła o indeksie $i$ są węzły $2i$ oraz $2i + 1$, natomiast jego ojcem jest $\left\lfloor \frac{i}{2} \right\rfloor$.
+
+Kopiec powinien udostępniać trzy podstawowe funkcje: \texttt{zamien\_element}, która podmienia wartość w konkretnym węźle kopca, \texttt{przesun\_w\_gore} oraz \texttt{przesun\_w\_dol}, które zamieniają odpowiednie elementy pilnując przy tym, aby własność kopca została zachowana.
+
+\tizkboxwithcaption{tikz/kopiec-przenoszenie.tikz}{Przykład działania funkcji \texttt{zamien\_element}. a) Oryginalny kopiec. b) Zmiana wartości w wyróżnionym węźle. c) Ponieważ nowa wartość jest większa od wartości swoich dzieci, należy wykonać wywołanie funkcji \texttt{przesn\_w\_dol}. d) Po zmianie własność kopca nie jest zachowana, dlatego należy ponownie wywołać funkcję \texttt{przesn\_w\_dol}. To przywraca kopcowi jego własność.}
+
+\begin{algorithm}[h]
+  \If{k[i] < v}
+  {
+    k[i] = v\;
+	przesun\_w\_dol(k, i)\;
+  }
+  \Else
+  {
+    k[i] = v\;
+	przesun\_w\_gore(k, i)\;
+  }  
+  \caption{Implementacja funkcji \texttt{zamien\_element}}
+  \label{kopiec-zamien-element}
+\end{algorithm};

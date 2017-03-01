@@ -1,0 +1,33 @@
+\begin{tikzpicture}
+ 
+\draw[double, line width=.25mm] (2,-1.75) -- (-5,-1.75);
+\draw[double, line width=.25mm] (2,-0.25) -- (-5,-0.25);
+ 
+\draw[line width=.25mm] (-3.5,-1) -- (-1.5,0.5);
+\draw[line width=.25mm] (1.5,-2.5) -- (0.5,-1);
+\draw[line width=.25mm] (-0.5,-2.5) -- (0.5,-1);
+\draw[line width=.25mm] (-2.5,-2.5) -- (-3.5,-1);
+\draw[line width=.25mm] (-4.5,-2.5) -- (-3.5,-1);
+\draw[line width=.25mm] (0.5,-1) -- (-1.5,0.5);
+ 
+\draw[fill=black!25, line width=.25mm]  (-1.5,0.5) ellipse (0.5 and 0.5) node {$k_1$};
+\draw[fill=black!25, line width=.25mm]  (-2.5,-2.5) ellipse (0.5 and 0.5) node {$k_5$};
+\draw[fill=black!25, line width=.25mm]  (0.5,-1) ellipse (0.5 and 0.5) node {$k_3$};
+\draw[fill=black!25, line width=.25mm]  (-0.5,-2.5) ellipse (0.5 and 0.5) node {$k_6$};
+\draw[fill=black!25, line width=.25mm]  (1.5,-2.5) ellipse (0.5 and 0.5) node {$k_7$};
+\draw[fill=black!25, line width=.25mm]  (-4.5,-2.5) ellipse (0.5 and 0.5) node {$k_4$};
+\draw[fill=black!25, line width=.25mm]  (-3.5,-1) ellipse (0.5 and 0.5) node {$k_2$};
+ 
+\draw[fill=black!25, line width=.25mm] (3.5,-0.5) rectangle (4.5,-1.5) node[pos=.5] {$k_1$};
+\draw[fill=black!25, line width=.25mm] (4.5,-0.5) rectangle (5.5,-1.5) node[pos=.5] {$k_2$};
+\draw[fill=black!25, line width=.25mm] (5.5,-0.5) rectangle (6.5,-1.5) node[pos=.5] {$k_3$};
+\draw[fill=black!25, line width=.25mm] (6.5,-0.5) rectangle (7.5,-1.5) node[pos=.5] {$k_4$};
+\draw[fill=black!25, line width=.25mm] (7.5,-0.5) rectangle (8.5,-1.5) node[pos=.5] {$k_5$};
+\draw[fill=black!25, line width=.25mm] (8.5,-0.5) rectangle (9.5,-1.5) node[pos=.5] {$k_6$};
+\draw[fill=black!25, line width=.25mm] (9.5,-0.5) rectangle (10.5,-1.5) node[pos=.5] {$k_7$};
+ 
+ 
+\draw[double, line width=.25mm] (6.5,0) -- (6.5,-2);
+\draw[double, line width=.25mm] (4.5,0) -- (4.5,-2);
+ 
+\end{tikzpicture}
