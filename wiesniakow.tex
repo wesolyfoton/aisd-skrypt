@@ -5,22 +5,21 @@ Todo, todo, todo...
 \begin{algorithm}[h]
   \DontPrintSemicolon
   
-  \algorithmicrequire{ $a$, $b$ - liczby naturalne}
+  \KwData{ $a$, $b$ - liczby naturalne }
   
-  \algorithmicensure{ $wynik = a \cdot b$ }
-  \newline
+  \KwResult{ $wynik = a \cdot b$ }
   
-  $ap \leftarrow a$\;
-  $bp \leftarrow b$\;
+  $a' \leftarrow a$\;
+  $b' \leftarrow b$\;
   $wynik \leftarrow 0$\;
-  \While{\upshape $ap > 0$}
+  \While{\upshape $a' > 0$}
   {
-    \If{\upshape $ap \textsf{ mod } 2 = 1$}
+    \If{\upshape $a' \textsf{ mod } 2 = 1$}
     {
-      $wynik \leftarrow wynik + bp$\;
+      $wynik \leftarrow wynik + b'$\;
     }
-    $ap \leftarrow ap / 2$\;
-    $bp \leftarrow bp \cdot 2$\;
+    $a' \leftarrow a' / 2$\;
+    $b' \leftarrow b' \cdot 2$\;
   }
   
   \caption{Algorytm rosyjskich wieśniaków}
