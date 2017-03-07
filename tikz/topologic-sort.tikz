@@ -1,0 +1,33 @@
+\begin{tikzpicture}
+
+  \node (blocker) at (-2,13.5) {\includegraphics[width=2cm]{tikz/blocker}};
+  \node (catcher) at (2.5,13) {\includegraphics[width=2cm]{tikz/catcher-glove}};
+  \node (chest) at (-3.5,10.5) {\includegraphics[width=2cm]{tikz/chest-pad}};
+  \node (cup) at (3,6) {\includegraphics[width=2cm]{tikz/cup}};
+  \node (jersey) at (-6.5,11) {\includegraphics[width=2cm]{tikz/jersey}};
+  \node (kneepads) at (0,6) {\includegraphics[width=2cm]{tikz/kneepads}};
+  \node (legpads) at (1,9.5) {\includegraphics[width=2cm]{tikz/legpads}};
+  \node (mask) at (-5,13) {\includegraphics[width=2cm]{tikz/mask}};
+  \node (pants) at (-5.5,6.5) {\includegraphics[width=2cm]{tikz/pants}};
+  \node (shorts) at (4.5,8.5) {\includegraphics[width=2cm]{tikz/shorts}};
+  \node (skates) at (-3,8.5) {\includegraphics[width=2cm]{tikz/skates}};
+  \node (socks) at (-3,5.5) {\includegraphics[width=2cm]{tikz/socks}};
+  \node (tshirt) at (-0.5,12) {\includegraphics[width=2cm]{tikz/t-shirt}};
+  \node (undershort) at (4.5,10.5) {\includegraphics[width=2cm]{tikz/undershort}};
+  
+  \path (socks) edge [bend left, ->, line width=0.5mm] node {} (kneepads);
+  \path (tshirt) edge [bend left, ->, line width=0.5mm] node {} (chest);
+  \path (chest) edge [bend left, ->, line width=0.5mm] node {} (jersey);
+  \path (pants) edge [bend right, ->, line width=0.5mm] node {} (jersey);
+  \path (pants) edge [bend left, ->, line width=0.5mm] node {} (skates);
+  \path (skates) edge [bend right, ->, line width=0.5mm] node {} (legpads);
+  \path (legpads) edge [bend right, ->, line width=0.5mm] node {} (catcher);
+  \path (jersey) edge [bend left, ->, line width=0.5mm] node {} (mask);
+  \path (mask) edge [bend left, ->, line width=0.5mm] node {} (blocker);
+  \path (blocker) edge [bend left, ->, line width=0.5mm] node {} (catcher);
+  \path (kneepads) edge [bend right, ->, line width=0.5mm] node {} (pants);
+  \path (undershort) edge [bend right, ->, line width=0.5mm] node {} (shorts);
+  \path (shorts) edge [bend right, ->, line width=0.5mm] node {} (cup);
+  \path (shorts) edge [bend right, ->, line width=0.5mm] node {} (kneepads);
+\end{tikzpicture}
+
