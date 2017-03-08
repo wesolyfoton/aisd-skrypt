@@ -23,11 +23,7 @@ Synami węzła o indeksie $i$ są węzły $2i+1$ oraz $2i + 2$, natomiast jego o
 
 Kopiec powinien udostępniać trzy podstawowe funkcje: \texttt{zamien\_element}, która podmienia wartość w konkretnym węźle kopca, \texttt{przesun\_w\_gore} oraz \texttt{przesun\_w\_dol}, które zamieniają odpowiednie elementy pilnując przy tym, aby własność kopca została zachowana.
 
-\comment{Da się zrobić aby wierzchołki w ostatniej warstwie się ze sobą nie stykały?
-I strzałki są strasznie brzydkie :P
-Wydaje mi się, że wystarczy dorobić grot do istniejącej już krawędzi między tymi wierzchołkami i pogrubić ją zamiast robić osobnej strzałki.
-Chcemy mieć kolorowe rysunki!
-Ja wiem że na czarnobiałej drukarce to i tak wszystko będzie czarnobiałe (duh) ale może chociaż na monitorze komputera będzie jakośładniej :)}
+\comment{! Trzeba jeszcze dodać groty do tych pogrubionych lini w drzewach}
 \tizkboxwithcaption{tikz/kopiec-przenoszenie.tikz}{Przykład działania funkcji \texttt{zamien\_element}. a) Oryginalny kopiec. b) Zmiana wartości w wyróżnionym węźle. c) Ponieważ nowa wartość jest większa od wartości swoich dzieci, należy wykonać wywołanie funkcji \texttt{przesn\_w\_dol}. d) Po zmianie własność kopca nie jest zachowana, dlatego należy ponownie wywołać funkcję \texttt{przesn\_w\_dol}. To przywraca kopcowi jego własność.}
 
 \comment{Zamień element jest fajną funkcją, ale funkcje przesun w dol i przesun w gore są ważniejsze.
