@@ -1,18 +1,41 @@
 \section{Kopce binarne}
 
-Kopiec binarny to struktura danych, która reprezentowana jest jako prawie pełne drzewo binarne\footnote{To znaczy wypełniony na wszystkich poziomach (poza, być może, ostatnim).} i na której zachowana jest własność kopca. Kopiec przechowuje klucze, które tworzą ciąg uporządkowany. W przypadku kopca typu \emph{min} ścieżka prowadząca od dowolnego liścia do korzenia tworzy ciąg malejący.
+\comment{Chciałbym, aby skrypt był skryptem i żebyśmy tam pisali formalnie.
+Dlatego definicję kopca chciałbym mieć zapisaną formalnie (bez przypisów) i w znacznikach \\begin\{definition\} \\end\{definition\}.
+Teraz śmieszna rzecz jest taka, że kopiec trudno ładnie formalnie zdefiniować na drzewach.
+W sensie najpierw musielibyśmy powiedzieć co to jest poziom w drzewie, co to jest pełny poziom w drzewie a następnie .... w sumie to nawet ja nie wiem jak to ładnie zdefiniować na drzewach :P
+Więc zamiast mówić, że kopiec to drzewo które można reprezentować w tablicy, lepiej zdefiniować kopiec jako tablicę na którą możemy patrzeć jako na drzewo.
+Wtedy musimy zdefiniować co to jest lewy syn elementu w tablicy, prawy syn oraz ojciec.
+Na tej podstawie będzie łatwiej nam zdefiniować własność kopca jako, że dla każdego wierzchołka wartość elementu jest mniejsza od wartości elementów jego dzieci.
+Jeśli wolimy zamiast tego powiedzieć że ciąg elementów na ścieżce od liścia do korzenia tworzy ciąg malejący to musimy zdefiniować co to jest liść, korzeń i ścieżka.
+Co da się zrobić ale nie wiem czy jest to warte świeczki, gdyż to będzie bodajże jedyne miejsce w których użyjemy tych definicji).}
+Kopiec binarny to struktura danych, która reprezentowana jest jako prawie pełne drzewo binarne\footnote{To znaczy wypełniony na wszystkich poziomach (poza, być może, ostatnim).} i na której zachowana jest własność kopca.
+Kopiec przechowuje klucze, które tworzą ciąg uporządkowany.
+W przypadku kopca typu \emph{min} ścieżka prowadząca od dowolnego liścia do korzenia tworzy ciąg malejący.
 
 Kopce można w prosty sposób reprezentować w tablicy jednowymiarowej \textendash kolejne poziomy drzewa zapisywane są po sobie.
 
+\comment{Numerujmy elementy w tablicy od zera.
+Niby nic takiego, ale:
+1) ułatwia to potem implementację w języku programowania
+2) na liście kiedyś pojawi się zadanie w którym kopce będzie się definiowało jako coś co ma d-synów i wtedy się okaże, że lepiej numerować od zera.}
 \tizkboxwithcaption{tikz/kopiec-warstwy.tikz}{Reprezentacja kolejnych warstw kopca w tablicy jednowymiarowej.}
 
-Warto zauważyć, że tak reprezentowane drzewo pozwala na łatwy dostęp do powiązanych węzłów. Synami węzła o indeksie $i$ są węzły $2i$ oraz $2i + 1$, natomiast jego ojcem jest $\left\lfloor \frac{i}{2} \right\rfloor$.
+Warto zauważyć, że tak reprezentowane drzewo pozwala na łatwy dostęp do powiązanych węzłów.
+Synami węzła o indeksie $i$ są węzły $2i$ oraz $2i + 1$, natomiast jego ojcem jest $\left\lfloor \frac{i}{2} \right\rfloor$.
 
 Kopiec powinien udostępniać trzy podstawowe funkcje: \texttt{zamien\_element}, która podmienia wartość w konkretnym węźle kopca, \texttt{przesun\_w\_gore} oraz \texttt{przesun\_w\_dol}, które zamieniają odpowiednie elementy pilnując przy tym, aby własność kopca została zachowana.
 
+\comment{Da się zrobić aby wierzchołki w ostatniej warstwie się ze sobą nie stykały?
+I strzałki są strasznie brzydkie :P
+Wydaje mi się, że wystarczy dorobić grot do istniejącej już krawędzi między tymi wierzchołkami i pogrubić ją zamiast robić osobnej strzałki.
+Chcemy mieć kolorowe rysunki!
+Ja wiem że na czarnobiałej drukarce to i tak wszystko będzie czarnobiałe (duh) ale może chociaż na monitorze komputera będzie jakośładniej :)}
 \tizkboxwithcaption{tikz/kopiec-przenoszenie.tikz}{Przykład działania funkcji \texttt{zamien\_element}. a) Oryginalny kopiec. b) Zmiana wartości w wyróżnionym węźle. c) Ponieważ nowa wartość jest większa od wartości swoich dzieci, należy wykonać wywołanie funkcji \texttt{przesn\_w\_dol}. d) Po zmianie własność kopca nie jest zachowana, dlatego należy ponownie wywołać funkcję \texttt{przesn\_w\_dol}. To przywraca kopcowi jego własność.}
 
-\begin{algorithm}[h]
+\comment{Zamień element jest fajną funkcją, ale funkcje przesun w dol i przesun w gore są ważniejsze.
+Ponadto nie chcemy nazywać funkcje w języku polskim.}
+\begin{algorithm}[ht]
   \If{k[i] < v}
   {
     k[i] = v\;
@@ -25,4 +48,4 @@ Kopiec powinien udostępniać trzy podstawowe funkcje: \texttt{zamien\_element},
   }  
   \caption{Implementacja funkcji \texttt{zamien\_element}}
   \label{kopiec-zamien-element}
-\end{algorithm};
+\end{algorithm}
