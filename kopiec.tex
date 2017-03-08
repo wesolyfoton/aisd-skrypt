@@ -9,20 +9,17 @@ Wtedy musimy zdefiniować co to jest lewy syn elementu w tablicy, prawy syn oraz
 Na tej podstawie będzie łatwiej nam zdefiniować własność kopca jako, że dla każdego wierzchołka wartość elementu jest mniejsza od wartości elementów jego dzieci.
 Jeśli wolimy zamiast tego powiedzieć że ciąg elementów na ścieżce od liścia do korzenia tworzy ciąg malejący to musimy zdefiniować co to jest liść, korzeń i ścieżka.
 Co da się zrobić ale nie wiem czy jest to warte świeczki, gdyż to będzie bodajże jedyne miejsce w których użyjemy tych definicji).}
+
 Kopiec binarny to struktura danych, która reprezentowana jest jako prawie pełne drzewo binarne\footnote{To znaczy wypełniony na wszystkich poziomach (poza, być może, ostatnim).} i na której zachowana jest własność kopca.
 Kopiec przechowuje klucze, które tworzą ciąg uporządkowany.
 W przypadku kopca typu \emph{min} ścieżka prowadząca od dowolnego liścia do korzenia tworzy ciąg malejący.
 
 Kopce można w prosty sposób reprezentować w tablicy jednowymiarowej \textendash kolejne poziomy drzewa zapisywane są po sobie.
 
-\comment{Numerujmy elementy w tablicy od zera.
-Niby nic takiego, ale:
-1) ułatwia to potem implementację w języku programowania
-2) na liście kiedyś pojawi się zadanie w którym kopce będzie się definiowało jako coś co ma d-synów i wtedy się okaże, że lepiej numerować od zera.}
 \tizkboxwithcaption{tikz/kopiec-warstwy.tikz}{Reprezentacja kolejnych warstw kopca w tablicy jednowymiarowej.}
 
 Warto zauważyć, że tak reprezentowane drzewo pozwala na łatwy dostęp do powiązanych węzłów.
-Synami węzła o indeksie $i$ są węzły $2i$ oraz $2i + 1$, natomiast jego ojcem jest $\left\lfloor \frac{i}{2} \right\rfloor$.
+Synami węzła o indeksie $i$ są węzły $2i+1$ oraz $2i + 2$, natomiast jego ojcem jest $\left\lfloor \frac{i-1}{2} \right\rfloor$.
 
 Kopiec powinien udostępniać trzy podstawowe funkcje: \texttt{zamien\_element}, która podmienia wartość w konkretnym węźle kopca, \texttt{przesun\_w\_gore} oraz \texttt{przesun\_w\_dol}, które zamieniają odpowiednie elementy pilnując przy tym, aby własność kopca została zachowana.
 
