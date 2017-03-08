@@ -1,8 +1,112 @@
 \begin{tikzpicture}
-\draw[line width=0.25mm] (-14,6.5) -- (-16,4.5); \draw[line width=0.25mm] (-14,6.5) -- (-12,4.5); \draw[line width=0.25mm] (-16,4.5) -- (-17,2.5); \draw[line width=0.25mm] (-16,4.5) -- (-15,2.5); \draw[line width=0.25mm] (-12,4.5) -- (-13,2.5); \draw[line width=0.25mm] (-12,4.5) -- (-11,2.5); \draw[line width=0.25mm] (-17.5,0.5) -- (-17,2.5); \draw[line width=0.25mm] (-14.5,0.5) -- (-15,2.5); \draw[line width=0.25mm] (-13.5,0.5) -- (-13,2.5); \draw[line width=0.25mm] (-16.5,0.5) -- (-17,2.5); \draw[line width=0.25mm] (-15.5,0.5) -- (-15,2.5);
-\draw[fill=black!25]  (-14,6.5) ellipse (0.5 and 0.5) node {2} node [below=1cm] {a)}; \draw[fill=black!75]  (-16,4.5) ellipse (0.5 and 0.5) node {\color{white}7}; \draw[fill=black!25]  (-12,4.5) ellipse (0.5 and 0.5) node {4}; \draw[fill=black!25]  (-17,2.5) ellipse (0.5 and 0.5) node {11}; \draw[fill=black!25]  (-15,2.5) ellipse (0.5 and 0.5) node {9}; \draw[fill=black!25]  (-11,2.5) ellipse (0.5 and 0.5) node {5}; \draw[fill=black!25]  (-13,2.5) ellipse (0.5 and 0.5) node {9}; \draw[fill=black!25]  (-17.5,0.5) ellipse (0.5 and 0.5) node {13}; \draw[fill=black!25]  (-16.5,0.5) ellipse (0.5 and 0.5) node {19}; \draw[fill=black!25]  (-15.5,0.5) ellipse (0.5 and 0.5) node {15}; \draw[fill=black!25]  (-14.5,0.5) ellipse (0.5 and 0.5) node {22}; \draw[fill=black!25]  (-13.5,0.5) ellipse (0.5 and 0.5) node {10};
-\draw[line width=0.25mm] (-5,6.5) -- (-7,4.5); \draw[line width=0.25mm] (-5,6.5) -- (-3,4.5); \draw[line width=0.25mm] (-7,4.5) -- (-8,2.5); \draw[line width=0.25mm] (-7,4.5) -- (-6,2.5); \draw[line width=0.25mm] (-3,4.5) -- (-4,2.5); \draw[line width=0.25mm] (-3,4.5) -- (-2,2.5); \draw[line width=0.25mm] (-8.5,0.5) -- (-8,2.5); \draw[line width=0.25mm] (-5.5,0.5) -- (-6,2.5); \draw[line width=0.25mm] (-4.5,0.5) -- (-4,2.5); \draw[line width=0.25mm] (-7.5,0.5) -- (-8,2.5); \draw[line width=0.25mm] (-6.5,0.5) -- (-6,2.5); \draw[fill=black!25]  (-5,6.5) ellipse (0.5 and 0.5) node {2} node [below=1cm] {b)}; \draw[fill=black!75]  (-7,4.5) ellipse (0.5 and 0.5) node {\color{white}17}; \draw[fill=black!25]  (-3,4.5) ellipse (0.5 and 0.5) node {4}; \draw[fill=black!25]  (-8,2.5) ellipse (0.5 and 0.5) node {11}; \draw[fill=black!25]  (-6,2.5) ellipse (0.5 and 0.5) node {9}; \draw[fill=black!25]  (-2,2.5) ellipse (0.5 and 0.5) node {5}; \draw[fill=black!25]  (-4,2.5) ellipse (0.5 and 0.5) node {9}; \draw[fill=black!25]  (-8.5,0.5) ellipse (0.5 and 0.5) node {13}; \draw[fill=black!25]  (-7.5,0.5) ellipse (0.5 and 0.5) node {19}; \draw[fill=black!25]  (-6.5,0.5) ellipse (0.5 and 0.5) node {15}; \draw[fill=black!25]  (-5.5,0.5) ellipse (0.5 and 0.5) node {22}; \draw[fill=black!25]  (-4.5,0.5) ellipse (0.5 and 0.5) node {10};
-\draw[line width=0.25mm] (4,6.5) -- (2,4.5); \draw[line width=0.25mm] (4,6.5) -- (6,4.5); \draw[line width=0.25mm] (2,4.5) -- (1,2.5); \draw[line width=0.25mm] (2,4.5) -- (3,2.5); \draw[line width=0.25mm] (6,4.5) -- (5,2.5); \draw[line width=0.25mm] (6,4.5) -- (7,2.5); \draw[line width=0.25mm] (0.5,0.5) -- (1,2.5); \draw[line width=0.25mm] (3.5,0.5) -- (3,2.5); \draw[line width=0.25mm] (4.5,0.5) -- (5,2.5); \draw[line width=0.25mm] (1.5,0.5) -- (1,2.5); \draw[line width=0.25mm] (2.5,0.5) -- (3,2.5); \draw[fill=black!25]  (4,6.5) ellipse (0.5 and 0.5) node {2} node [below=1cm] {c)}; \draw[fill=black!25]  (2,4.5) ellipse (0.5 and 0.5) node {9}; \draw[fill=black!25]  (6,4.5) ellipse (0.5 and 0.5) node {4}; \draw[fill=black!25]  (1,2.5) ellipse (0.5 and 0.5) node {11}; \draw[fill=black!75]  (3,2.5) ellipse (0.5 and 0.5) node {\color{white}17}; \draw[fill=black!25]  (7,2.5) ellipse (0.5 and 0.5) node {5}; \draw[fill=black!25]  (5,2.5) ellipse (0.5 and 0.5) node {9}; \draw[fill=black!25]  (0.5,0.5) ellipse (0.5 and 0.5) node {13}; \draw[fill=black!25]  (1.5,0.5) ellipse (0.5 and 0.5) node {19}; \draw[fill=black!25]  (2.5,0.5) ellipse (0.5 and 0.5) node {15}; \draw[fill=black!25]  (3.5,0.5) ellipse (0.5 and 0.5) node {22}; \draw[fill=black!25]  (4.5,0.5) ellipse (0.5 and 0.5) node {10};
-\draw[stealth-stealth, line width=.25mm]  plot[smooth, tension=1] coordinates {(2.5,4.25) (3,3.75) (3.25,3)};
-\draw[line width=0.25mm] (12,6.5) -- (10,4.5); \draw[line width=0.25mm] (12,6.5) -- (14,4.5); \draw[line width=0.25mm] (10,4.5) -- (9,2.5); \draw[line width=0.25mm] (10,4.5) -- (11,2.5); \draw[line width=0.25mm] (14,4.5) -- (13,2.5); \draw[line width=0.25mm] (14,4.5) -- (15,2.5); \draw[line width=0.25mm] (8.5,0.5) -- (9,2.5); \draw[line width=0.25mm] (11.5,0.5) -- (11,2.5); \draw[line width=0.25mm] (12.5,0.5) -- (13,2.5); \draw[line width=0.25mm] (9.5,0.5) -- (9,2.5); \draw[line width=0.25mm] (10.5,0.5) -- (11,2.5); \draw[fill=black!25]  (12,6.5) ellipse (0.5 and 0.5) node {2} node [below=1cm] {d)}; \draw[fill=black!25]  (10,4.5) ellipse (0.5 and 0.5) node {9}; \draw[fill=black!25]  (14,4.5) ellipse (0.5 and 0.5) node {4}; \draw[fill=black!25]  (9,2.5) ellipse (0.5 and 0.5) node {11}; \draw[fill=black!25]  (11,2.5) ellipse (0.5 and 0.5) node {15}; \draw[fill=black!25]  (15,2.5) ellipse (0.5 and 0.5) node {5}; \draw[fill=black!25]  (13,2.5) ellipse (0.5 and 0.5) node {9}; \draw[fill=black!25]  (8.5,0.5) ellipse (0.5 and 0.5) node {13}; \draw[fill=black!25]  (9.5,0.5) ellipse (0.5 and 0.5) node {19}; \draw[fill=black!75]  (10.5,0.5) ellipse (0.5 and 0.5) node {\color{white}17}; \draw[fill=black!25]  (11.5,0.5) ellipse (0.5 and 0.5) node {22}; \draw[fill=black!25]  (12.5,0.5) ellipse (0.5 and 0.5) node {10};
-\draw[stealth-stealth, line width=.25mm]  plot[smooth, tension=1] coordinates {(10.5,2.25) (10.25,1.5) (10.25,1)}; \end{tikzpicture}
+
+% rysunek A
+\draw[line width=0.25mm] (-14,6.5) -- (-16,4.5); 
+\draw[line width=0.25mm] (-14,6.5) -- (-12,4.5); 
+\draw[line width=0.25mm] (-16,4.5) -- (-17,2.5); 
+\draw[line width=0.25mm] (-16,4.5) -- (-15,2.5); 
+\draw[line width=0.25mm] (-12,4.5) -- (-13,2.5); 
+\draw[line width=0.25mm] (-12,4.5) -- (-11,2.5); 
+\draw[line width=0.25mm] (-17.5,0.5) -- (-17,2.5); 
+\draw[line width=0.25mm] (-14.5,0.5) -- (-15,2.5); 
+\draw[line width=0.25mm] (-13.5,0.5) -- (-13,2.5); 
+\draw[line width=0.25mm] (-16.5,0.5) -- (-17,2.5); 
+\draw[line width=0.25mm] (-15.5,0.5) -- (-15,2.5);
+\draw[fill=black!25]  (-14,6.5) ellipse (0.5 and 0.5) node {2} node [below=1cm] {a)}; 
+\draw[fill=green!45]  (-16,4.5) ellipse (0.5 and 0.5) node {7}; 
+\draw[fill=black!25]  (-12,4.5) ellipse (0.5 and 0.5) node {4}; 
+\draw[fill=black!25]  (-17,2.5) ellipse (0.5 and 0.5) node {11}; 
+\draw[fill=black!25]  (-15,2.5) ellipse (0.5 and 0.5) node {9}; 
+\draw[fill=black!25]  (-11,2.5) ellipse (0.5 and 0.5) node {5}; 
+\draw[fill=black!25]  (-13,2.5) ellipse (0.5 and 0.5) node {9}; 
+\draw[fill=black!25]  (-17.5,0.5) ellipse (0.45 and 0.45) node {13}; 
+\draw[fill=black!25]  (-16.5,0.5) ellipse (0.45 and 0.45) node {19}; 
+\draw[fill=black!25]  (-15.5,0.5) ellipse (0.45 and 0.45) node {15}; 
+\draw[fill=black!25]  (-14.5,0.5) ellipse (0.45 and 0.45) node {22}; 
+\draw[fill=black!25]  (-13.5,0.5) ellipse (0.45 and 0.45) node {10};
+
+% rysunek B
+\draw[line width=0.25mm] (-5,6.5) -- (-7,4.5); 
+\draw[line width=0.25mm] (-5,6.5) -- (-3,4.5); 
+\draw[line width=0.25mm] (-7,4.5) -- (-8,2.5); 
+\draw[line width=0.25mm] (-7,4.5) -- (-6,2.5); 
+\draw[line width=0.25mm] (-3,4.5) -- (-4,2.5); 
+\draw[line width=0.25mm] (-3,4.5) -- (-2,2.5); 
+\draw[line width=0.25mm] (-8.5,0.5) -- (-8,2.5); 
+\draw[line width=0.25mm] (-5.5,0.5) -- (-6,2.5); 
+\draw[line width=0.25mm] (-4.5,0.5) -- (-4,2.5); 
+\draw[line width=0.25mm] (-7.5,0.5) -- (-8,2.5); 
+\draw[line width=0.25mm] (-6.5,0.5) -- (-6,2.5); 
+\draw[fill=black!25]  (-5,6.5) ellipse (0.5 and 0.5) node {2} node [below=1cm] {b)}; 
+\draw[fill=red!55]  (-7,4.5) ellipse (0.5 and 0.5) node {17}; 
+\draw[fill=black!25]  (-3,4.5) ellipse (0.5 and 0.5) node {4}; 
+\draw[fill=black!25]  (-8,2.5) ellipse (0.5 and 0.5) node {11}; 
+\draw[fill=black!25]  (-6,2.5) ellipse (0.5 and 0.5) node {9}; 
+\draw[fill=black!25]  (-2,2.5) ellipse (0.5 and 0.5) node {5}; 
+\draw[fill=black!25]  (-4,2.5) ellipse (0.5 and 0.5) node {9}; 
+\draw[fill=black!25]  (-8.5,0.5) ellipse (0.45 and 0.45) node {13}; 
+\draw[fill=black!25]  (-7.5,0.5) ellipse (0.45 and 0.45) node {19}; 
+\draw[fill=black!25]  (-6.5,0.5) ellipse (0.45 and 0.45) node {15}; 
+\draw[fill=black!25]  (-5.5,0.5) ellipse (0.45 and 0.45) node {22}; 
+\draw[fill=black!25]  (-4.5,0.5) ellipse (0.45 and 0.45) node {10};
+
+% rysunek C
+\draw[line width=0.25mm] (4,6.5) -- (2,4.5); 
+\draw[line width=0.25mm] (4,6.5) -- (6,4.5); 
+\draw[line width=0.25mm] (2,4.5) -- (1,2.5); 
+\draw[line width=0.25mm] (2,4.5) -- (3,2.5); 
+\draw[line width=0.25mm] (6,4.5) -- (5,2.5); 
+\draw[line width=0.25mm] (6,4.5) -- (7,2.5); 
+\draw[line width=0.25mm] (0.5,0.5) -- (1,2.5); 
+\draw[line width=0.25mm] (3.5,0.5) -- (3,2.5); 
+\draw[line width=0.25mm] (4.5,0.5) -- (5,2.5); 
+\draw[line width=0.25mm] (1.5,0.5) -- (1,2.5); 
+\draw[line width=0.25mm] (2.5,0.5) -- (3,2.5); 
+% zmiana wierzchołków
+\draw[line width=0.75mm] (3,2.5) -- (2,4.5);
+%\draw[->] (3,2.5) -- (2,4.5); %strzałka pod node'em ;/
+
+\draw[fill=black!25]  (4,6.5) ellipse (0.5 and 0.5) node {2} node [below=1cm] {c)}; 
+\draw[fill=black!25]  (2,4.5) ellipse (0.5 and 0.5) node {9}; 
+\draw[fill=black!25]  (6,4.5) ellipse (0.5 and 0.5) node {4}; 
+\draw[fill=black!25]  (1,2.5) ellipse (0.5 and 0.5) node {11}; 
+\draw[fill=red!55]  (3,2.5) ellipse (0.5 and 0.5) node {17}; 
+\draw[fill=black!25]  (7,2.5) ellipse (0.5 and 0.5) node {5}; 
+\draw[fill=black!25]  (5,2.5) ellipse (0.5 and 0.5) node {9}; 
+\draw[fill=black!25]  (0.5,0.5) ellipse (0.45 and 0.45) node {13}; 
+\draw[fill=black!25]  (1.5,0.5) ellipse (0.45 and 0.45) node {19}; 
+\draw[fill=black!25]  (2.5,0.5) ellipse (0.45 and 0.45) node {15}; 
+\draw[fill=black!25]  (3.5,0.5) ellipse (0.45 and 0.45) node {22}; 
+\draw[fill=black!25]  (4.5,0.5) ellipse (0.45 and 0.45) node {10};
+
+%\draw[stealth-stealth, line width=.25mm]  plot[smooth, tension=1] coordinates {(2.5,4.25) (3,3.75) (3.25,3)};
+
+% rysunek D
+\draw[line width=0.25mm] (12,6.5) -- (10,4.5); 
+\draw[line width=0.25mm] (12,6.5) -- (14,4.5); 
+\draw[line width=0.25mm] (10,4.5) -- (9,2.5); 
+\draw[line width=0.25mm] (10,4.5) -- (11,2.5); 
+\draw[line width=0.25mm] (14,4.5) -- (13,2.5); 
+\draw[line width=0.25mm] (14,4.5) -- (15,2.5); 
+\draw[line width=0.25mm] (8.5,0.5) -- (9,2.5); 
+\draw[line width=0.25mm] (11.5,0.5) -- (11,2.5); 
+\draw[line width=0.25mm] (12.5,0.5) -- (13,2.5); 
+\draw[line width=0.25mm] (9.5,0.5) -- (9,2.5); 
+% zmiana wierzchołków
+\draw[line width=0.75mm] (10.5,0.5) -- (11,2.5); 
+
+\draw[fill=black!25]  (12,6.5) ellipse (0.5 and 0.5) node {2} node [below=1cm] {d)}; 
+\draw[fill=black!25]  (10,4.5) ellipse (0.5 and 0.5) node {9}; 
+\draw[fill=black!25]  (14,4.5) ellipse (0.5 and 0.5) node {4}; 
+\draw[fill=black!25]  (9,2.5) ellipse (0.5 and 0.5) node {11}; 
+\draw[fill=black!25]  (11,2.5) ellipse (0.5 and 0.5) node {15}; 
+\draw[fill=black!25]  (15,2.5) ellipse (0.5 and 0.5) node {5}; 
+\draw[fill=black!25]  (13,2.5) ellipse (0.5 and 0.5) node {9}; 
+\draw[fill=black!25]  (8.5,0.5) ellipse  (0.45 and 0.45) node {13}; 
+\draw[fill=black!25]  (9.5,0.5) ellipse  (0.45 and 0.45) node {19}; 
+\draw[fill=green!45]  (10.5,0.5) ellipse (0.45 and 0.45) node {17}; 
+\draw[fill=black!25]  (11.5,0.5) ellipse (0.45 and 0.45) node {22}; 
+\draw[fill=black!25]  (12.5,0.5) ellipse (0.45 and 0.45) node {10};
+
+%\draw[stealth-stealth, line width=.25mm]  plot[smooth, tension=1] coordinates {(10.5,2.25) (10.25,1.5) (10.25,1)}; 
+\end{tikzpicture}
