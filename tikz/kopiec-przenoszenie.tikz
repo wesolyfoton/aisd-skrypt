@@ -1,112 +1,112 @@
 \begin{tikzpicture}
+%style! używać!
+[normal/.style={circle, draw=blue!50, fill=blue!20, thick, minimum size=9mm},
+ bad/.style={circle, draw=red!50, fill=red!30, thick, minimum size=9mm},
+ good/.style={circle, draw=green!50, fill=green!20, thick, minimum size=9mm},
+ edge/.style={line width=0.25mm},
+ swap/.style={<->, line width=0.5mm}]
 
 % rysunek A
-\draw[line width=0.25mm] (-14,6.5) -- (-16,4.5); 
-\draw[line width=0.25mm] (-14,6.5) -- (-12,4.5); 
-\draw[line width=0.25mm] (-16,4.5) -- (-17,2.5); 
-\draw[line width=0.25mm] (-16,4.5) -- (-15,2.5); 
-\draw[line width=0.25mm] (-12,4.5) -- (-13,2.5); 
-\draw[line width=0.25mm] (-12,4.5) -- (-11,2.5); 
-\draw[line width=0.25mm] (-17.5,0.5) -- (-17,2.5); 
-\draw[line width=0.25mm] (-14.5,0.5) -- (-15,2.5); 
-\draw[line width=0.25mm] (-13.5,0.5) -- (-13,2.5); 
-\draw[line width=0.25mm] (-16.5,0.5) -- (-17,2.5); 
-\draw[line width=0.25mm] (-15.5,0.5) -- (-15,2.5);
-\draw[fill=black!25]  (-14,6.5) ellipse (0.5 and 0.5) node {2} node [below=1cm] {a)}; 
-\draw[fill=green!45]  (-16,4.5) ellipse (0.5 and 0.5) node {7}; 
-\draw[fill=black!25]  (-12,4.5) ellipse (0.5 and 0.5) node {4}; 
-\draw[fill=black!25]  (-17,2.5) ellipse (0.5 and 0.5) node {11}; 
-\draw[fill=black!25]  (-15,2.5) ellipse (0.5 and 0.5) node {9}; 
-\draw[fill=black!25]  (-11,2.5) ellipse (0.5 and 0.5) node {5}; 
-\draw[fill=black!25]  (-13,2.5) ellipse (0.5 and 0.5) node {9}; 
-\draw[fill=black!25]  (-17.5,0.5) ellipse (0.45 and 0.45) node {13}; 
-\draw[fill=black!25]  (-16.5,0.5) ellipse (0.45 and 0.45) node {19}; 
-\draw[fill=black!25]  (-15.5,0.5) ellipse (0.45 and 0.45) node {15}; 
-\draw[fill=black!25]  (-14.5,0.5) ellipse (0.45 and 0.45) node {22}; 
-\draw[fill=black!25]  (-13.5,0.5) ellipse (0.45 and 0.45) node {10};
+\node (A1)  at (-14,   6.5) [normal] {2};
+\node (A2)  at (-16,   4.5) [normal] {7};
+\node (A3)  at (-12,   4.5) [normal] {4};
+\node (A4)  at (-17,   2.5) [normal] {11};
+\node (A5)  at (-15,   2.5) [normal] {9};
+\node (A6)  at (-13,   2.5) [normal] {9};
+\node (A7)  at (-11,   2.5) [normal] {5};
+\node (A8)  at (-17.5, 0.5) [normal] {13};
+\node (A9)  at (-16.5, 0.5) [normal] {19};
+\node (A10) at (-15.5, 0.5) [normal] {15};
+\node (A11) at (-14.5, 0.5) [normal] {22};
+\node (A12) at (-13.5, 0.5) [normal] {10};
+\node [below = 1cm] at (A1.south) {a)};
+\draw[edge] (A1) -- (A2); 
+\draw[edge] (A1) -- (A3); 
+\draw[edge] (A2) -- (A4); 
+\draw[edge] (A2) -- (A5); 
+\draw[edge] (A3) -- (A6); 
+\draw[edge] (A3) -- (A7); 
+\draw[edge] (A4) -- (A8); 
+\draw[edge] (A4) -- (A9); 
+\draw[edge] (A5) -- (A10); 
+\draw[edge] (A5) -- (A11); 
+\draw[edge] (A6) -- (A12);
 
 % rysunek B
-\draw[line width=0.25mm] (-5,6.5) -- (-7,4.5); 
-\draw[line width=0.25mm] (-5,6.5) -- (-3,4.5); 
-\draw[line width=0.25mm] (-7,4.5) -- (-8,2.5); 
-\draw[line width=0.25mm] (-7,4.5) -- (-6,2.5); 
-\draw[line width=0.25mm] (-3,4.5) -- (-4,2.5); 
-\draw[line width=0.25mm] (-3,4.5) -- (-2,2.5); 
-\draw[line width=0.25mm] (-8.5,0.5) -- (-8,2.5); 
-\draw[line width=0.25mm] (-5.5,0.5) -- (-6,2.5); 
-\draw[line width=0.25mm] (-4.5,0.5) -- (-4,2.5); 
-\draw[line width=0.25mm] (-7.5,0.5) -- (-8,2.5); 
-\draw[line width=0.25mm] (-6.5,0.5) -- (-6,2.5); 
-\draw[fill=black!25]  (-5,6.5) ellipse (0.5 and 0.5) node {2} node [below=1cm] {b)}; 
-\draw[fill=red!55]  (-7,4.5) ellipse (0.5 and 0.5) node {17}; 
-\draw[fill=black!25]  (-3,4.5) ellipse (0.5 and 0.5) node {4}; 
-\draw[fill=black!25]  (-8,2.5) ellipse (0.5 and 0.5) node {11}; 
-\draw[fill=black!25]  (-6,2.5) ellipse (0.5 and 0.5) node {9}; 
-\draw[fill=black!25]  (-2,2.5) ellipse (0.5 and 0.5) node {5}; 
-\draw[fill=black!25]  (-4,2.5) ellipse (0.5 and 0.5) node {9}; 
-\draw[fill=black!25]  (-8.5,0.5) ellipse (0.45 and 0.45) node {13}; 
-\draw[fill=black!25]  (-7.5,0.5) ellipse (0.45 and 0.45) node {19}; 
-\draw[fill=black!25]  (-6.5,0.5) ellipse (0.45 and 0.45) node {15}; 
-\draw[fill=black!25]  (-5.5,0.5) ellipse (0.45 and 0.45) node {22}; 
-\draw[fill=black!25]  (-4.5,0.5) ellipse (0.45 and 0.45) node {10};
+\node (B1)  at (-5,   6.5) [normal] {2};
+\node (B2)  at (-7,   4.5) [bad]    {17};
+\node (B3)  at (-3,   4.5) [normal] {4};
+\node (B4)  at (-8,   2.5) [normal] {11};
+\node (B5)  at (-6,   2.5) [normal] {9};
+\node (B6)  at (-4,   2.5) [normal] {5};
+\node (B7)  at (-2,   2.5) [normal] {9};
+\node (B8)  at (-8.5, 0.5) [normal] {13};
+\node (B9)  at (-7.5, 0.5) [normal] {19};
+\node (B10) at (-6.5, 0.5) [normal] {15};
+\node (B11) at (-5.5, 0.5) [normal] {22};
+\node (B12) at (-4.5, 0.5) [normal] {10};
+\node [below = 1cm] at (B1.south) {b)};
+\draw[edge] (B1) -- (B2); 
+\draw[edge] (B1) -- (B3); 
+\draw[edge] (B2) -- (B4); 
+\draw[swap] (B2) -- (B5); 
+\draw[edge] (B3) -- (B6); 
+\draw[edge] (B3) -- (B7); 
+\draw[edge] (B4) -- (B8); 
+\draw[edge] (B4) -- (B9); 
+\draw[edge] (B5) -- (B10); 
+\draw[edge] (B5) -- (B11); 
+\draw[edge] (B6) -- (B12);
 
 % rysunek C
-\draw[line width=0.25mm] (4,6.5) -- (2,4.5); 
-\draw[line width=0.25mm] (4,6.5) -- (6,4.5); 
-\draw[line width=0.25mm] (2,4.5) -- (1,2.5); 
-\draw[line width=0.25mm] (2,4.5) -- (3,2.5); 
-\draw[line width=0.25mm] (6,4.5) -- (5,2.5); 
-\draw[line width=0.25mm] (6,4.5) -- (7,2.5); 
-\draw[line width=0.25mm] (0.5,0.5) -- (1,2.5); 
-\draw[line width=0.25mm] (3.5,0.5) -- (3,2.5); 
-\draw[line width=0.25mm] (4.5,0.5) -- (5,2.5); 
-\draw[line width=0.25mm] (1.5,0.5) -- (1,2.5); 
-\draw[line width=0.25mm] (2.5,0.5) -- (3,2.5); 
-% zmiana wierzchołków
-\draw[line width=0.75mm] (3,2.5) -- (2,4.5);
-%\draw[->] (3,2.5) -- (2,4.5); %strzałka pod node'em ;/
-
-\draw[fill=black!25]  (4,6.5) ellipse (0.5 and 0.5) node {2} node [below=1cm] {c)}; 
-\draw[fill=black!25]  (2,4.5) ellipse (0.5 and 0.5) node {9}; 
-\draw[fill=black!25]  (6,4.5) ellipse (0.5 and 0.5) node {4}; 
-\draw[fill=black!25]  (1,2.5) ellipse (0.5 and 0.5) node {11}; 
-\draw[fill=red!55]  (3,2.5) ellipse (0.5 and 0.5) node {17}; 
-\draw[fill=black!25]  (7,2.5) ellipse (0.5 and 0.5) node {5}; 
-\draw[fill=black!25]  (5,2.5) ellipse (0.5 and 0.5) node {9}; 
-\draw[fill=black!25]  (0.5,0.5) ellipse (0.45 and 0.45) node {13}; 
-\draw[fill=black!25]  (1.5,0.5) ellipse (0.45 and 0.45) node {19}; 
-\draw[fill=black!25]  (2.5,0.5) ellipse (0.45 and 0.45) node {15}; 
-\draw[fill=black!25]  (3.5,0.5) ellipse (0.45 and 0.45) node {22}; 
-\draw[fill=black!25]  (4.5,0.5) ellipse (0.45 and 0.45) node {10};
-
-%\draw[stealth-stealth, line width=.25mm]  plot[smooth, tension=1] coordinates {(2.5,4.25) (3,3.75) (3.25,3)};
+\node (C1)  at (4,   6.5) [normal] {2};
+\node (C2)  at (2,   4.5) [normal] {9};
+\node (C3)  at (6,   4.5) [normal] {4};
+\node (C4)  at (1,   2.5) [normal] {11};
+\node (C5)  at (3,   2.5) [bad]    {17};
+\node (C6)  at (5,   2.5) [normal] {9};
+\node (C7)  at (7,   2.5) [normal] {5};
+\node (C8)  at (0.5, 0.5) [normal] {13};
+\node (C9)  at (1.5, 0.5) [normal] {19};
+\node (C10) at (2.5, 0.5) [normal] {15};
+\node (C11) at (3.5, 0.5) [normal] {22};
+\node (C12) at (4.5, 0.5) [normal] {10};
+\node [below = 1cm] at (C1.south) {c)};
+\draw[edge] (C1) -- (C2); 
+\draw[edge] (C1) -- (C3); 
+\draw[edge] (C2) -- (C4); 
+\draw[edge] (C2) -- (C5); 
+\draw[edge] (C3) -- (C6); 
+\draw[edge] (C3) -- (C7); 
+\draw[edge] (C4) -- (C8); 
+\draw[edge] (C4) -- (C9); 
+\draw[swap] (C5) -- (C10); 
+\draw[edge] (C5) -- (C11); 
+\draw[edge] (C6) -- (C12);
 
 % rysunek D
-\draw[line width=0.25mm] (12,6.5) -- (10,4.5); 
-\draw[line width=0.25mm] (12,6.5) -- (14,4.5); 
-\draw[line width=0.25mm] (10,4.5) -- (9,2.5); 
-\draw[line width=0.25mm] (10,4.5) -- (11,2.5); 
-\draw[line width=0.25mm] (14,4.5) -- (13,2.5); 
-\draw[line width=0.25mm] (14,4.5) -- (15,2.5); 
-\draw[line width=0.25mm] (8.5,0.5) -- (9,2.5); 
-\draw[line width=0.25mm] (11.5,0.5) -- (11,2.5); 
-\draw[line width=0.25mm] (12.5,0.5) -- (13,2.5); 
-\draw[line width=0.25mm] (9.5,0.5) -- (9,2.5); 
-% zmiana wierzchołków
-\draw[line width=0.75mm] (10.5,0.5) -- (11,2.5); 
-
-\draw[fill=black!25]  (12,6.5) ellipse (0.5 and 0.5) node {2} node [below=1cm] {d)}; 
-\draw[fill=black!25]  (10,4.5) ellipse (0.5 and 0.5) node {9}; 
-\draw[fill=black!25]  (14,4.5) ellipse (0.5 and 0.5) node {4}; 
-\draw[fill=black!25]  (9,2.5) ellipse (0.5 and 0.5) node {11}; 
-\draw[fill=black!25]  (11,2.5) ellipse (0.5 and 0.5) node {15}; 
-\draw[fill=black!25]  (15,2.5) ellipse (0.5 and 0.5) node {5}; 
-\draw[fill=black!25]  (13,2.5) ellipse (0.5 and 0.5) node {9}; 
-\draw[fill=black!25]  (8.5,0.5) ellipse  (0.45 and 0.45) node {13}; 
-\draw[fill=black!25]  (9.5,0.5) ellipse  (0.45 and 0.45) node {19}; 
-\draw[fill=green!45]  (10.5,0.5) ellipse (0.45 and 0.45) node {17}; 
-\draw[fill=black!25]  (11.5,0.5) ellipse (0.45 and 0.45) node {22}; 
-\draw[fill=black!25]  (12.5,0.5) ellipse (0.45 and 0.45) node {10};
-
-%\draw[stealth-stealth, line width=.25mm]  plot[smooth, tension=1] coordinates {(10.5,2.25) (10.25,1.5) (10.25,1)}; 
+\node (D1)  at (12,    6.5) [normal] {2};
+\node (D2)  at (10,    4.5) [normal] {9};
+\node (D3)  at (14,    4.5) [normal] {4};
+\node (D4)  at (9,     2.5) [normal] {11};
+\node (D5)  at (11,    2.5) [normal] {15};
+\node (D6)  at (13,    2.5) [normal] {9};
+\node (D7)  at (15,    2.5) [normal] {5};
+\node (D8)  at (8.5,   0.5) [normal] {13};
+\node (D9)  at (9.5,   0.5) [normal] {19};
+\node (D10) at (10.5,  0.5) [good]   {17};
+\node (D11) at (11.5,  0.5) [normal] {22};
+\node (D12) at (12.5,  0.5) [normal] {10};
+\node [below = 1cm] at (D1.south) {d)};
+\draw[edge] (D1) -- (D2); 
+\draw[edge] (D1) -- (D3); 
+\draw[edge] (D2) -- (D4); 
+\draw[edge] (D2) -- (D5); 
+\draw[edge] (D3) -- (D6); 
+\draw[edge] (D3) -- (D7); 
+\draw[edge] (D4) -- (D8); 
+\draw[edge] (D4) -- (D9); 
+\draw[edge] (D5) -- (D10); 
+\draw[edge] (D5) -- (D11); 
+\draw[edge] (D6) -- (D12);
 \end{tikzpicture}
