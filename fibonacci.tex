@@ -1,3 +1,92 @@
 \section{Algorytm macierzowy wyznaczania liczb Fibonacciego}
 
-Todo, todo, todo...
+W tym rozdziale opiszemy algorytm obliczania liczb Fibonacciego, który wykorzystuje szybkie 
+potęgowanie\footnote{\url{https://en.wikipedia.org/wiki/Exponentiation_by_squaring}}. 
+Algorytm działa w czasie $O(\log{n})$, co sprawia, że jest znacznie atrakcyjniejszy od algorytmu 
+dynamicznego, który wymaga czasu $O(n)$.
+
+Znajdźmy taką macierz $M$, która po wymnożeniu przez transponowany wektor wyrazów 
+$F_{n}$ i $F_{n - 1}$ da nam wektor, w którym otrzymamy wyrazy $F_{n + 1}$ oraz $F_{n}$. 
+Łatwo sprawdzić, że dla ciągu Fibonacciego taka macierz ma postać:
+
+
+\begin{equation}
+	M = \begin{bmatrix}1 & 1\\1 & 0\end{bmatrix}
+\end{equation}
+Bo:
+\begin{equation}
+\label{eq:fibonacci_m}
+	M \times
+	\begin{bmatrix}F_n \\ F_{n - 1}\end{bmatrix}
+	= \begin{bmatrix}F_{n + 1} \\ F_{n}\end{bmatrix}
+\end{equation}
+
+Wynika to wprost z definicji mnożenia macierzy oraz definicji ciągu Fibonacciego.
+
+
+\begin{observation}{Zauważmy, że możemy $M$ przemnożyć przez macierz otrzymaną w \ref{eq:fibonacci_m}. Otrzymamy wtedy macierz postaci:}
+\begin{equation}
+	M \times (M \times \begin{bmatrix}F_n \\ F_{n - 1}\end{bmatrix})
+\end{equation}
+\end{observation}
+
+\begin{observation}{A gdy zrobimy to $n$ razy...}
+\label{mnozenie_n_razy}
+\begin{equation}
+	M \times (M \times (M \times ...\, (M \times \begin{bmatrix}F_n \\ F_{n - 1}\end{bmatrix})\,...\,))
+\end{equation}
+\end{observation}
+
+\begin{fact}{Mnożenie macierzy jest łączne.}
+\label{mnozenie_jest_laczne}
+\end{fact}
+
+Z faktu \ref{mnozenie_jest_laczne}. i obserwacji \ref{mnozenie_n_razy}. mamy:
+
+\begin{equation}
+	M^n \times \begin{bmatrix}F_n \\ F_{n - 1}\end{bmatrix}
+\end{equation}
+
+Pokażemy, że powyższa macierz ma zastosowanie w obliczaniu n-tej liczby Fibonacciego.
+
+\begin{lemma}
+\begin{equation}
+	M^{n} \times \begin{bmatrix}F_1 \\ F_0\end{bmatrix} = \begin{bmatrix}F_{n + 1} \\ F_{n}\end{bmatrix}
+\end{equation}
+\end{lemma}
+
+\begin{proof}{Przez indukcję.}\\
+Sprawdźmy dla $n = 1$. Mamy:
+\begin{equation}
+	\begin{bmatrix}1 & 1\\1 & 0\end{bmatrix}^0 \times \begin{bmatrix}1 \\ 0\end{bmatrix}
+	= \begin{bmatrix}1 \\ 1\end{bmatrix} = \begin{bmatrix}F_2 \\ F_1\end{bmatrix}
+\end{equation}
+
+Rozważmy $n + 1$ zakładając poprawność dla $n$.
+
+\begin{equation}
+	\begin{bmatrix}1 & 1\\1 & 0\end{bmatrix}^{n + 1} \times \begin{bmatrix}1 \\ 0\end{bmatrix}
+	= \begin{bmatrix}1 & 1\\1 & 0\end{bmatrix} \times \begin{bmatrix}1 & 1\\1 & 0\end{bmatrix}^{n} \times \begin{bmatrix}1 \\ 0\end{bmatrix}
+	= \begin{bmatrix}1 & 1\\1 & 0\end{bmatrix} \times \begin{bmatrix}F_{n+1} \\ F_{n}\end{bmatrix}
+	\stackrel{\ref{eq:fibonacci_m}}{=} \begin{bmatrix}F_{n + 2} \\ F_{n + 1}\end{bmatrix}
+\end{equation}
+\end{proof}
+
+\begin{algorithm}[h]
+	\DontPrintSemicolon
+	\SetAlgorithmName{Algorytm}{}
+	
+	\KwData{ n }
+	
+	\KwResult{ $n+1$-sza liczba Fibonacciego }
+
+	$M \leftarrow \begin{bmatrix}1 & 1\\1 & 0\end{bmatrix}$\;
+	$M' \leftarrow \texttt{exp\_by\_squaring(M, n)}$\;
+
+	
+	\KwRet{$\texttt{pierwszy element wektora}\,(M' \times \begin{bmatrix}1 \\ 0\end{bmatrix})$}\;
+
+	\caption{Procedura \texttt{get\_fibonacci}}
+	\label{get_fibonacci}
+\end{algorithm}
+
