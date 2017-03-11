@@ -6,6 +6,7 @@
 \usepackage{geometry}
 \usepackage{tikz}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{array}
 \usepackage[titletoc]{appendix}
 \usepackage{scrextend}
@@ -19,6 +20,8 @@
 %% Użyteczne komendy
 
 \newtheorem{theorem}{Twierdzenie}
+\newtheorem{definition}{Definicja}
+\newtheorem{lemma}{Lemat}
 \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
 \newcommand{\tizkboxwithcaption}[2]{\noindent\begin{figure}[!h]\centering\begin{adjustbox}{min width=0.75\textwidth, max width=1\textwidth}\input{#1}\end{adjustbox}\caption{#2}\end{figure}}
 
@@ -54,8 +57,8 @@
 \hspace*{0.2\textwidth}
 \hspace*{0.05\textwidth}
 \parbox[b]{0.75\textwidth}{
-{\noindent\Huge\bfseries Skrypt \\[0.2\baselineskip] z Algorytmów \\[0.2\baselineskip] i struktur danych}\\[1\baselineskip]
-{\large \textit{Zbiór mniej lub bardziej ciekawych algorytmów i struktur danych, jakie bywały omawiane na wykładzie (albo nie).}}\\[3\baselineskip]
+{\noindent\Huge\bfseries Skrypt \\[0.2\baselineskip] z Algorytmów \\[0.2\baselineskip] i~struktur danych}\\[1\baselineskip]
+{\large \textit{Zbiór mniej lub bardziej ciekawych algorytmów i~struktur danych, jakie bywały omawiane na wykładzie (albo i nie).}}\\[3\baselineskip]
 {\Large \textsc{praca zbiorowa pod redakcją \\[0.1\baselineskip] Krzysztofa Piecucha}}
 
 \vspace{0.5\textheight}
@@ -127,6 +130,8 @@
 \include{kopiec}
 
 \chapter{Algorytmy}
+
+\include{bitoniczne}
 
 \include{wiesniakow}
 
