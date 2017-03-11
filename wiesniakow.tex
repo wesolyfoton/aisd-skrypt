@@ -1,10 +1,7 @@
 \section{Algorytm rosyjskich wieśniaków}
 
-Todo, todo, todo...
-
 \begin{algorithm}[h]
   \DontPrintSemicolon
-  \SetAlgorithmName{Algorytm}{}
   
   \KwData{ $a$, $b$ - liczby naturalne }
   
@@ -19,10 +16,39 @@ Todo, todo, todo...
     {
       $wynik \leftarrow wynik + b'$\;
     }
-    $a' \leftarrow a' / 2$\;
+    $a' \leftarrow a' \textsf{ div } 2$\;
     $b' \leftarrow b' \cdot 2$\;
   }
   
   \caption{Algorytm rosyjskich wieśniaków}
   \label{alg-wiesniakow}
 \end{algorithm}
+
+Niech $a'_i$ (kolejno: $b'_i$, $wynik_i$) będzie wartością $a'$ ($b'$, $wynik$) w $i-tej$ iteracji pętli \texttt{while}. Udowodnimy następujący niezmiennik: $a'_i \cdot b'_i + wynik_i = a \cdot b$. Załóżmy, że niezmiennik zachodzi w $i-tej$ iteracji i sprawdźmy co dzieje się w $i+1$ iteracji. Rozważmy dwa przypadki.
+
+
+\begin{itemize}
+    \item $a'_i$ parzyste. Instrukcja \texttt{if} się nie wykona, w $i+1$ iteracji $wynik_i$ pozostanie niezmieniony, $a'_i$ zmniejszy się o połowę, a $b'_i$ zwiększy dwukrotnie. 
+
+$a'_{i+1} \cdot b'_{i+1} + wynik_{i+1} = \frac{a'_i}{2} \cdot 2 b'_i + wynik_i = a_i \cdot b_i$
+
+
+\item $a'_i$ nieparzyste:
+
+$wynik_{i+1} \leftarrow wynik_i + b'_i$;  
+$a'_{i+1} \leftarrow a'_i \textsf{ div } 2 = \frac{a'_i-1}{2}$;  
+$b'_{i+1} \leftarrow b'_i \cdot 2$
+
+Ostatecznie otrzymujemy:
+
+$a'_{i+1} \cdot b'_{i+1} + wynik_{i+1} = \frac{a'_i-1}{2} \cdot 2 b'_i + wynik_i +b'_i = a'_i \cdot wynik_i + b'_i= a \cdot b$
+
+\end{itemize}
+
+Teraz wystarczy zauważyć, że tuż po wyjściu z pętli \texttt{while} wartość zmiennej $a'$ wynosi $0$. Podstawiając do niezmiennika okazuje się, że faktycznie algorytm rosyjskich wieśniaków liczy $a \cdot b$.
+
+\paragraph{Złożoność}
+
+Z każdą iteracją połowimy $a'$. Biorąc pod uwagę kryterium jednorodne pozostałe instrukcje w pętli nic nie kosztują. Stąd złożoność to $O(\log a)$.
+
+W kryterium logarytmicznym musimy uwzględnić czas dominującej instrukcji: dodawania  $wynik \leftarrow wynik + b'$. W najgorszym przypadku zajmuje ono $O(\log ab)$. Zatem złożoność to $O(\log a \cdot \log ab)$.
