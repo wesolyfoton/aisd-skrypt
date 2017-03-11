@@ -1,0 +1,226 @@
+\section{Sortowanie bitoniczne}
+
+W tym rozdziale przedstawimy algorytm sortowania bitonicznego.
+Jest to algorytm działający w czasie $O(n \log^2 n)$ czyli gorszym niż inne, znane algorytmy sortujące takie jak sortowanie przez scalanie albo sortowanie szybkie.
+Zaletą sortowania bitonicznego jest to, że może zostać uruchomiony równolegle na wielu procesorach.
+Ponadto, dzięki temu, że algorytm zawsze porównuje te same elementy bez względu na dane wejściowe, istnieje prosta implementacja fizyczna tego algorytmu (np. w postaci tzw. sieci sortujących).
+Algorytm będzie zakładał, że rozmiar danych $n$ jest potęgą dwójki.
+Gdyby tak nie było, moglibyśmy wypełnić tablicę do posortowania nieskończonościami, tak aby uzupełnić rozmiar danych do potęgi dwójki.
+Rozmiar danych zwiększyłby się wtedy nie więcej niż dwukrotnie, zatem złożoność asymptotyczna pozostałaby taka sama.
+
+Sortowanie bitoniczne posługuje się tzw. ciągami bitonicznymi, które sobie teraz zdefiniujemy.
+\begin{definition}
+ \textbf{Ciągiem bitonicznym właściwym} nazywamy każdy ciąg powstały przez sklejenie ciągu niemalejącego z ciągiem nierosnącym.
+\end{definition}
+Dla przykładu ciąg $2$, $2$, $5$, $100$, $72$, $69$, $42$, $17$ jest ciągiem bitonicznym, gdyż powstał przez sklejenie ciągu niemalejącego $2$, $2$, $5$ oraz ciągu nierosnącego $100$, $72$, $69$, $42$, $17$.
+Ciąg $1$, $0$, $1$, $0$ nie jest ciągiem bitonicznym, gdyż nie istnieją taki ciąg niemalejący i taki ciąg nierosnący, które w wyniku sklejenia dałyby podany ciąg.
+\begin{definition}
+ \textbf{Ciągiem bitonicznym} nazywamy każdy ciąg powstały przez rotację cykliczną ciągu bitonicznego właściwego.
+\end{definition}
+Ciąg $69$, $42$, $17$, $2$, $2$, $5$, $100$, $72$ jest ciągiem bitonicznym, gdyż powstało przez rotację cykliczną ciągu bitonicznego właściwego $2$, $2$, $5$, $100$, $72$, $69$, $42$, $17$.
+
+Istnieje prosty algorytm sprawdzający, czy ciąg jest bitoniczny.
+Należy znaleźć element największy oraz najmniejszy.
+Następnie od elementu najmniejszego należy przejść cyklicznie w prawo (tj. w sytuacji gdy natrafimy na koniec ciągu, wracamy do początku) aż napotkamy element największy.
+Elementy, które przeszliśmy w ten sposób powinny tworzyć ciąg niemalejący.
+Analogicznie, idziemy od elementy największego cyklicznie w prawo aż do elementu najmniejszego.
+Elementy, które odwiedziliśmy powinny tworzyć ciąg nierosnący.
+W sytuacji w której mamy wiele elementów najmniejszych (największych), powinny one ze sobą sąsiadować (w sensie cyklicznym) i nie ma znaczenia, który z nich wybierzemy.
+Dla przykładu w ciągu  $69$, $42$, $17$, $2$, $2$, $5$, $100$, $72$ idąc od elementu najmniejszego do największego tworzymy ciąg $2$, $2$, $5$, $100$ i jest to ciąg niemalejący.
+Idąc od elementu największego do najmniejszego otrzymujemy ciąg $100$, $72$, $69$, $42$, $17$, $2$ i jest to ciąg nierosnący.
+
+Jedyną procedurą, która będzie przestawiała elementy w tablicy, będzie procedura \texttt{bitonic\_compare} (Algorytm \ref{bitonic-compare}).
+Jako dane wejściowe otrzymuje ona tablicę \texttt{A}, wielkość tablicy \texttt{n} oraz wartość logiczną \texttt{up}, która określa, czy ciąg będzie sortowany rosnąco czy malejąco.
+\begin{algorithm}[h]
+  \DontPrintSemicolon
+  \SetAlgorithmName{Algorytm}{}
+
+  \KwData{ A, n, up }
+  
+  \For{$i \leftarrow 1$ to $n$}
+  {
+    \If{$(A[i] > A[i+n/2]) = up$}
+    {
+      $A[i] \leftrightarrow A[i+n/2]$;
+    }
+  }
+  \caption{Procedura \texttt{bitonic\_compare}}
+  \label{bitonic-compare}
+\end{algorithm}
+Procedura dzieli zadaną na wejściu tablicę na dwie równe części.
+Następnie porównuje pierwszy element z pierwszej części z pierwszym elementem z drugiej części.
+Jeśli te elementy nie znajdują się w pożądanym porządku, to je przestawia.
+Następnie powtarza tą czynność z kolejnymi elementami.
+
+Dla przykładu, jeśli procedurę uruchomimy z tablicą \texttt{A[] = 2, 8, 7, 1, 4, 3, 5, 6}, wartością \texttt{n = 8} oraz \texttt{up = true}, w wyniku otrzymamy tablicę \texttt{A[] = 2, 3, 5, 1, 4, 8, 7, 6}.
+W pierwszym kroku wartość $2$ zostanie porównana z wartością $4$.
+Ponieważ chcemy otrzymać porządek rosnący (wartość zmiennej \texttt{up} jest ustawiona na \texttt{true}), to zostawiamy tą parę w spokoju.
+W następnym kroku porównujemy wartość $8$ z wartością $3$.
+Te wartości są w złym porządku, dlatego algorytm zamienia je miejscami.
+Dalej porównujemy $7$ z $5$ i zamieniamy je miejscami i w końcu porównujemy $1$ z $6$ i te wartości zostawiamy w spokoju, gdyż są w dobrym porządku.
+
+Procedura \texttt{bitonic\_compare} ma bardzo ważną własność, którą teraz udowodnimy.
+
+\begin{theorem}
+ Jeżeli elementy tablicy \texttt{A[0..n-1]} tworzą ciąg bitoniczny, to po zakończeniu procedury \texttt{bitonic\_compare} elementy tablicy \texttt{A[0..n/2-1]} oraz tablicy \texttt{A[n/2..n-1]} będą tworzyły ciągi bitoniczne.
+ Ponadto jeśli wartość zmiennej \texttt{up} jest ustawiona na \texttt{true} to każdy element tablicy \texttt{A[0..n/2-1]} będzie niewiększy od każdego elementu tablicy \texttt{A[n/2..n-1]}.
+ W przeciwnym przypadku będzie większy.
+ \label{bitonic-theorem}
+\end{theorem}
+
+Weźmy dla przykładu ciąg bitoniczny $69$, $42$, $17$, $2$, $2$, $5$, $100$, $72$.
+Po przejściu procedury \texttt{bitonic\_compare} z ustawioną zmienną \texttt{up} na wartość \texttt{true} otrzymamy ciąg $2$, $5$, $17$, $2$, $69$, $42$, $100$, $72$.
+Ciągi $2$, $5$, $17$, $2$ oraz $69$, $42$, $100$, $72$ są ciągami bitonicznymi.
+Ponadto każdy element ciągu $2$, $5$, $17$, $2$ jest niewiększy od każdego elementu ciągu $69$, $42$, $100$, $72$.
+
+Przejdźmy do dowodu powyższego twierdzenia.
+Przyda nam się do tego poniższy lemat:
+
+\begin{lemma}[zasada zero-jeden]
+ Twierdzenie \ref{bitonic-theorem} jest prawdziwe dla dowolnych tablic wtedy i tylko wtedy, gdy jest prawdziwe dla tablic zero-jedynkowych.
+ \label{zero-one-lemma}
+\end{lemma}
+
+\begin{proof}
+ Oczywiście - jeśli twierdzenie jest prawdziwe dla każdej tablicy to w szczególności jest prawdziwe dla tablic złożonych z zer i jedynek.
+ Dowód w drugą stronę jest dużo ciekawszy.
+ 
+ Weźmy dowolną funkcję niemalejącą $f$.
+ To znaczy funkcję $f: \mathbb{R} \rightarrow \mathbb{R}$ taką, że $\forall_{a, b \in \mathbb{R}} \enspace a \leq b \Rightarrow f(a) \leq f(b)$.
+ Dla tablicy \texttt{T} przez $f(T)$ będziemy rozumieli tablicę powstałą przez zaaplikowanie funkcji $f$ do każdego elementu tablicy \texttt{T}.
+ Niech \texttt{A} oznacza tablicę wejściową do procedury \texttt{bitonic\_compare} i niech \texttt{B} oznacza tablicę wyjściową.
+ Udowodnimy, że karmiąc procedurę \texttt{bitonic\_compare} tablicą $f(A)$ otrzymamy tablicę $f(B)$.
+ W kroku $i$-tym procedura rozważa przestawienie elementów $t_i$ oraz $t_{i+n/2}$.
+ Jeśli $f(a_i) = f(a_{i+n/2})$ to nie ma znaczenia czy elementy zostaną przestawione.
+ Z kolei jeśli $f(a_i) < f(a_{i+n/2})$ to $a_i < a_{i+n/2}$ zatem jeśli procedura przestawi elementy $f(a_i)$ oraz $f(a_{i+n/2})$ to również przestawi elementy $a_i$ oraz $a_{i+n/2}$.
+ Analogicznie gdy $f(a_i) > f(a_{i+n/2})$.
+ Zatem istotnie: dla każdej funkcji niemalejącej $f$, procedura \texttt{bitonic\_compare} otrzymując na wejściu tablicę $f(A)$ zwróci na wyjściu tablicę $f(B)$.
+ 
+ Wróćmy do dowodu lematu.
+ Dowód niewprost.
+ Załóżmy, że twierdzenie jest prawdziwe dla wszystkich tablic zero-jedynkowych i nie jest prawdziwe dla pewnej tablicy \texttt{T[0..n-1]}.
+ Niech \texttt{S[0..n-1]} oznacza zawartość tablicy po zakończeniu procedury \texttt{bitonic\_compare}.
+ Jeśli twierdzenie nie jest prawdziwe, oznacza to, że albo któraś z tablic \texttt{S[0..n/2-1]}, \texttt{S[n/2..n-1]} nie jest bitoniczna albo, że elementy z jednej z nich nie są mniejsze od wszystkich elementów z drugiej tablicy.
+ Rozważmy dwa przypadki.
+ 
+ Załóżmy, że tablica \texttt{S[0..n/2-1]} nie jest bitoniczna (przypadek kiedy druga z tablic nie jest bitoniczna, jest analogiczny).
+ Załóżmy, że ciąg powstały przez przejście od najmniejszego elementu w tej tablicy do największego nie tworzy ciągu niemalejącego (przypadek gdy ciąg powstały przez przejście od największego elementu do najmniejszego nie tworzy ciągu nierosnącego jest analogiczny).
+ Zatem istenieje w tablicy element \texttt{S[i]} większy od elementu \texttt{S[i+1]}.
+ Rozważmy następują funkcję:
+ \[   
+  f(a) = 
+     \begin{cases}
+       1 &\quad\textsf{jeśli} \enspace a \leq S[i]\\
+       0 &\quad\textsf{wpp.}
+     \end{cases}
+ \]
+ Zwróćmy uwagę, że w takiej sytuacji twierdzenie nie byłoby prawdziwe dla tablicy $f(T)$, zatem dla tablicy zero-jedynkowej.
+ Gdyż ponownie - element $f(S[i]) = 1$ byłby większy od elementu $f(S[i+1]) = 0$.
+ 
+ Drugi przypadek.
+ Załóżmy, że zmienna \texttt{up} ustawiona jest na \texttt{true} (przypadek drugi jest analogiczny).
+ Załóżmy, że element \texttt{S[i]} jest mniejszy od elementu \texttt{S[j]} gdzie $j < n/2$ oraz $i \geq n/2$.
+ Rozważmy funkcję:
+  \[   
+  f(a) = 
+     \begin{cases}
+       1 &\quad\textsf{jeśli} \enspace a \leq S[j]\\
+       0 &\quad\textsf{wpp.}
+     \end{cases}
+ \]
+ Wtedy twierdzenie nie byłoby prawdziwe dla tablicy $f(T)$ (zero-jedynkowej).
+ Ponownie - element $f(S[i]) = 0$ byłby mniejszy od elementu $f(S[j]) = 1$.
+\end{proof}
+
+Do pełni szczęścia potrzebujemy udowodnić, że Twierdzenie \ref{bitonic-theorem} jest prawdziwe dla wszystkich ciągów zero-jedynkowych.
+
+\begin{lemma}
+ Twierdzenie \ref{bitonic-theorem} jest prawdziwe dla wszystkich ciągów zero-jedynkowych.
+ \label{zero-one-cases-lemma}
+\end{lemma}
+
+\begin{proof}
+ Zakładać będziemy, że zmienna \texttt{up} jest ustawiona na \texttt{true} (dowód dla sytuacji przeciwnej jest analogiczny).
+ \comment{Ten dowód jest nudny.}
+ Istnieją cztery rodzaje bitonicznych ciągów zero-jedynkowych : $0^n$, $0^k1^l$, $0^k1^l0^m$, $1^n$, $1^k0^l$, $1^k0^l1^m$ z czego trzy ostatnie są symetryczne do trzech pierwszych (więc zostaną pominięte w dowodzie).
+ Rozważmy wszystkie interesujące nas przypadki:
+ \begin{itemize}
+  \item $0^n$.
+   Po wykonaniu procedury \texttt{bitonic\_compare} otrzymamy $0^{n/2}$ oraz $0^{n/2}$.
+   Oba ciągi są bitoniczne i każdy element z pierwszego ciągu jest niewiększy od każdego elementu z ciągu drugiego.
+  \item $0^k1^l$ oraz $k < n/2$.
+   Wtedy po wykonaniu procedury \texttt{bitonic\_compare} otrzymamy ciągi $0^k1^{l-n/2}$ oraz $1^{n/2}$.
+   Oba ciągi są bitoniczne i każdy element z pierwszego ciągu jest niewiększy od każdego elementu z ciągu drugiego.
+  \item $0^k1^l$ oraz $k > n/2$.
+   Otrzymamy ciągi $0^{n/2}$ oraz $0^{k-n/2}1^l$.
+   Znowu - oba są bitoniczne i każdy element z pierwszego jest niewiększy od każdego z drugiego.
+  \item $0^k1^l0^m$ oraz $k > n/2$.
+   Wtedy otrzymujemy ciągi $0^{n/2}$ oraz $0^{k-n/2}1^l0^m$.
+   Spełniają one tezę twierdzenia.
+  \item $0^k1^l0^m$ oraz $m > n/2$.
+   Ciągi, które otrzymamy wyglądają tak: $0^{n/2}$ oraz $0^k1^l0^{n/2-m}$.
+   Są to ciągi, które nas cieszą.
+  \item $0^k1^l0^m$ oraz $l > n/2$.
+   Dostaniemy wtedy ciągi $0^k1^{l-n/2}0^m$ oraz $1^{n/2}$.
+   Są to ciągi, które spełniają naszą tezę.
+  \item $0^k1^l0^m$ oraz $k, l, m < n/2$.
+   Ciągi, które uzyskamy to $0^{n/2}$ oraz $1^{n/2-m}0^{n/2-l}$ $1^{n/2-k}$.
+   Spełniają one naszą tezę.
+ \end{itemize}
+\end{proof}
+
+Na mocy Lematu \ref{zero-one-lemma} i \ref{zero-one-cases-lemma} Twierdzenie \ref{bitonic-theorem} jest prawdziwe dla wszystkich tablic \texttt{T[0..n-1]}.
+Mając tak piękne twierdzenie, możemy napisać prosty algorytm sortujący ciągi bitoniczne (Algorytm \ref{bitonic-merge}).
+
+\begin{algorithm}[h]
+  \DontPrintSemicolon
+  \SetAlgorithmName{Algorytm}{}
+  
+  \KwData{ A - tablica bitoniczna, n, up }
+  
+  \KwResult{ A - tablica posortowana }
+  
+   \If{$n > 1$}
+   {
+     bitonic\_compare(A[$0$..$n-1$], $n$,   up)\;
+     bitonic\_merge(A[$0$..$n/2-1$], $n/2$, up)\;
+     bitonic\_merge(A[$n/2$..$n-1$], $n/2$, up)\;
+   }
+  \caption{Procedura \texttt{bitonic\_merge}}
+  \label{bitonic-merge}
+\end{algorithm}
+
+Algorytm zaczyna od wywołania procedury \texttt{bitonic\_compare}.
+Dzięki niej, wszystkie elementy mniejsze wrzucane są do pierwszej połowy tablicy, a elementy większe do drugiej połowy.
+Ponadto \texttt{bitonic\_compare} gwarantuje, że obie podtablice pozostają bitoniczne (jakie to piękne!).
+Możemy zatem wykonać całą procedurę ponownie na obu podtablicach rekurencyjnie.
+
+Złożoność algorytmu wyraża się wzorem rekurencyjnym $T(n) = 2 \cdot T(n/2) + O(n)$.
+Rozwiązując rekurencję otrzymujemy, że złożoność algorytmu to $O(n \log n)$.
+
+Mamy algorytm sortujący ciągi bitoniczne.
+Jak uzyskać algorytm sortujący dowolne ciągi?
+Zrealizujemy to w najprostszy możliwy sposób!
+Posortujemy (rekurencyjnie) pierwszą połowę tablicy rosnąco, drugą połowę tablicy malejąco (dlatego potrzebna nam była zmienna \texttt{up}!) i uzyskamy w ten sposób ciąg bitoniczny.
+Teraz wystarczy już uruchomić algorytm sortujący ciągi bitoniczne i voilà.
+
+\begin{algorithm}[h]
+  \DontPrintSemicolon
+  \SetAlgorithmName{Algorytm}{}
+  
+  \KwData{ A, n, up }
+  
+  \KwResult{ A - tablica posortowana }
+  
+   \If{$n > 1$}
+   {
+     bitonic\_sort(A[$0$..$n/2-1$], $n/2$, true)\;
+     bitonic\_sort(A[$n/2$..$n-1$], $n/2$, false)\;
+     bitonic\_merge(A[$0$..$n-1$], $n$, up)\;
+   }
+  \caption{Procedura \texttt{bitonic\_sort}}
+  \label{bitonic-sort}
+\end{algorithm}
+
+Złożoność algorytmu wyraża się wzorem rekurencyjnym $T(n) = 2 \cdot T(n/2) + O(n \log n)$.
+Rozwiązaniem tej rekurencji jest $O(n \log^2 n)$.
