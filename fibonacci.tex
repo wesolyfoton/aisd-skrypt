@@ -31,17 +31,17 @@ Wynika to wprost z definicji mnożenia macierzy oraz definicji ciągu Fibonaccie
 \end{observation}
 
 \begin{observation}{A gdy zrobimy to $n$ razy...}
-\label{mnozenie_n_razy}
+\label{obs:mult-n-times}
 \begin{equation}
 	M \times (M \times (M \times ...\, (M \times \begin{bmatrix}F_n \\ F_{n - 1}\end{bmatrix})\,...\,))
 \end{equation}
 \end{observation}
 
 \begin{fact}{Mnożenie macierzy jest łączne.}
-\label{mnozenie_jest_laczne}
+\label{fact:mult-is-associative}
 \end{fact}
 
-Z faktu \ref{mnozenie_jest_laczne}. i obserwacji \ref{mnozenie_n_razy}. mamy:
+Z Faktu \ref{fact:mult-is-associative}. i Obserwacji \ref{obs:mult-n-times}. mamy:
 
 \begin{equation}
 	M^n \times \begin{bmatrix}F_n \\ F_{n - 1}\end{bmatrix}
@@ -58,7 +58,7 @@ Pokażemy, że powyższa macierz ma zastosowanie w obliczaniu n-tej liczby Fibon
 \begin{proof}{Przez indukcję.}\\
 Sprawdźmy dla $n = 1$. Mamy:
 \begin{equation}
-	\begin{bmatrix}1 & 1\\1 & 0\end{bmatrix}^0 \times \begin{bmatrix}1 \\ 0\end{bmatrix}
+	\begin{bmatrix}1 & 1\\1 & 0\end{bmatrix}^1 \times \begin{bmatrix}1 \\ 0\end{bmatrix}
 	= \begin{bmatrix}1 \\ 1\end{bmatrix} = \begin{bmatrix}F_2 \\ F_1\end{bmatrix}
 \end{equation}
 
@@ -82,11 +82,26 @@ Rozważmy $n + 1$ zakładając poprawność dla $n$.
 
 	$M \leftarrow \begin{bmatrix}1 & 1\\1 & 0\end{bmatrix}$\;
 	$M' \leftarrow \texttt{exp\_by\_squaring(M, n)}$\;
-
 	
 	\KwRet{$\texttt{pierwszy element wektora}\,(M' \times \begin{bmatrix}1 \\ 0\end{bmatrix})$}\;
 
 	\caption{Procedura \texttt{get\_fibonacci}}
-	\label{get_fibonacci}
 \end{algorithm}
 
+Mimo że powyższy algorytm działa w czasie $O(\log{n})$, warto mieć na uwadze fakt, że liczby Fibonacciego 
+rosną wykładniczo. W praktyce oznacza to pracę na liczbach przekraczających długość słowa maszynowego.
+
+Zaprezentowaną metodę można uogólnić na dowolne ciągi, które zdefiniowane są przez liniową 
+kombinację skończonej liczby poprzednich elementów. Wystarczy znaleźć odpowiednią macierz $M$; 
+dla ciągów postaci $G_{n + 1} = a_n G_n + a_{n - 1} G_{n - 1} + ... + a_{n - k} G_{n - k}$ jest to:
+\begin{equation}
+	M = \begin{bmatrix}a_n    & a_{n - 1} & a_{n - 2} & \dots & a_{n - k} & a_{n - k}\\
+	                   1      & 0         & 0         & \dots & 0 & 0 \\
+	                   0      & 1         & 0         & \dots & 0 & 0\\
+	                   0      & 0         & \ddots\\
+	                   \vdots &           &           & \ddots\\
+	                   0      & 0         & 0         & \dots & 1 & 0
+	    \end{bmatrix}
+\end{equation}
+
+Dowód tej konstrukcji pozostawiamy czytelnikowi jako ćwiczenie.
