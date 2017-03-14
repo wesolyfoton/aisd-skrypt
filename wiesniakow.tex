@@ -1,5 +1,13 @@
 \section{Algorytm rosyjskich wieśniaków}
 
+Algorytm rosyjskich wieśniaków jest przypisywany sposobowi mnożenia liczb używanemu w XIX-wiecznej Rosji.
+Aktualnie jest on stosowany w niektórych układach mnożących.
+Mnożone liczby, $a$ i $b$ zapisujemy w obok siebie. 
+Tworzą one nagłówek dwukolumnowej tabeli, w wierszach której wpisujemy się $\lfloor\frac{a'}{2}\rfloor$ i $2 \cdot b'$, gdzie $a'$ i $b'$ to wartości z wiersza powyżej. 
+Czynności te wykonujemy, aż uzyskamy $1$ w kolumine pod $a$. 
+Następnie sumujemy wartości w kolumine pod $b$ z tych wierszy dla których wartości w kolumine pod $a$ są nieparzyste.
+Uzyskany wynik to $a \cdot b$.
+
 \begin{algorithm}[h]
   \DontPrintSemicolon
   \SetAlgorithmName{Algorytm}{}
@@ -29,7 +37,10 @@
 Dowód poprawności jako jakieś twierdzenie / lemat.
 Popracować nad składaniem latexa.
 Stawiać entery po każdym zdaniu.}
-Niech $a'_i$ (kolejno: $b'_i$, $wynik_i$) będzie wartością $a'$ ($b'$, $wynik$) w $i-tej$ iteracji pętli \texttt{while}. Udowodnimy następujący niezmiennik: $a'_i \cdot b'_i + wynik_i = a \cdot b$. Załóżmy, że niezmiennik zachodzi w $i-tej$ iteracji i sprawdźmy co dzieje się w $i+1$ iteracji. Rozważmy dwa przypadki.
+Niech $a'_i$ (kolejno: $b'_i$, $wynik_i$) będzie wartością $a'$ ($b'$, $wynik$) w $i-tej$ iteracji pętli \texttt{while}. 
+Udowodnimy następujący niezmiennik: $a'_i \cdot b'_i + wynik_i = a \cdot b$. 
+Załóżmy, że niezmiennik zachodzi w $i-tej$ iteracji i sprawdźmy co dzieje się w $i+1$ iteracji.
+Rozważmy dwa przypadki.
 
 
 \begin{itemize}
@@ -50,10 +61,15 @@ $a'_{i+1} \cdot b'_{i+1} + wynik_{i+1} = \frac{a'_i-1}{2} \cdot 2 b'_i + wynik_i
 
 \end{itemize}
 
-Teraz wystarczy zauważyć, że tuż po wyjściu z pętli \texttt{while} wartość zmiennej $a'$ wynosi $0$. Podstawiając do niezmiennika okazuje się, że faktycznie algorytm rosyjskich wieśniaków liczy $a \cdot b$.
+Teraz wystarczy zauważyć, że tuż po wyjściu z pętli \texttt{while} wartość zmiennej $a'$ wynosi $0$.
+Podstawiając do niezmiennika okazuje się, że faktycznie algorytm rosyjskich wieśniaków liczy $a \cdot b$.
 
 \paragraph{Złożoność}
 
-Z każdą iteracją połowimy $a'$. Biorąc pod uwagę kryterium jednorodne pozostałe instrukcje w pętli nic nie kosztują. Stąd złożoność to $O(\log a)$.
+Z każdą iteracją połowimy $a'$. 
+Biorąc pod uwagę kryterium jednorodne pozostałe instrukcje w pętli nic nie kosztują. 
+Stąd złożoność to $O(\log a)$.
 
-W kryterium logarytmicznym musimy uwzględnić czas dominującej instrukcji: dodawania  $wynik \leftarrow wynik + b'$. W najgorszym przypadku zajmuje ono $O(\log ab)$. Zatem złożoność to $O(\log a \cdot \log ab)$.
+W kryterium logarytmicznym musimy uwzględnić czas dominującej instrukcji: dodawania  $wynik \leftarrow wynik + b'$. 
+W najgorszym przypadku zajmuje ono $O(\log ab)$. Zatem złożoność to $O(\log a \cdot \log ab)$.
+
