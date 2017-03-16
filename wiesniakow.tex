@@ -2,14 +2,15 @@
 
 Algorytm rosyjskich wieśniaków jest przypisywany sposobowi mnożenia liczb używanemu w XIX-wiecznej Rosji.
 Aktualnie jest on stosowany w niektórych układach mnożących.
-Mnożone liczby, $a$ i $b$ zapisujemy w obok siebie.
 \comment{Zawile napisane.
 Dodać przykład.
 Napisać, że to analog mnożenia pisemnego w systemie binarnym.}
-Tworzą one nagłówek dwukolumnowej tabeli, w wierszach której wpisujemy się $\lfloor\frac{a'}{2}\rfloor$ i $2 \cdot b'$, gdzie $a'$ i $b'$ to wartości z wiersza powyżej. 
-Czynności te wykonujemy, aż uzyskamy $1$ w kolumine pod $a$. 
-Następnie sumujemy wartości w kolumine pod $b$ z tych wierszy dla których wartości w kolumine pod $a$ są nieparzyste.
-Uzyskany wynik to $a \cdot b$.
+Aby pomnożyć liczby $a$ i $b$ tworzymy dwukolumnową tabelę.
+Wartości $a$ i $b$ zapisujemy w jej nagłówku (pierwszym wierszu).
+W kolejnych wierszach wpisujemy $\lfloor\frac{a'}{2}\rfloor$ i $2 \cdot b'$, gdzie $a'$ i $b'$ to wartości z wiersza powyżej. 
+Czynność tą wykonujemy, aż uzyskamy $1$ w kolumine pod $a$. 
+Ostatnim krokiem jest zsumowanie wartości z kolumny pod $b$ z tych wierszy dla których wartości w kolumine pod $a$ są nieparzyste.
+Uzyskany w ten sposób wynik jest równy $a \cdot b$.
 
 \begin{algorithm}[h]
   \DontPrintSemicolon
