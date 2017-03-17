@@ -2,11 +2,15 @@
 
 Algorytm rosyjskich wieśniaków jest przypisywany sposobowi mnożenia liczb używanemu w XIX-wiecznej Rosji.
 Aktualnie jest on stosowany w niektórych układach mnożących.
-Mnożone liczby, $a$ i $b$ zapisujemy w obok siebie. 
-Tworzą one nagłówek dwukolumnowej tabeli, w wierszach której wpisujemy się $\lfloor\frac{a'}{2}\rfloor$ i $2 \cdot b'$, gdzie $a'$ i $b'$ to wartości z wiersza powyżej. 
-Czynności te wykonujemy, aż uzyskamy $1$ w kolumine pod $a$. 
-Następnie sumujemy wartości w kolumine pod $b$ z tych wierszy dla których wartości w kolumine pod $a$ są nieparzyste.
-Uzyskany wynik to $a \cdot b$.
+\comment{Zawile napisane.
+Dodać przykład.
+Napisać, że to analog mnożenia pisemnego w systemie binarnym.}
+Aby pomnożyć liczby $a$ i $b$ tworzymy dwukolumnową tabelę.
+Wartości $a$ i $b$ zapisujemy w jej nagłówku (pierwszym wierszu).
+W kolejnych wierszach wpisujemy $\lfloor\frac{a'}{2}\rfloor$ i $2 \cdot b'$, gdzie $a'$ i $b'$ to wartości z wiersza powyżej. 
+Czynność tą wykonujemy, aż uzyskamy $1$ w kolumine pod $a$. 
+Ostatnim krokiem jest zsumowanie wartości z kolumny pod $b$ z tych wierszy dla których wartości w kolumine pod $a$ są nieparzyste.
+Uzyskany w ten sposób wynik jest równy $a \cdot b$.
 
 \begin{algorithm}[h]
   \DontPrintSemicolon
@@ -35,29 +39,46 @@ Uzyskany wynik to $a \cdot b$.
 
 \comment{Jakiś wstęp, do czego służy algorytm, przykład działania, analogia między algorytmem a algorytmem szybkiego potęgowania.
 Dowód poprawności jako jakieś twierdzenie / lemat.
-Popracować nad składaniem latexa.
-Stawiać entery po każdym zdaniu.}
-Niech $a'_i$ (kolejno: $b'_i$, $wynik_i$) będzie wartością $a'$ ($b'$, $wynik$) w $i-tej$ iteracji pętli \texttt{while}. 
-Udowodnimy następujący niezmiennik: $a'_i \cdot b'_i + wynik_i = a \cdot b$. 
+Popracować nad składaniem latexa.}
+Niech $a'_i$ (kolejno: $b'_i$, $wynik_i$) będzie wartością zmiennych \texttt{a'} (\texttt{b'}, \texttt{wynik}) w $i-tej$ iteracji pętli \texttt{while}. 
+Udowodnimy następujący niezmiennik:
+\[
+a'_i \cdot b'_i + wynik_i = a \cdot b \enspace.
+\]
 Załóżmy, że niezmiennik zachodzi w $i-tej$ iteracji i sprawdźmy co dzieje się w $i+1$ iteracji.
 Rozważmy dwa przypadki.
 
 
 \begin{itemize}
     \item $a'_i$ parzyste. Instrukcja \texttt{if} się nie wykona, w $i+1$ iteracji $wynik_i$ pozostanie niezmieniony, $a'_i$ zmniejszy się o połowę, a $b'_i$ zwiększy dwukrotnie. 
+    \[
+      wynik_{i+1} = wynik_i
+    \]
+    \[
+      a'_{i+1} = a'_i \textsf{ div } 2 = \frac{a'_i}{2}
+    \]
+    \[
+      b'_{i+1} = b'_i \cdot 2
+    \]
+    W tym przypadku otrzymujemy:
+    \[
+      a'_{i+1} \cdot b'_{i+1} + wynik_{i+1} = \frac{a'_i}{2} \cdot 2 b'_i + wynik_i = a'_i \cdot b'_i + wynik_i = a \cdot b
+    \]
 
-$a'_{i+1} \cdot b'_{i+1} + wynik_{i+1} = \frac{a'_i}{2} \cdot 2 b'_i + wynik_i = a_i \cdot b_i$
-
-
-\item $a'_i$ nieparzyste:
-
-$wynik_{i+1} \leftarrow wynik_i + b'_i$;  
-$a'_{i+1} \leftarrow a'_i \textsf{ div } 2 = \frac{a'_i-1}{2}$;  
-$b'_{i+1} \leftarrow b'_i \cdot 2$
-
-Ostatecznie otrzymujemy:
-
-$a'_{i+1} \cdot b'_{i+1} + wynik_{i+1} = \frac{a'_i-1}{2} \cdot 2 b'_i + wynik_i +b'_i = a'_i \cdot wynik_i + b'_i= a \cdot b$
+    \item $a'_i$ nieparzyste:
+    \[
+      wynik_{i+1} = wynik_i + b'_i
+    \]
+    \[
+      a'_{i+1} = a'_i \textsf{ div } 2 = \frac{a'_i-1}{2}
+    \]
+    \[
+      b'_{i+1} = b'_i \cdot 2
+    \]
+    Ostatecznie otrzymujemy:
+    \[
+      a'_{i+1} \cdot b'_{i+1} + wynik_{i+1} = \frac{a'_i-1}{2} \cdot 2 b'_i + wynik_i +b'_i = a'_i \cdot wynik_i + b'_i= a \cdot b
+    \]
 
 \end{itemize}
 
