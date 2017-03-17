@@ -14,3 +14,28 @@ Nie numerujemy wzorów jeśli potem z nich nie korzystamy.
 Nie zaczynamy zdania od wzoru.
 
 Nie zaczynamy rozdziału od programu (patrz rozdział wzorcowy).
+
+Podział:
+
+- Fibonacci algorytm macierzowy (Rafał)
+- Kopiec binarny (Oleś)
+- Algorytm rosyjskich wieśniaków (Przemek)
+- Sortowanie topologiczne (Miriam)
+- Sortowanie (Ania)
+- Minimalne Drzewa Rozpinające (Kruskal, Prim) (Paweł)
+- Pokrycie zbioru (Michał)
+- Algorytm szeregownia (Ela :))
+- Algorytm Dijkstry (Mikołaj)
+- O złożoności obliczeniowej (Dominika)
+- Cut Property / Circle Property (Mateusz)
+- Algorytm Karatsuby (Przemek)
+- Master Theorem (Marcin)
+- Algorytm Boruvki (Paweł)
+- Algorytm dwóch najbliższych punktów (Tomasz)
+
+Tematy wolne:
+- Programowanie dynamiczne na drzewach
+- O modelach obliczeń
+- Algorytm Strassena (nadobowiązkowy)
+- Sieć Banesa-Waksmana
+- Algorytm D&Z otoczki wypukłej
