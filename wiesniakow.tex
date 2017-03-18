@@ -4,15 +4,52 @@
 
 Algorytm rosyjskich wieśniaków jest przypisywany sposobowi mnożenia liczb używanemu w XIX-wiecznej Rosji.
 Aktualnie jest on stosowany w niektórych układach mnożących.
-Mnożone liczby, $a$ i $b$ zapisujemy w obok siebie.
-\comment{Dodać przykład.
-Napisać, że to analog mnożenia pisemnego w systemie binarnym.}
-Aby pomnożyć liczby $a$ i $b$ tworzymy dwukolumnową tabelę.
-Wartości $a$ i $b$ zapisujemy w jej nagłówku (pierwszym wierszu).
-W kolejnych wierszach wpisujemy $\lfloor\frac{a'}{2}\rfloor$ i $2 \cdot b'$, gdzie $a'$ i $b'$ to wartości z wiersza powyżej. 
-Czynność tą wykonujemy, aż uzyskamy $1$ w kolumine pod $a$. 
-Ostatnim krokiem jest zsumowanie wartości z kolumny pod $b$ z tych wierszy dla których wartości w kolumine pod $a$ są nieparzyste.
+Pomnożenie dwóch liczb naturalnych $a$ i $b$ jest proste: pierwszą liczbę kolejno dzielimy całkowiecie przez 2, a drugą podwajamy.
+Wynik $a \cdot b$ otrzymujemy poprzez zsumowanie takich pośrednich wartości b, dla których odowiadająca im wartość $a$ jest nieparzysta.
 Uzyskany w ten sposób wynik jest równy $a \cdot b$.
+W poniższym przykładzie obliczymy $42 \cdot 17$.
+
+\begin{center}
+\begin{tabular}{ |c|c|c| } 
+ \hline
+ Iteracja & a & b \\ 
+ \hline
+ 0 & 42 & 17 \\ 
+ 1 & 21 & $17 \cdot 2 = 34$ \\
+ 2 & 10 & $17 \cdot 2^2 = 68$ \\
+ 3 & 5  & $17 \cdot 2^3 = 136$ \\
+ 4 & 2  & $17 \cdot 2^4 = 272$ \\
+ 5 & 1  & $17 \cdot 2^5 = 544$ \\
+ 
+ \hline
+\end{tabular}
+\end{center}
+
+$a$ jest nieparzyste w iteracji 1, 3 oraz 5. Zatem będziemy sumować wartości $b$ z iteracji 1, 3 i 5.
+
+\begin{equation*} 
+\begin{split}
+a \cdot b &= 17\cdot2 + 17\cdot2^3 + 17\cdot2^5 \\
+&= 34 + 136 + 544 \\
+&= 714
+\end{split}
+\end{equation*}
+Faktycznie, otrzymaliśmy wynik poprawny. Spójrzmy raz jeszcze na na tę sumę:
+
+\begin{equation*} 
+\begin{split}
+a \cdot b &= 17\cdot2 + 17\cdot2^3 + 17\cdot2^5 \\
+&= 17 \cdot ( 2^5 + 2^3 + 2) \\
+&= 17 \cdot ( 1 \cdot 2^5 + 0 \cdot 2^4 + 1 \cdot 2^3 + 0 \cdot 2^2 + 1 \cdot 2^1 + 0 \cdot 2^0 ) \\
+&=17_{10} \cdot 101010_2 \\
+&=17 \cdot 42 = 714
+\end{split}
+\end{equation*}
+
+Przypomnij sobie algorytm zamiany liczby w systemie dziesiętnym na system binarny.
+Okazuje się, że algorytm rosyjskich wieśniaków "po cichu" wylicza tę reprezentację $a$.
+
+W kolejnych paragrafach podamy algorytm i w celu jego udowodnienia sformułujmy \textit{niezmiennik} oraz wykażemy jego prawdziwośc.
 
 \begin{algorithm}[h]
   \DontPrintSemicolon
@@ -39,14 +76,24 @@ Uzyskany w ten sposób wynik jest równy $a \cdot b$.
   \label{alg-wiesniakow}
 \end{algorithm}
 
-\comment{Jakiś wstęp, do czego służy algorytm, przykład działania, analogia między algorytmem a algorytmem szybkiego potęgowania.
-Dowód poprawności jako jakieś twierdzenie / lemat.
-Popracować nad składaniem latexa.}
-Niech $a'_i$ (kolejno: $b'_i$, $wynik_i$) będzie wartością zmiennych \texttt{a'} (\texttt{b'}, \texttt{wynik}) w $i-tej$ iteracji pętli \texttt{while}. 
-Udowodnimy następujący niezmiennik:
+\begin{theorem}
+Niech $a'_i$ (kolejno: $b'_i$, $wynik_i$) będzie wartością zmiennej \texttt{a'} (\texttt{b'}, \texttt{wynik}) w $i-tej$ iteracji pętli \texttt{while}. Zachodzi następujący niezmiennik pętli:
 \[
 a'_i \cdot b'_i + wynik_i = a \cdot b \enspace.
 \]
+\end{theorem}
+
+\begin{lemma}
+Przed wejściem do pętli \texttt{while} niezmiennik jest prawdziwy.
+\end{lemma}
+\begin{proof}
+Skoro przed przed wejściem do pętli mamy: $a'_0 = a$, $b'_0 = b$ oraz $wynik_0 = 0$, to oczywiście: $a'_0 \cdot b'_0 + wynik_0 = a \cdot b + 0 = a \cdot b$.
+\end{proof}
+
+\begin{lemma}
+Po $i-tym$ obrocie pętli niezmiennik jest spełniony.
+\end{lemma}
+\begin{proof}
 Załóżmy, że niezmiennik zachodzi w $i-tej$ iteracji i sprawdźmy co dzieje się w $i+1$ iteracji.
 Rozważmy dwa przypadki.
 
@@ -84,8 +131,23 @@ Rozważmy dwa przypadki.
 
 \end{itemize}
 
-Teraz wystarczy zauważyć, że tuż po wyjściu z pętli \texttt{while} wartość zmiennej $a'$ wynosi $0$.
+\end{proof}
+
+\begin{lemma}
+Po wyjściu z pętli \texttt{while} niezmiennik również jest spełniony.
+\end{lemma}
+\begin{proof}
+Wystarczy zauważyć, że tuż po wyjściu z pętli \texttt{while} wartość zmiennej $a'$ wynosi $0$.
 Podstawiając do niezmiennika okazuje się, że faktycznie algorytm rosyjskich wieśniaków liczy $a \cdot b$.
+\end{proof}
+
+\begin{lemma}
+Algorytm sie kończy.
+\end{lemma}
+\begin{proof}
+Skoro $a_i \in \mathbb{N} $ oraz $\mathbb{N}$ jest dobrze uporządkowany, to połowiąc $a_i$ po pewnej liczbie iteracji otrzymamy 0.
+\end{proof}
+
 
 \paragraph{Złożoność}
 
