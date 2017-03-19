@@ -4,12 +4,19 @@
 
 Algorytm rosyjskich wieśniaków jest przypisywany sposobowi mnożenia liczb używanemu w XIX-wiecznej Rosji.
 Aktualnie jest on stosowany w niektórych układach mnożących.
-Pomnożenie dwóch liczb naturalnych $a$ i $b$ jest proste: pierwszą liczbę kolejno dzielimy całkowiecie przez 2, a drugą podwajamy.
+
+W celu obliczenia $a \cdot b$ tworzymy tabelkę i liczby $a$ i $b$ zapisujemy w pierwszym jej wierszu.
+Kolumnę $a$ wypełniamy następująco: w $i+1-wszym$ wierszu wpisujemy wartość z wiersza $i$ podzieloną całkowicie przez 2.
+W kolumnie $b$ kolejne wiersze tworzą ciąg geometryczny o ilorazie równym 2.
+Wypełnianie tabelki kończymy wtedy, gdy w kolumnie $a$ otrzymamy wartość 1.
+Na koniec sumujemy wartości w kolumine pod $b$ z tych wierszy dla których wartości w kolumine pod $a$ są nieparzyste.
+Uzyskany wynik to $a \cdot b$.
+
+\comment{ A teraz jasne? :) }
 \comment{ Instructions not clear.
 Poprzedni opis był lepszy.
 Ponadto starajmy się unikać sformułowań, że coś jest ``łatwe''.}
-Wynik $a \cdot b$ otrzymujemy poprzez zsumowanie takich pośrednich wartości b, dla których odowiadająca im wartość $a$ jest nieparzysta.
-Uzyskany w ten sposób wynik jest równy $a \cdot b$.
+
 W poniższym przykładzie obliczymy $42 \cdot 17$.
 
 \begin{center}
@@ -141,8 +148,10 @@ Rozważmy dwa przypadki.
 \end{proof}
 
 \begin{lemma}
-Po wyjściu z pętli \texttt{while} niezmiennik również jest spełniony.
+Po wyjściu z pętli \texttt{while} niezmiennik jest spełniony.
 \comment{Ten lemat też nie brzmi tak jak powinien.}
+\comment{Und jetzt?}
+
 \end{lemma}
 \begin{proof}
 Wystarczy zauważyć, że tuż po wyjściu z pętli \texttt{while} wartość zmiennej $a'$ wynosi $0$.
@@ -159,6 +168,9 @@ Skoro $a_i \in \mathbb{N} $ oraz $\mathbb{N}$ jest dobrze uporządkowany, to po�
 \comment{Zdanie podsumowujące?
 Z powyższych lematów wynika poprawność algorytmu bla bla bla.}
 
+Z powyższych lematów wynika, że niemiennik spełniony jest zarówno przed, w trakcie jak i po zakończeniu algorytmu. 
+Algorytm rosyjskich wieśniaków jest poprawny.
+
 \paragraph{Złożoność}
 
 Z każdą iteracją połowimy $a'$. 
@@ -167,4 +179,3 @@ Stąd złożoność to $O(\log a)$.
 
 W kryterium logarytmicznym musimy uwzględnić czas dominującej instrukcji: dodawania  $wynik \leftarrow wynik + b'$. 
 W najgorszym przypadku zajmuje ono $O(\log ab)$. Zatem złożoność to $O(\log a \cdot \log ab)$.
-
