@@ -1,0 +1,126 @@
+\section{Mnożenie macierzy}
+
+Z mnożeniem macierzy mieliście już prawdopodobnie doczynienia na Algebrze.
+Mając dane dwie macierze nad ciałem liczb rzeczywistych $A$ (o rozmiarze $n \times m$) oraz $B$ (o rozmiarze $m \times p$), chcemy policzyć ich iloczyn:
+\[
+ A \cdot B = C
+\]
+gdzie elementy macierzy $C$ (o rozmiarze $n \times p$) zadane są wzorem:
+\[
+ c_{i,j} = \sum_{r=1}^{m} a_{i,r} \cdot b_{r,j}
+\]
+Przykładowo:
+\[
+  \begin{bmatrix}
+    1 & 0 & 2 \\
+    0 & 3 & 1 \\
+  \end{bmatrix}
+\cdot
+  \begin{bmatrix}
+    3 & 1 \\
+    2 & 1 \\
+    1 & 0
+  \end{bmatrix}
+=
+  \begin{bmatrix}
+     (1 \cdot 3  +  0 \cdot 2  +  2 \cdot 1) & (1 \cdot 1   +   0 \cdot 1   +   2 \cdot 0) \\
+     (0 \cdot 3  +  3 \cdot 2  +  1 \cdot 1) & (0 \cdot 1   +   3 \cdot 1   +   1 \cdot 0) \\
+  \end{bmatrix}
+=
+  \begin{bmatrix}
+    5 & 1 \\
+    7 & 3 \\
+  \end{bmatrix}
+\]
+Korzystając prosto z definicji możemy napisać następujący algorytm mnożenia dwóch macierzy:
+
+\begin{algorithm}[H]
+  \DontPrintSemicolon
+  \SetAlgorithmName{Algorytm}{}
+  
+  \KwData{ $A$, $B$ - macierze o rozmiarach $n \times m$ oraz $m \times p$ }
+  
+  \KwResult{ $C = A \cdot B$ }
+  
+  \For{$i \leftarrow 1$ to $n$}
+  {
+     \For{$j \leftarrow 1$ to $p$}
+     {
+	$C[i][j] \leftarrow 0$\;
+	\For{$r \leftarrow 1$ to $m$}
+	{
+	  $C[i][j] \leftarrow A[i][r] \cdot B[r][j]$\;
+	}
+     }
+  }
+  
+  \caption{Naiwny algorytm mnożenia macierzy}
+  \label{alg-mnozenie-macierzy}
+\end{algorithm}
+Powyższy algorytm działa w czasie $O(n^3)$.
+Korzystając ze sprytnej sztuczki, jesteśmy w stanie zmniejszyć złożoność naszego algorytmu.
+
+Zacznijmy od założenia, że rozmiar macierzy jest postaci $2^k \times 2^k$.
+Jeśli macierze nie są takiej postaci, to możemy uzupełnić brakujące wiersze i kolumny zerami.
+Następnie podzielmy macierze na cztery części:
+\[
+  A = 
+  \begin{bmatrix}
+    A_{1,1} & A_{1,2} \\
+    A_{2,1} & A_{2,2} \\
+  \end{bmatrix} \enspace  
+  B = 
+  \begin{bmatrix}
+    B_{1,1} & B_{1,2} \\
+    B_{2,1} & B_{2,2} \\
+  \end{bmatrix} \enspace
+  C = 
+  \begin{bmatrix}
+    C_{1,1} & C_{1,2} \\
+    C_{2,1} & C_{2,2} \\
+  \end{bmatrix}
+\]
+Każda z części jest rozmiaru $2^{n-1} \times 2^{n-1}$.
+Ponadto wzór na każdą część macierzy $C$ wyraża się wzorem:
+\[
+ C_{i,j} = A_{i,1} \cdot B_{1,j} + A_{i,2} \cdot B_{2,j}
+\]
+
+Czy wzór ten umożliwia nam ułożenie efektywnego algorytmu mnożenia macierzy?
+Nie.
+W algorytmie mamy do policzenia $4$ podmacierze macierzy $C$.
+Każda podmacierz wymaga $2$ mnożeń oraz jednego dodawania.
+Dodawanie macierzy możemy w prosty sposób zrealizować w czasie $O(n^2)$.
+Mnożenie podmacierzy możemy wykonać rekurencyjnie.
+Taki algorytm będzie działał w czasie $T(n) = 8\cdot T(n/2) + O(n^2)$ czyli $O(n^3)$.
+Osiągnęliśmy tą samą złożoność czasową jak w przypadku algorytmu liczącego iloczyn wprost z definicji.
+
+Algorytm Strassena osięga lepszą złożoność asymptotyczną przez pozbycie się jednego z mnożeń.
+Algorytm ten liczy następujące macierze:
+\begin{align*}
+ M_1 &= (A_{1,1} + A_{2,2}) \cdot (B_{1,1} + B_{2,2}) \\
+ M_2 &= (A_{2,1} + A_{2,2}) \cdot B_{1,1} \\
+ M_3 &= A_{1,1} \cdot (B_{1,2} - B_{2,2}) \\
+ M_4 &= A_{2,2} \cdot (B_{2,1} - B_{1,1}) \\
+ M_5 &= (A_{1,1} + A_{1,2}) \cdot B_{2,2} \\
+ M_6 &= (A_{2,1} - A_{1,1}) \cdot (B_{1,1} + B_{1,2}) \\
+ M_7 &= (A_{1,2} - A_{2,2}) \cdot (B_{2,1} + B_{2,2})
+\end{align*}
+Do policzenia każdej z tych macierzy potrzebujemy jednego mnożenia i conajwyżej dwóch dodawań/odejmowań.
+Podmacierze macierzy $C$ możemy policzyć teraz w następujący sposób:
+\begin{align*}
+ C_{1,1} &= M_1 + M_4 - M_5 + M_7 \\
+ C_{1,2} &= M_3 + M_5 \\
+ C_{2,1} &= M_2 + M_4 \\
+ C_{2,2} &= M_1 - M_2 + M_3 + M_6
+\end{align*}
+Wykonując proste przekształcenia arytmetyczne, możemy dowieść poprawności powyższych wzorów.
+
+Używając powyższych wzorów, możemy skonstruować algorytm rekurencyjny.
+Będzie on dzielić macierze $A$ oraz $B$ o rozmiarze $2^k \times 2^k$ na cztery równe części.
+Następnie policzy on macierze $M_i$.
+Tam, gdzie będzie musiał dodawać/odejmować użyje on algorytmu naiwnego, działającego w czasie $O(n^2)$.
+Tam, gdzie będzie musiał mnożyć - wywoła się on rekurencyjnie.
+Na podstawie macierzy $M_i$ policzy macierz C.
+Ponieważ wykona dokładnie $7$ mnożeń oraz stałą ilość dodawań, jego złożoność obliczeniowa wyraża się wzorem rekurencyjnym $T(n) = 7\cdot T(n/2) + O(n^2)$.
+Korzystając z twierdzenia o rekurencji uniwersalnej otrzymujemy złożoność $O(n^{\log_2 7})$ czyli około $O(n^{2.81})$.
