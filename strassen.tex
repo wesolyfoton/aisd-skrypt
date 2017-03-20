@@ -1,6 +1,6 @@
 \section{Mnożenie macierzy}
 
-Z mnożeniem macierzy mieliście już prawdopodobnie doczynienia na Algebrze.
+Z mnożeniem macierzy mieliście już prawdopodobnie do czynienia na Algebrze.
 Mając dane dwie macierze nad ciałem liczb rzeczywistych $A$ (o rozmiarze $n \times m$) oraz $B$ (o rozmiarze $m \times p$), chcemy policzyć ich iloczyn:
 \[
  A \cdot B = C
@@ -49,7 +49,7 @@ Korzystając prosto z definicji możemy napisać następujący algorytm mnożeni
 	$C[i][j] \leftarrow 0$\;
 	\For{$r \leftarrow 1$ to $m$}
 	{
-	  $C[i][j] \leftarrow A[i][r] \cdot B[r][j]$\;
+	  $C[i][j] \leftarrow C[i][j] + A[i][r] \cdot B[r][j]$\;
 	}
      }
   }
@@ -62,7 +62,7 @@ Korzystając ze sprytnej sztuczki, jesteśmy w stanie zmniejszyć złożoność 
 
 Zacznijmy od założenia, że rozmiar macierzy jest postaci $2^k \times 2^k$.
 Jeśli macierze nie są takiej postaci, to możemy uzupełnić brakujące wiersze i kolumny zerami.
-Następnie podzielmy macierze na cztery części:
+Następnie podzielmy macierze na cztery równe części:
 \[
   A = 
   \begin{bmatrix}
@@ -80,7 +80,7 @@ Następnie podzielmy macierze na cztery części:
     C_{2,1} & C_{2,2} \\
   \end{bmatrix}
 \]
-Każda z części jest rozmiaru $2^{n-1} \times 2^{n-1}$.
+Każda z części jest rozmiaru $2^{k-1} \times 2^{k-1}$.
 Ponadto wzór na każdą część macierzy $C$ wyraża się wzorem:
 \[
  C_{i,j} = A_{i,1} \cdot B_{1,j} + A_{i,2} \cdot B_{2,j}
@@ -106,7 +106,7 @@ Algorytm ten liczy następujące macierze:
  M_6 &= (A_{2,1} - A_{1,1}) \cdot (B_{1,1} + B_{1,2}) \\
  M_7 &= (A_{1,2} - A_{2,2}) \cdot (B_{2,1} + B_{2,2})
 \end{align*}
-Do policzenia każdej z tych macierzy potrzebujemy jednego mnożenia i conajwyżej dwóch dodawań/odejmowań.
+Do policzenia każdej z tych macierzy potrzebujemy jednego mnożenia i co najwyżej dwóch dodawań/odejmowań.
 Podmacierze macierzy $C$ możemy policzyć teraz w następujący sposób:
 \begin{align*}
  C_{1,1} &= M_1 + M_4 - M_5 + M_7 \\
@@ -114,13 +114,13 @@ Podmacierze macierzy $C$ możemy policzyć teraz w następujący sposób:
  C_{2,1} &= M_2 + M_4 \\
  C_{2,2} &= M_1 - M_2 + M_3 + M_6
 \end{align*}
-Wykonując proste przekształcenia arytmetyczne, możemy dowieść poprawności powyższych wzorów.
+Wykonując proste przekształcenia arytmetyczne, możemy dowieść poprawności powyższych równań.
 
 Używając powyższych wzorów, możemy skonstruować algorytm rekurencyjny.
 Będzie on dzielić macierze $A$ oraz $B$ o rozmiarze $2^k \times 2^k$ na cztery równe części.
 Następnie policzy on macierze $M_i$.
-Tam, gdzie będzie musiał dodawać/odejmować użyje on algorytmu naiwnego, działającego w czasie $O(n^2)$.
+Tam, gdzie będzie musiał dodawać/odejmować użyje on algorytmu działającego w czasie $O(n^2)$.
 Tam, gdzie będzie musiał mnożyć - wywoła się on rekurencyjnie.
 Na podstawie macierzy $M_i$ policzy macierz C.
-Ponieważ wykona dokładnie $7$ mnożeń oraz stałą ilość dodawań, jego złożoność obliczeniowa wyraża się wzorem rekurencyjnym $T(n) = 7\cdot T(n/2) + O(n^2)$.
+Ponieważ wykona dokładnie $7$ mnożeń oraz stałą ilość dodawań, jego złożoność obliczeniowa będzie wyrażała się wzorem rekurencyjnym $T(n) = 7\cdot T(n/2) + O(n^2)$.
 Korzystając z twierdzenia o rekurencji uniwersalnej otrzymujemy złożoność $O(n^{\log_2 7})$ czyli około $O(n^{2.81})$.
