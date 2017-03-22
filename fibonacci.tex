@@ -1,113 +1,122 @@
 \section{Algorytm macierzowy wyznaczania liczb Fibonacciego}
 
-\comment{W niektórych przypadkach lepiej używać algorytmu dynamicznego (w jakich?)
-Algorytm szybkiego potęgowania będzie opisany w tym skrypcie, więc jak już będzie to będziemy chciali się odwołać do odpowiedniego rozdziału a nie do wikipedii.}
+\comment{Algorytm szybkiego potęgowania będzie opisany w tym skrypcie, więc jak już będzie to będziemy chciali się odwołać do odpowiedniego rozdziału a nie do wikipedii.}
 W tym rozdziale opiszemy algorytm obliczania liczb Fibonacciego, który wykorzystuje szybkie potęgowanie\footnote{\url{https://en.wikipedia.org/wiki/Exponentiation_by_squaring}}.
-Algorytm działa w czasie $O(\log{n})$, co sprawia, że jest znacznie atrakcyjniejszy od algorytmu dynamicznego, który wymaga czasu $O(n)$.
+Algorytm działa w czasie $O(\log{n})$, co sprawia, że jest znacznie atrakcyjniejszy (gdy pytamy tylko o jedną liczbę) od algorytmu dynamicznego, który wymaga czasu $O(n)$.
 
-Znajdźmy taką macierz $M$, która po wymnożeniu przez transponowany wektor wyrazów 
-$F_{n}$ i $F_{n - 1}$ da nam wektor, w którym otrzymamy wyrazy $F_{n + 1}$ oraz $F_{n}$. 
+Znajdźmy taką macierz $M$, która po wymnożeniu przez transponowany wektor wyrazów $F_{n}$ i $F_{n - 1}$ da nam wektor, w którym otrzymamy wyrazy $F_{n + 1}$ oraz $F_{n}$. 
 Łatwo sprawdzić, że dla ciągu Fibonacciego taka macierz ma postać:
-
-\comment{Jeśli nie będziesz korzystać z danego wzoru w rozdziale, to lepiej pominąć jego numerek.
-Robi się to przez dodanie symbolu * do equation}
 \begin{equation*}
-	M = \begin{bmatrix}1 & 1\\1 & 0\end{bmatrix}
+  M = \begin{bmatrix}1 & 1 \\ 1 & 0\end{bmatrix}
 \end{equation*}
 Bo:
 \begin{equation}
-\label{eq:fibonacci_m}
-	M \times
-	\begin{bmatrix}F_n \\ F_{n - 1}\end{bmatrix}
-	= \begin{bmatrix}F_{n + 1} \\ F_{n}\end{bmatrix}
+  \label{eq:fibonacci-m}
+  M \times
+  \begin{bmatrix}F_n \\ F_{n - 1}\end{bmatrix}
+  = \begin{bmatrix}F_{n + 1} \\ F_{n}\end{bmatrix}
 \end{equation}
-
 Wynika to wprost z definicji mnożenia macierzy oraz definicji ciągu Fibonacciego.
-
-\comment{Nawiasy okrągłe są zbyt małe. 
-Zastąpić je należy $\backslash$left( oraz $\backslash$right).}
-\begin{observation}{Zauważmy, że możemy $M$ przemnożyć przez macierz otrzymaną w \ref{eq:fibonacci_m}. Otrzymamy wtedy macierz postaci:}
+Wykonajmy mnożenie z równania \ref{eq:fibonacci-m} $n$ razy:
 \begin{equation}
-	M \times \left(M \times \begin{bmatrix}F_n \\ F_{n - 1}\end{bmatrix}\right)
+  \label{eq:mult-n-times}
+  \underbrace{M \times (M \times (M \times ...\,(M}_\text{n razy}
+  \times
+  \begin{bmatrix}F_n \\ F_{n - 1}\end{bmatrix})\,...\,))
 \end{equation}
-\end{observation}
-
-\comment{To nie są obserwacje.
-Obserwacje by były, gdybyś napisał czemu te wzory są równe.}
-\begin{observation}{A gdy zrobimy to $n$ razy...}
-\label{obs:mult-n-times}
-\begin{equation}
-	M \times (M \times (M \times ...\, (M \times \begin{bmatrix}F_n \\ F_{n - 1}\end{bmatrix})\,...\,))
-\end{equation}
-\end{observation}
-
 \begin{fact}{Mnożenie macierzy jest łączne.}
-\label{fact:mult-is-associative}
+  \label{fact:matrix-mult-is-associative}
 \end{fact}
-
-\comment{Jeśli nie będziesz wstawiał niepotrzebnych enterów to latex nie będzie tak brzydku tabulował tych wierszy.}
-Z Faktu \ref{fact:mult-is-associative}. i Obserwacji \ref{obs:mult-n-times}. mamy:
-
-\begin{equation}
-	M^n \times \begin{bmatrix}F_n \\ F_{n - 1}\end{bmatrix}
-\end{equation}
-
+Z Faktu \ref{fact:matrix-mult-is-associative}. i wyrażenia \ref{eq:mult-n-times}. mamy:
+\begin{align*}
+  M^n \times \begin{bmatrix}F_n \\ F_{n - 1}\end{bmatrix}
+\end{align*}
 Pokażemy, że powyższa macierz ma zastosowanie w obliczaniu n-tej liczby Fibonacciego.
-
 \begin{lemma}
-\begin{equation}
-	M^{n} \times \begin{bmatrix}F_1 \\ F_0\end{bmatrix} = \begin{bmatrix}F_{n + 1} \\ F_{n}\end{bmatrix}
-\end{equation}
+  \begin{equation*}
+    M^{n} \times \begin{bmatrix}F_1 \\ F_0\end{bmatrix} = \begin{bmatrix}F_{n + 1} \\ F_{n}\end{bmatrix}
+  \end{equation*}
 \end{lemma}
 
-\begin{proof}{Przez indukcję.}\\
-Sprawdźmy dla $n = 1$. Mamy:
-\begin{equation}
-	\begin{bmatrix}1 & 1\\1 & 0\end{bmatrix}^1 \times \begin{bmatrix}1 \\ 0\end{bmatrix}
-	= \begin{bmatrix}1 \\ 1\end{bmatrix} = \begin{bmatrix}F_2 \\ F_1\end{bmatrix}
-\end{equation}
-
-Rozważmy $n + 1$ zakładając poprawność dla $n$.
-
-\begin{equation}
-	\begin{bmatrix}1 & 1\\1 & 0\end{bmatrix}^{n + 1} \times \begin{bmatrix}1 \\ 0\end{bmatrix}
-	= \begin{bmatrix}1 & 1\\1 & 0\end{bmatrix} \times \begin{bmatrix}1 & 1\\1 & 0\end{bmatrix}^{n} \times \begin{bmatrix}1 \\ 0\end{bmatrix}
-	= \begin{bmatrix}1 & 1\\1 & 0\end{bmatrix} \times \begin{bmatrix}F_{n+1} \\ F_{n}\end{bmatrix}
-	\stackrel{\ref{eq:fibonacci_m}}{=} \begin{bmatrix}F_{n + 2} \\ F_{n + 1}\end{bmatrix}
-\end{equation}
+\begin{proof}Przez indukcję.\\
+  Sprawdźmy dla $n = 1$. Mamy:
+  \begin{equation*}
+    \begin{bmatrix}1 & 1 \\ 1 & 0\end{bmatrix}^1
+    \times
+    \begin{bmatrix}1 \\ 0\end{bmatrix}
+    =
+    \begin{bmatrix}1 \\ 1\end{bmatrix} = \begin{bmatrix}F_2 \\ F_1\end{bmatrix}
+  \end{equation*}
+  Rozważmy $n + 1$ zakładając poprawność dla $n$.
+  \begin{equation*}
+    \begin{bmatrix}
+      1 & 1 \\
+      1 & 0
+    \end{bmatrix}^{n + 1}
+    \times
+    \begin{bmatrix}1 \\ 0\end{bmatrix}
+    =
+    \begin{bmatrix}
+      1 & 1 \\
+      1 & 0
+    \end{bmatrix}
+    \times
+    \begin{bmatrix}
+      1 & 1 \\
+      1 & 0
+    \end{bmatrix}^{n}
+    \times
+    \begin{bmatrix}1 \\ 0\end{bmatrix}
+    =
+    \begin{bmatrix}
+      1 & 1 \\
+      1 & 0
+    \end{bmatrix}
+    \times
+    \begin{bmatrix}F_{n+1} \\ F_{n}\end{bmatrix}
+    \stackrel{\ref{eq:fibonacci-m}}{=}
+    \begin{bmatrix}F_{n + 2} \\ F_{n + 1}\end{bmatrix}
+  \end{equation*}
 \end{proof}
 
 \begin{algorithm}[h]
-	\DontPrintSemicolon
-	\SetAlgorithmName{Algorytm}{}
-	
-	\KwData{ n }
-	
-	\KwResult{ $n+1$-sza liczba Fibonacciego }
+  \DontPrintSemicolon
+  \SetAlgorithmName{Algorytm}{}
 
-	$M \leftarrow \begin{bmatrix}1 & 1\\1 & 0\end{bmatrix}$\;
-	$M' \leftarrow \texttt{exp\_by\_squaring(M, n)}$\;
-	
-	\KwRet{$\texttt{pierwszy element wektora}\,(M' \times \begin{bmatrix}1 \\ 0\end{bmatrix})$}\;
+  \KwData{ n }
 
-	\caption{Procedura \texttt{get\_fibonacci}}
+  \KwResult{ $n$-ta liczba Fibonacciego }
+
+  $M \leftarrow \begin{bmatrix}
+                  1 & 1 \\
+                  1 & 0
+                \end{bmatrix}$\;
+  $M' \leftarrow \texttt{exp\_by\_squaring(M, n - 1)}$\;
+  $M'' \leftarrow M' \times \begin{bmatrix}1 \\ 0\end{bmatrix}$\;
+  \KwRet{$M''_{1,1}$}\;
+
+  \caption{Procedura \texttt{get\_fibonacci}}
 \end{algorithm}
-
 Mimo że powyższy algorytm działa w czasie $O(\log{n})$, warto mieć na uwadze fakt, że liczby Fibonacciego 
 rosną wykładniczo. W praktyce oznacza to pracę na liczbach przekraczających długość słowa maszynowego.
 
-\comment{Chcemy do konstrukcji dodać jeszcze wielomiany (aka rozwiązać zadanie z listy?)}
 Zaprezentowaną metodę można uogólnić na dowolne ciągi, które zdefiniowane są przez liniową 
 kombinację skończonej liczby poprzednich elementów. Wystarczy znaleźć odpowiednią macierz $M$; 
-dla ciągów postaci $G_{n + 1} = a_n G_n + a_{n - 1} G_{n - 1} + ... + a_{n - k} G_{n - k}$ jest to:
-\begin{equation}
-	M = \begin{bmatrix}a_n    & a_{n - 1} & a_{n - 2} & \dots & a_{n - k} & a_{n - k}\\
-	                   1      & 0         & 0         & \dots & 0 & 0 \\
-	                   0      & 1         & 0         & \dots & 0 & 0\\
-	                   0      & 0         & \ddots\\
-	                   \vdots &           &           & \ddots\\
-	                   0      & 0         & 0         & \dots & 1 & 0
-	    \end{bmatrix}
-\end{equation}
-
+dla ciągów postaci:
+\begin{equation*}
+  G_{n + 1} = a_n G_n + a_{n - 1} G_{n - 1} + ... + a_{n - k} G_{n - k}
+\end{equation*}
+wygląda ona następująco:
+\begin{align*}
+  M
+  =
+  \begin{bmatrix}
+    a_n    & a_{n - 1} & a_{n - 2} & \dots & a_{n - k + 1} & a_{n - k} \\
+    1      & 0         & 0         & \dots & 0             & 0 \\
+    0      & 1         & 0         & \dots & 0             & 0 \\
+    0      & 0         & \ddots \\
+    \vdots &           &           & \ddots \\
+    0      & 0         & 0         & \dots & 1             & 0
+  \end{bmatrix}
+\end{align*}
 Dowód tej konstrukcji pozostawiamy czytelnikowi jako ćwiczenie.
