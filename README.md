@@ -17,7 +17,6 @@ Nie zaczynamy rozdziału od programu (patrz rozdział wzorcowy).
 
 Podział:
 
-- Fibonacci algorytm macierzowy (Rafał)
 - Kopiec binarny (Oleś)
 - Algorytm rosyjskich wieśniaków (Przemek)
 - Sortowanie topologiczne (Miriam)
@@ -32,10 +31,22 @@ Podział:
 - Master Theorem (Marcin)
 - Algorytm Boruvki (Paweł)
 - Algorytm dwóch najbliższych punktów (Tomasz)
+- LCS (Łukasz)
+
+Zrobione:
+
+- Algorytm Strassena (KPI)
+- Sortowanie Bitoniczne (KPI)
+- Fibonacci algorytm macierzowy (Rafał)
 
 Tematy wolne:
+
 - Programowanie dynamiczne na drzewach
 - O modelach obliczeń
-- Algorytm Strassena (nadobowiązkowy)
 - Sieć Banesa-Waksmana
 - Algorytm D&Z otoczki wypukłej
+- Algorytm sprawdzający czy słowo należy do języka
+- problemy NP
+- algorytm stokrotek
+- optymalna kolejność mnożenia macierzy
+- drzewa rozpinające drabiny
