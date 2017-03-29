@@ -50,3 +50,10 @@ Tematy wolne:
 - algorytm stokrotek
 - optymalna kolejność mnożenia macierzy
 - drzewa rozpinające drabiny
+- Cykl Hamiltona
+- 3SAT
+- 3-wymiarowe skojarzenie
+- pokrycie wierzchołkowe
+- problem plecakowy
+- dolne granice
+- model drzew decyzyjnych
