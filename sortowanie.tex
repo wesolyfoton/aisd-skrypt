@@ -1,3 +1,112 @@
 \section{Algorytmy sortowania}
 
-Todo, todo, todo...
+W tym rozdziale zapoznamy się z algorytmem sortowania przez scalanie (ang. \textit{merge sort}). 
+Wykorzystuje on metodę "dziel i zwyciężaj" - problem jest dzielony na kilka mniejszych podproblemów podobnych do początkowego problemu, problemy te są rozwiązywane rekurencyjnie, a następnie rozwiązania otrzymane dla podproblemów scala się, uzyskując rozwiązanie całego zadania.
+
+\textbf{Idea.} Algorytm sortujący dzieli porządkowany $n$-elementowy zbiór na kolejne połowy, aż do uzyskania $n$ jednoelementowych zbiorów - każdy taki zbiór jest już posortowany. 
+Uzyskane w ten sposób części zbioru sortuje rekurencyjnie - posortowane części łączy ze sobą za pomocą scalania tak, aby wynikowy zbiór był posortowany.
+
+\textbf{Scalanie.} Podstawową operacją algorytmu jest scalanie dwóch uporządkowanych zbiorów w jeden uporządkowany zbiór.
+W celu wykonania scalania skorzystamy z pomocniczej procedury  \texttt{merge}$(A,p,q,r)$, gdzie $A$ jest tablicą, a $p, q, r$ są indeksami takimi, że $p \leq q < r$. 
+W procedurze zakłada się, że tablice $A[p..q]$ oraz $A[q+1..r]$ (dwie przyległe połówki zbioru, który został przez ten algorytm podzielony) są posortowane. 
+Procedura \texttt{merge} scala te tablice w jedną posortowaną tablicę $A[p..r]$. 
+Ogólna zasada działania jest następująca:
+\begin{enumerate}
+\item Przygotuj pusty zbiór tymczasowy.
+\item Dopóki żaden ze scalanych zbiorów nie wyczerpał elementów, porównuj ze sobą pierwsze elementy każdego z nich i w zbiorze tymczasowym umieszczaj mniejszy z elementów.
+\item W zbiorze tymczasowym umieść zawartość tego scalanego zbioru, który zawiera niewykorzystane jeszcze elementy.
+\item Zawartość zbioru tymczasowego przepisz do zbioru wynikowego i zakończ algorytm.
+\end{enumerate}
+Zapis algorytmu scalania dwóch list w pseudokodzie podano niżej.
+\begin{algorithm}[h]
+
+  \DontPrintSemicolon
+  
+  \SetAlgorithmName{Algorytm}{}
+  
+  \KwData{ tablica $A$, liczby $p$, $q$, $r$}
+
+  \KwResult{ posortowana tablica $A[p..r]$ }
+  
+  $C \leftarrow$ pusta tablica\;
+  
+  $i \leftarrow p$, $j \leftarrow q+1$, $k \leftarrow 0$\;
+  
+  \While{$i \leq q$ oraz $j \leq r$} {
+  	\eIf{$A[i] \leq A[j]$} {
+    	$C[k] \leftarrow A[i]$, $i \leftarrow i+1$\;
+    } { 
+    	$C[k] \leftarrow A[j]$, $j \leftarrow j+1$\;
+    
+    }
+    $k \leftarrow k+1$\;
+  
+  }
+
+  \While{$i \leq q$} {
+    $C[k] \leftarrow A[i]$, $i \leftarrow i+1$, $k \leftarrow k+1$\;
+  }
+  
+  \While{$j \leq r$} {
+    $C[k] \leftarrow A[j]$, $j \leftarrow j+1$, $k \leftarrow k+1$\;
+  }
+  
+  \caption{Procedura \texttt{merge}}
+  \label{alg-merge}
+\end{algorithm}
+
+Scalanie wymaga $O(n+m)$ operacji porównań elementów i wstawienia ich do tablicy wynikowej. 
+
+\textbf{Sortowanie.} Algorytm sortowania przez scalanie jest algorytmem rekurencyjnym. 
+Wywołuje się go z zadanymi wartościami indeksów wskazujących na początek i koniec sortowanego zbioru, zatem początkowo indeksy obejmują cały zbiór. 
+Algorytm wyznacza indeks elementu połowiącego przedział, a następnie sprawdza, czy połówki zbioru zawierają więcej niż jeden element. 
+Jeśli tak, to rekurencyjnie sortuje je tym samym algorytmem.
+Po posortowaniu obu połówek zbioru scalamy je za pomocą opisanej wcześniej procedury scalania podzbiorów uporządkowanych i kończymy algorytm. 
+Zbiór jest posortowany.
+\begin{algorithm}[h]
+
+  \DontPrintSemicolon
+  
+  \SetAlgorithmName{Algorytm}{}
+  
+  \KwData{ tablica $A$, liczby $p$, $r$}
+
+  \KwResult{ posortowana tablica $A[p..r]$ }
+  
+  $q \leftarrow 0$\;
+  
+  \If{$p < r$} {
+  	$q \leftarrow \left \lfloor{\frac{p+r}{2}}\right \rfloor $\;
+    \texttt{merge sort}$(A,p,q)$\;
+ 	\texttt{merge sort}$(A,q+1,r)$\;
+    \texttt{merge}$(A,p,q,r)$\;
+  }
+  \caption{Procedura \texttt{merge sort}}
+  \label{alg-merge-sort}
+\end{algorithm}
+
+\textbf{Złożoność.} Chociaż algorytm sortowania przez scalanie działa poprawnie nawet wówczas, gdy $n$ jest nieparzyste, dla uproszczenia analizy załóżmy, że $n$ jest potęgą dwójki. 
+Dzielimy wtedy problem na podproblemy rozmiaru dokładnie $\frac{n}{2}$. 
+Rekurencję określającą czas $T(n)$ sortowania przez scalanie otrzymujemy, jak następuje. \\\\
+Sortowanie przez scalanie jednego elementu wykonuje się w czasie stałym. Jeśli $n > 1$, to czas działania zależy od trzech etapów:\\
+\textbf{Dziel:} podczas tego etapu znajdujemy środek przedziału, co zajmuje czas stały, zatem $D(n) = \theta(1)$.\\
+\textbf{Zwyciężaj:} rozwiązujemy rekurencyjnie dwa podproblemy, każdy rozmiaru $\frac{n}{2}$, co daje czas działania $2T(\frac{n}{2})$.\\
+\textbf{Połącz:} procedura \texttt{merge}, jak wspomniano wyżej, działa w czasie liniowym, a więc $P(n) = \theta(n)$.\\\\
+Funkcje $D(n)$ i $P(n)$ dają po zsumowaniu funkcję rzędu $\theta(n)$. 
+Dodając do tego $2T(\frac{n}{2})$ z etapu "zwyciężaj", otrzymujemy następującą rekurencję dla $T(n)$:
+$$
+ T(n) = 
+  \begin{cases} 
+   \theta(1) & n = 1 \\
+   2T(\frac{n}{2}) + \theta(n) & n > 1
+  \end{cases}
+$$
+
+Poniższy przykład ilustruje zasadę działania sortowania przez scalanie:\\
+{\tiny<tu obrazek, ale nie umiem w obrazki, na dniach ogarnę>}
+
+\textbf{Podsumowanie.} Sortowanie przez scalanie należy do algorytmów szybkich, posiada klasę złożoności równą $\theta(n\log n)$. Jest oparty na metodzie dziel i zwyciężaj, która powoduje podział dużego problemu na mniejsze, łatwo rozwiązywane podproblemy. Sortowanie nie odbywa się w miejscu, potrzebujemy dodatkowej struktury. Algorytm jest stabilny.
+
+\subsection{Quick sort}
+
+In progress
