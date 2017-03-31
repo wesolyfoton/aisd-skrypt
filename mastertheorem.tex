@@ -1,0 +1,56 @@
+\section{Twierdzenie o rekursji uniwersalnej}
+
+Twierdzenie o rekursji uniwersalnej pozwala nam ocenić złożoność obliczeniową algorytmu, który wywołuje się rekurencyjnie dla mniejszych danych.
+
+\begin{algorithm}[h]
+  \DontPrintSemicolon
+  \SetAlgorithmName{Procedura T}{}
+
+  \KwData{ n }
+    
+  \If{$(n < constant)$}
+  {
+    return
+  }
+  Stwórz a podproblemów wielkości n/b w czasie c(n)
+  
+  
+  \For{$i \leftarrow 1$ to $a$}
+  {
+   	T[n/b]
+  }
+  Połącz wyniki w czasie d(n)
+  \caption{}
+  \label{recursion-example}
+\end{algorithm}
+
+Złożoność takiego algorytmu możemy zapisać zależnością rekurencyjną
+\[T(n) = aT(\frac{n}{b}) + f(n)\]
+
+gdzie 
+\(f(n) = c(n) + d(n)\)
+\begin{theorem}
+ Rekurencja $T(n) = aT(\frac{n}{b}) + f(n)$ może zostać rozwiązana
+\begin{itemize}
+\item jeżeli $a f(n/b) = c f(n)$ gdzie c < 1, to $T(n) = \Theta(f(n))$
+\item jeżeli $a f(n/b) = c f(n)$ gdzie c > 1, to $T(n) = \Theta(n^{log_b a})$
+\item jeżeli $a f(n/b) = f(n)$, to $T(n) = \Theta(f(n) log_b n)$
+\end{itemize}
+ \label{Master}
+\end{theorem}
+Jeżeli $f(n)$ jest większy o wielokrotność stałej od $a f(b/n)$, wtedy suma jest malejącym ciągiem geometrycznym. Suma każdego ciągu geometrycznego jest wynikiem przemnożenia jej największego elementu przez stałą. W tym przypadku największym elementem jest $f(n)$. \par
+Jeżeli $f(n)$ jest mniejszy o wielokrotność stałej od $a f(b/n)$, wtedy suma jest rosnący ciągiem geometrycznym. Suma każdego ciągu geometrycznego jest wynikiem przemnożenia jej największego elementu przez stałą. W tym przypadku, jako, że $f(1) = \Theta(1)$ ostatni element sumy to ilość liści w drzewie rekursji $\Theta(a^{log_b n}) = \Theta(n^{log_b a})$ 
+\comment{Tutaj wstawiłbym rysunek drzewka rekursji, ale nie umiem}
+\par
+Jeżeli $f(n) = a f(b/n)$ to każdy element sumy jest równy $f(n)$.
+\subsection{Przykłady wykorzystania twierdzenia}
+\begin{itemize}
+\item Mergesort: T(n) = 2 * T(n/2) + n log(n)
+\par $a * f(n/b) = 2 * n/2 = n = f(n)$, więc $T(n) = \Theta(n log n)$
+\item Mergesort z dziwnym mergem(przykład z próbnego egzaminu): T(n) = 2 * T(n/2) + n log(n)
+\par $a * f(n/b) = 2 * n/2 * log(n/2) = n * log(n/2) = n * (log(n) - 1)$, nie możemy zastosować tutaj prostej równości, jednak zauważmy, iż przy odpowiednio dużym n wartość ta jest bliska $f(n)$; tj. $\lim_{x\to\infty} \frac{n log(n)}{n (log(n) - 1)} = 1$, więc $T(n) = n * log(n) * log(n) = n * log^{2}(n)$
+\item Mergesort z mergem w czasie stałym(przykład z próbnego egzaminu): T(n) = 2 * T(n/2) + 1
+\par  $a * f(n/b) = 2$, więc nasze twierdzenie nie będzie miało zastosowania. Można jednak łatwo zauważyć, że $T(n) = \Theta (n)$ i udowodnić to indukcyjnie.
+\item Algorytm Karatsuby: T(n) = 3 * T(n/2) + n
+$a * f(n/b) = \frac{3}{2} * n$; $\frac{3}{2} > 1$, więc $T(n)=n^{log_2(3)}$.
+\end{itemize}
