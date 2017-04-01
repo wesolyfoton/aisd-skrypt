@@ -17,7 +17,7 @@ Ciąg $1$, $0$, $1$, $0$ nie jest ciągiem bitonicznym, gdyż nie istnieją taki
 \begin{definition}
  \textbf{Ciągiem bitonicznym} nazywamy każdy ciąg powstały przez rotację cykliczną ciągu bitonicznego właściwego.
 \end{definition}
-Ciąg $69$, $42$, $17$, $2$, $2$, $5$, $100$, $72$ jest ciągiem bitonicznym, gdyż powstało przez rotację cykliczną ciągu bitonicznego właściwego $2$, $2$, $5$, $100$, $72$, $69$, $42$, $17$.
+Ciąg $69$, $42$, $17$, $2$, $2$, $5$, $100$, $72$ jest ciągiem bitonicznym, gdyż powstał przez rotację cykliczną ciągu bitonicznego właściwego $2$, $2$, $5$, $100$, $72$, $69$, $42$, $17$.
 
 Istnieje prosty algorytm sprawdzający, czy ciąg jest bitoniczny.
 Należy znaleźć element największy oraz najmniejszy.
@@ -35,9 +35,9 @@ Jako dane wejściowe otrzymuje ona tablicę \texttt{A}, wielkość tablicy \text
   \DontPrintSemicolon
   \SetAlgorithmName{Algorytm}{}
 
-  \KwData{ A, n, up }
+  \KwData{ A[0..n-1], up }
   
-  \For{$i \leftarrow 1$ to $n$}
+  \For{$i \leftarrow 0$ to $n-1$}
   {
     \If{$(A[i] > A[i+n/2]) = up$}
     {
@@ -52,7 +52,7 @@ Następnie porównuje pierwszy element z pierwszej części z pierwszym elemente
 Jeśli te elementy nie znajdują się w pożądanym porządku, to je przestawia.
 Następnie powtarza tą czynność z kolejnymi elementami.
 
-Dla przykładu, jeśli procedurę uruchomimy z tablicą \texttt{A[] = 2, 8, 7, 1, 4, 3, 5, 6}, wartością \texttt{n = 8} oraz \texttt{up = true}, w wyniku otrzymamy tablicę \texttt{A[] = 2, 3, 5, 1, 4, 8, 7, 6}.
+Dla przykładu, jeśli procedurę uruchomimy z tablicą \texttt{A = [2, 8, 7, 1, 4, 3, 5, 6]}, wartością \texttt{n = 8} oraz \texttt{up = true}, w wyniku otrzymamy tablicę \texttt{A = [2, 3, 5, 1, 4, 8, 7, 6]}.
 W pierwszym kroku wartość $2$ zostanie porównana z wartością $4$.
 Ponieważ chcemy otrzymać porządek rosnący (wartość zmiennej \texttt{up} jest ustawiona na \texttt{true}), to zostawiamy tą parę w spokoju.
 W następnym kroku porównujemy wartość $8$ z wartością $3$.
@@ -77,12 +77,12 @@ Przejdźmy do dowodu powyższego twierdzenia.
 Przyda nam się do tego poniższy lemat:
 
 \begin{lemma}[zasada zero-jeden]
- Twierdzenie \ref{bitonic-theorem} jest prawdziwe dla dowolnych tablic wtedy i tylko wtedy, gdy jest prawdziwe dla tablic zero-jedynkowych.
+ Twierdzenie \ref{bitonic-theorem}. jest prawdziwe dla dowolnych tablic wtedy i tylko wtedy, gdy jest prawdziwe dla tablic zero-jedynkowych.
  \label{zero-one-lemma}
 \end{lemma}
 
 \begin{proof}
- Oczywiście - jeśli twierdzenie jest prawdziwe dla każdej tablicy to w szczególności jest prawdziwe dla tablic złożonych z zer i jedynek.
+ Jeśli twierdzenie jest prawdziwe dla każdej tablicy to w szczególności jest prawdziwe dla tablic złożonych z zer i jedynek.
  Dowód w drugą stronę jest dużo ciekawszy.
  
  Weźmy dowolną funkcję niemalejącą $f$.
@@ -97,7 +97,7 @@ Przyda nam się do tego poniższy lemat:
  Zatem istotnie: dla każdej funkcji niemalejącej $f$, procedura \texttt{bitonic\_compare} otrzymując na wejściu tablicę $f(A)$ zwróci na wyjściu tablicę $f(B)$.
  
  Wróćmy do dowodu lematu.
- Dowód niewprost.
+ Dowód nie wprost.
  Załóżmy, że twierdzenie jest prawdziwe dla wszystkich tablic zero-jedynkowych i nie jest prawdziwe dla pewnej tablicy \texttt{T[0..n-1]}.
  Niech \texttt{S[0..n-1]} oznacza zawartość tablicy po zakończeniu procedury \texttt{bitonic\_compare}.
  Jeśli twierdzenie nie jest prawdziwe, oznacza to, że albo któraś z tablic \texttt{S[0..n/2-1]}, \texttt{S[n/2..n-1]} nie jest bitoniczna albo, że elementy z jednej z nich nie są mniejsze od wszystkich elementów z drugiej tablicy.
@@ -114,6 +114,7 @@ Przyda nam się do tego poniższy lemat:
        0 &\quad\textsf{wpp.}
      \end{cases}
  \]
+ \comment{Zrobić rysunki}
  Zwróćmy uwagę, że w takiej sytuacji twierdzenie nie byłoby prawdziwe dla tablicy $f(T)$, zatem dla tablicy zero-jedynkowej.
  Gdyż ponownie - element $f(S[i]) = 1$ byłby większy od elementu $f(S[i+1]) = 0$.
  
@@ -135,14 +136,14 @@ Przyda nam się do tego poniższy lemat:
 Do pełni szczęścia potrzebujemy udowodnić, że Twierdzenie \ref{bitonic-theorem} jest prawdziwe dla wszystkich ciągów zero-jedynkowych.
 
 \begin{lemma}
- Twierdzenie \ref{bitonic-theorem} jest prawdziwe dla wszystkich ciągów zero-jedynkowych.
+ Twierdzenie \ref{bitonic-theorem}. jest prawdziwe dla wszystkich ciągów zero-jedynkowych.
  \label{zero-one-cases-lemma}
 \end{lemma}
 
 \begin{proof}
  Zakładać będziemy, że zmienna \texttt{up} jest ustawiona na \texttt{true} (dowód dla sytuacji przeciwnej jest analogiczny).
  \comment{Ten dowód jest nudny.}
- Istnieją cztery rodzaje bitonicznych ciągów zero-jedynkowych : $0^n$, $0^k1^l$, $0^k1^l0^m$, $1^n$, $1^k0^l$, $1^k0^l1^m$ z czego trzy ostatnie są symetryczne do trzech pierwszych (więc zostaną pominięte w dowodzie).
+ Istnieje sześć rodzai bitonicznych ciągów zero-jedynkowych : $0^n$, $0^k1^l$, $0^k1^l0^m$, $1^n$, $1^k0^l$, $1^k0^l1^m$ z czego trzy ostatnie są symetryczne do trzech pierwszych (więc zostaną pominięte w dowodzie).
  Rozważmy wszystkie interesujące nas przypadki:
  \begin{itemize}
   \item $0^n$.
@@ -158,7 +159,7 @@ Do pełni szczęścia potrzebujemy udowodnić, że Twierdzenie \ref{bitonic-theo
    Wtedy otrzymujemy ciągi $0^{n/2}$ oraz $0^{k-n/2}1^l0^m$.
    Spełniają one tezę twierdzenia.
   \item $0^k1^l0^m$ oraz $m > n/2$.
-   Ciągi, które otrzymamy wyglądają tak: $0^{n/2}$ oraz $0^k1^l0^{n/2-m}$.
+   Ciągi, które otrzymamy wyglądają tak: $0^{n/2}$ oraz $0^k1^l0^{m-n/2}$.
    Są to ciągi, które nas cieszą.
   \item $0^k1^l0^m$ oraz $l > n/2$.
    Dostaniemy wtedy ciągi $0^k1^{l-n/2}0^m$ oraz $1^{n/2}$.
@@ -169,7 +170,7 @@ Do pełni szczęścia potrzebujemy udowodnić, że Twierdzenie \ref{bitonic-theo
  \end{itemize}
 \end{proof}
 
-Na mocy Lematu \ref{zero-one-lemma} i \ref{zero-one-cases-lemma} Twierdzenie \ref{bitonic-theorem} jest prawdziwe dla wszystkich tablic \texttt{T[0..n-1]}.
+Na mocy Lematów \ref{zero-one-lemma} i \ref{zero-one-cases-lemma} Twierdzenie \ref{bitonic-theorem} jest prawdziwe dla wszystkich tablic \texttt{T[0..n-1]}.
 Mając tak piękne twierdzenie, możemy napisać prosty algorytm sortujący ciągi bitoniczne (Algorytm \ref{bitonic-merge}).
 
 \begin{algorithm}[h]
