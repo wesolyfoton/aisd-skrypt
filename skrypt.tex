@@ -115,12 +115,13 @@
 }
 
 \begin{document}
+\pagenumbering{arabic}
 
-\pagestyle{empty}
 \titleGM
 \titlepagedecoration
 
-\tableofcontents
+\tableofcontents 
+\pagestyle{plain}
 
 \chapter{Podstawy}
 
@@ -137,6 +138,8 @@
 \chapter{Algorytmy}
 
 \include{bitoniczne}
+
+\chapter{Struktury danych}
 
 \include{wiesniakow}
 
@@ -160,6 +163,7 @@
 
 \begin{appendices}
 
+\pagestyle{empty}
 \input{porownanie.tex}
 
 \end{appendices}
