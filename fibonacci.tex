@@ -9,27 +9,31 @@ Znajdźmy taką macierz $M$, która po wymnożeniu przez transponowany wektor wy
 \begin{equation*}
   M = \begin{bmatrix}1 & 1 \\ 1 & 0\end{bmatrix}
 \end{equation*}
-Bo:
+bo:
 \begin{equation}
   \label{eq:fibonacci-m}
-  M \times
+  M
+  \times
   \begin{bmatrix}F_n \\ F_{n - 1}\end{bmatrix}
-  = \begin{bmatrix}F_{n + 1} \\ F_{n}\end{bmatrix}
+  =
+  \begin{bmatrix}1 & 1 \\ 1 & 0\end{bmatrix}
+  \times
+  \begin{bmatrix}F_n \\ F_{n - 1}\end{bmatrix}
+  =
+  \begin{bmatrix}F_n + F_{n - 1} \\ F_{n}\end{bmatrix}
+  =
+  \begin{bmatrix}F_{n + 1} \\ F_{n}\end{bmatrix}
 \end{equation}
 Wynika to wprost z definicji mnożenia macierzy oraz definicji ciągu Fibonacciego.
 Wykonajmy mnożenie z równania \ref{eq:fibonacci-m} $n$ razy:
-\begin{equation}
-  \label{eq:mult-n-times}
-  \underbrace{M \times (M \times (M \times ...\,(M}_\text{n razy}
+\begin{equation*}
+  \underbrace{M \times \bigg(M \times \bigg(M \times ...\,\bigg(M}_\text{n razy}
   \times
-  \begin{bmatrix}F_n \\ F_{n - 1}\end{bmatrix})\,...\,))
-\end{equation}
-\begin{fact}{Mnożenie macierzy jest łączne.}
-  \label{fact:matrix-mult-is-associative}
-\end{fact}
-Z Faktu \ref{fact:matrix-mult-is-associative}. i wyrażenia \ref{eq:mult-n-times}. mamy:
+  \begin{bmatrix}F_1 \\ F_0\end{bmatrix}\bigg)\,...\,\bigg)\bigg)
+\end{equation*}
+Z faktu, że mnożenie macierzy jest łączne oraz powyższego wyrażenia otrzymujemy:
 \begin{align*}
-  M^n \times \begin{bmatrix}F_n \\ F_{n - 1}\end{bmatrix}
+  M^n \times \begin{bmatrix}F_1 \\ F_0\end{bmatrix}
 \end{align*}
 Pokażemy, że powyższa macierz ma zastosowanie w obliczaniu n-tej liczby Fibonacciego.
 \begin{lemma}
@@ -38,14 +42,20 @@ Pokażemy, że powyższa macierz ma zastosowanie w obliczaniu n-tej liczby Fibon
   \end{equation*}
 \end{lemma}
 
-\begin{proof}Przez indukcję.\\
-  Sprawdźmy dla $n = 1$. Mamy:
+\begin{proof}[Dowód przez indukcję]
+  Sprawdźmy dla $n = 0$. Mamy:
   \begin{equation*}
-    \begin{bmatrix}1 & 1 \\ 1 & 0\end{bmatrix}^1
+    \begin{bmatrix}1 & 1 \\ 1 & 0\end{bmatrix}^0
     \times
     \begin{bmatrix}1 \\ 0\end{bmatrix}
     =
-    \begin{bmatrix}1 \\ 1\end{bmatrix} = \begin{bmatrix}F_2 \\ F_1\end{bmatrix}
+    I
+    \times
+    \begin{bmatrix}1 \\ 0\end{bmatrix}
+    =
+    \begin{bmatrix}1 \\ 0\end{bmatrix}
+    =
+    \begin{bmatrix}F_1 \\ F_0\end{bmatrix}
   \end{equation*}
   Rozważmy $n + 1$ zakładając poprawność dla $n$.
   \begin{equation*}
@@ -67,7 +77,7 @@ Pokażemy, że powyższa macierz ma zastosowanie w obliczaniu n-tej liczby Fibon
     \end{bmatrix}^{n}
     \times
     \begin{bmatrix}1 \\ 0\end{bmatrix}
-    =
+    \stackrel{teza}{=}
     \begin{bmatrix}
       1 & 1 \\
       1 & 0
