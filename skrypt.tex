@@ -115,12 +115,14 @@
 }
 
 \begin{document}
-
+\pagenumbering{arabic}
 \pagestyle{empty}
+
 \titleGM
 \titlepagedecoration
 
-\tableofcontents
+\tableofcontents 
+\pagestyle{plain}
 
 \chapter{Podstawy}
 
@@ -160,6 +162,7 @@
 
 \begin{appendices}
 
+\pagestyle{empty}
 \input{porownanie.tex}
 
 \end{appendices}
