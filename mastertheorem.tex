@@ -1,56 +1,63 @@
-\section{Twierdzenie o rekursji uniwersalnej}
+\section{Twierdzenie o rekurencji uniwersalnej}
 
-Twierdzenie o rekursji uniwersalnej pozwala nam ocenić złożoność obliczeniową algorytmu, który wywołuje się rekurencyjnie dla mniejszych danych.
-
+Popularną metodą rozwiązywania zadań jest metoda Dziel i Zwyciężaj.
+Polega ona na podzieleniu problemu na mniejsze, rozwiązaniu ich w sposób rekurencyjny, a następnie na scaleniu wyniku w jeden.
+Schemat tej metody jest przedstawiony jako Schemat \ref{recursion-example}.
 \begin{algorithm}[h]
   \DontPrintSemicolon
-  \SetAlgorithmName{Procedura T}{}
-
-  \KwData{ n }
+  \SetAlgorithmName{Schemat}{}
     
-  \If{$(n < constant)$}
+  \If{$n \leq 1$}
   {
-    return
+    rozwiąż trywialny przypadek
   }
-  Stwórz a podproblemów wielkości n/b w czasie c(n)
+  Stwórz $a$ podproblemów wielkości $n/b$ w czasie $D(n)$
   
   
   \For{$i \leftarrow 1$ to $a$}
   {
-   	T[n/b]
+   	wykonaj procedurę \texttt{Dziel\_i\_zwyciezaj} rekurencyjnie dla $i$-tego podproblemu
   }
-  Połącz wyniki w czasie d(n)
-  \caption{}
+  Połącz wyniki w czasie $P(n)$
+  \caption{Procedura \texttt{Dziel\_i\_zwyciezaj}}
   \label{recursion-example}
 \end{algorithm}
 
-Złożoność takiego algorytmu możemy zapisać zależnością rekurencyjną
-\[T(n) = aT(\frac{n}{b}) + f(n)\]
+Złożoność takiego algorytmu możemy zapisać zależnością rekurencyjną $T(n) = aT(n/b) + \Theta(n^k \log^{p} n)$ przy czym $P(n) + D(n) \in \Theta(n^k \log^{p} n)$.
+Jednakże zależność rekurencyjna na czas działania algorytmu nie zawsze nas satysfakcjonuje.
+Zazwyczaj chcielibyćmy uzyskać wzór zwarty.
+Do tego celu służy poniższe twierdzenie, znane Twierdzeniem o rekurencji uniwersalnej.
 
-gdzie 
-\(f(n) = c(n) + d(n)\)
 \begin{theorem}
- Rekurencja $T(n) = aT(\frac{n}{b}) + f(n)$ może zostać rozwiązana
-\begin{itemize}
-\item jeżeli $a f(n/b) = c f(n)$ gdzie c < 1, to $T(n) = \Theta(f(n))$
-\item jeżeli $a f(n/b) = c f(n)$ gdzie c > 1, to $T(n) = \Theta(n^{log_b a})$
-\item jeżeli $a f(n/b) = f(n)$, to $T(n) = \Theta(f(n) log_b n)$
-\end{itemize}
+ Niech $T(n) = aT(n/b) + \Theta(n^k \log^{p} n)$ oraz $a \geq 1$, $b > 1$, $k \geq 0$ oraz $p$ liczby rzeczywiste.
+ Wtedy
+\begin{enumerate}
+\item jeżeli $a > b^k$, to $T(n) = \Theta(n^{\log_b a})$ \label{mt-1}
+\item jeżeli $a = b^k$ oraz 
+\begin{enumerate}
+ \item $p > -1$ to $T(n) = \Theta(n^{\log_b a} \log^{p + 1} n)$ \label{mt-2a}
+ \item $p = -1$ to $T(n) = \Theta(n^{\log_b a} \log \log n)$ \label{mt-2b}
+ \item $p < -1$ to $T(n) = \Theta(n^{\log_b a})$ \label{mt-2c}
+\end{enumerate}
+\item jeżeli $a < b^k$ oraz
+\begin{enumerate}
+ \item $p \geq 0$ to $T(n) = \Theta(n^k \log^{p} n)$ \label{mt-3a}
+ \item $p < 0$ to $T(n) = O(n^k)$ \label{mt-3b}
+\end{enumerate}
+\end{enumerate}
  \label{Master}
 \end{theorem}
-Jeżeli $f(n)$ jest większy o wielokrotność stałej od $a f(b/n)$, wtedy suma jest malejącym ciągiem geometrycznym. Suma każdego ciągu geometrycznego jest wynikiem przemnożenia jej największego elementu przez stałą. W tym przypadku największym elementem jest $f(n)$. \par
-Jeżeli $f(n)$ jest mniejszy o wielokrotność stałej od $a f(b/n)$, wtedy suma jest rosnący ciągiem geometrycznym. Suma każdego ciągu geometrycznego jest wynikiem przemnożenia jej największego elementu przez stałą. W tym przypadku, jako, że $f(1) = \Theta(1)$ ostatni element sumy to ilość liści w drzewie rekursji $\Theta(a^{log_b n}) = \Theta(n^{log_b a})$ 
-\comment{Tutaj wstawiłbym rysunek drzewka rekursji, ale nie umiem}
-\par
-Jeżeli $f(n) = a f(b/n)$ to każdy element sumy jest równy $f(n)$.
+
+\begin{proof}
+ TODO TODO TODO.
+\end{proof}
+
 \subsection{Przykłady wykorzystania twierdzenia}
-\begin{itemize}
-\item Mergesort: T(n) = 2 * T(n/2) + n log(n)
-\par $a * f(n/b) = 2 * n/2 = n = f(n)$, więc $T(n) = \Theta(n log n)$
-\item Mergesort z dziwnym mergem(przykład z próbnego egzaminu): T(n) = 2 * T(n/2) + n log(n)
-\par $a * f(n/b) = 2 * n/2 * log(n/2) = n * log(n/2) = n * (log(n) - 1)$, nie możemy zastosować tutaj prostej równości, jednak zauważmy, iż przy odpowiednio dużym n wartość ta jest bliska $f(n)$; tj. $\lim_{x\to\infty} \frac{n log(n)}{n (log(n) - 1)} = 1$, więc $T(n) = n * log(n) * log(n) = n * log^{2}(n)$
-\item Mergesort z mergem w czasie stałym(przykład z próbnego egzaminu): T(n) = 2 * T(n/2) + 1
-\par  $a * f(n/b) = 2$, więc nasze twierdzenie nie będzie miało zastosowania. Można jednak łatwo zauważyć, że $T(n) = \Theta (n)$ i udowodnić to indukcyjnie.
-\item Algorytm Karatsuby: T(n) = 3 * T(n/2) + n
-$a * f(n/b) = \frac{3}{2} * n$; $\frac{3}{2} > 1$, więc $T(n)=n^{log_2(3)}$.
-\end{itemize}
+
+W rozdziale \ref{sec:merge-sort} zapoznamy się z algorytmem sortowania przez scalanie.
+Jego złożoność określona jest wzorem rekurencyjnym $T(n) = 2 \cdot T(n/2) + O(n)$.
+W tym przypadku $a = 2$, $b = 2$, $k = 1$ oraz $p = 0$.
+Ponieważ $a = b^k$ sprawdzamy dodatkowo, że $p > -1$ i otrzymujemy, że w naszym przypadku powinniśmy skorzystać z pkt \ref{mt-2a}.
+Otrzymujemy, że złożoność naszego algorytmu jest $\Theta(n^{\log_b a} \log^{p + 1} n)$ czyli $\Theta(n \log n)$.
+
+TODO. W tym samym duchu napisać przykłady użycia do sortowania bitonicznego, algorytmu Karatsuby, wyszukiwania binarnego, algorytmu Strassena i wszystkiego sensownego co wymyślicie (uprzedzając pytanie - przykłady z egzaminu nie są sensowne).
