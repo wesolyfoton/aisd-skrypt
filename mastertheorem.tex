@@ -58,16 +58,28 @@ W rozdziale \ref{sec:merge-sort} zapoznamy się z algorytmem sortowania przez sc
 Jego złożoność określona jest wzorem rekurencyjnym $T(n) = 2 \cdot T(n/2) + O(n)$.
 W tym przypadku $a = 2$, $b = 2$, $k = 1$ oraz $p = 0$.
 Ponieważ $a = b^k$ sprawdzamy dodatkowo, że $p > -1$ i otrzymujemy, że w naszym przypadku powinniśmy skorzystać z pkt \ref{mt-2a}.
-Otrzymujemy, że złożoność naszego algorytmu jest $\Theta(n^{\log_b a} \log^{p + 1} n)$ czyli $\Theta(n \log n)$.
+Otrzymujemy, że złożoność naszego algorytmu jest $\Theta(n^{\log_b a} \log^{p + 1} n)$ czyli $\Theta(n\log n)$.
 
-W rodziale \ref{sec:bitoniczne} opisany został algorytm sortowania bitonicznego. Jego złożoność określona jest wzorem $T(n) = 2 \cdot T(n/2) + O(n \log n)$. W tym przypadeku $a = 2$, $b = 2$, $k=1$ i $p = 1$.
-Ponieważ $a = b^k$ i $p > -1$ korzystamy z punktu \ref{mt-2a}. Otrzymujemy złożoność $\Theta(n \log^2 n)$
+W rodziale \ref{sec:bitoniczne} opisany został algorytm sortowania bitonicznego.
+Jego złożoność określona jest wzorem $T(n) = 2 \cdot T(n/2) + O(n \log n)$.
+W tym przypadeku $a = 2$, $b = 2$, $k=1$ i $p = 1$.
+Ponieważ $a = b^k$ i $p > -1$ korzystamy z punktu \ref{mt-2a}.
+Otrzymujemy złożoność $\Theta(n \log^2 n)$.
 
-W rozdziale \ref{sec:karatsuba} opisany jest algorytm Karatsuby. Jego złożoność opisana jest rekurencyjnym wzorem $3 T(n/2) + O(n)$. W tym przypadku $a = 3$, $b = 2$, $k=1$ i $p=0$.
-Ponieważ $a > b^k$ korzystamy z punktu \ref{mt-1}. Otrzymujemy złożoność $\Theta(n^{\log_{2} 3}) \approx \Theta(n^{1.585})$
+W rozdziale \ref{sec:karatsuba} opisany jest algorytm Karatsuby. Jego złożoność opisana jest rekurencyjnym wzorem $3 T(n/2) + O(n)$.
+W tym przypadku $a = 3$, $b = 2$, $k=1$ i $p=0$.
+Ponieważ $a > b^k$ korzystamy z punktu \ref{mt-1}.
+Otrzymujemy złożoność $\Theta(n^{\log_{2} 3}) \approx \Theta(n^{1.585}).$
 
-Wyszukiwanie binarne to innowacyjny algorytm klasy Dziel i Zwyciężaj wyszukujący elementu w posortowanym ciągu. Ze względu na swoją złożoność obliczeniową i wydajność na współczesnych procesorach jest wykorzystywany w takich projektach jak Linux, czy WebKit. Ma złożoność opisaną rekurencyjnym wzorem $T(n) = T(n/2) + O(1)$.
+Wyszukiwanie binarne to innowacyjny algorytm klasy Dziel i Zwyciężaj wyszukujący elementu w posortowanym ciągu.
+Ze względu na swoją złożoność obliczeniową i wydajność na współczesnych procesorach jest wykorzystywany w takich projektach jak Linux, czy WebKit.
+Ma złożoność opisaną rekurencyjnym wzorem $T(n) = T(n/2) + O(1)$.
 Mamy więc $a = 1$, $b = 2$, $k = p = 0$.
-Ponieważ $a = b^k$ i $p > -1$ korzystamy z punktu \ref{mt-2a}. Otrzymujemy złożoność $\Theta(\log n)$.
+Ponieważ $a = b^k$ i $p > -1$ korzystamy z punktu \ref{mt-2a}.
+Otrzymujemy złożoność $\Theta(\log n)$.
 
-Algorytm Strassena jest opisany w rodziale \ref{strassen}. Jego złożoność opisana jest rekurencyjnym wzorem $T(n) = 7 * T(n/2) + O(n^2)$. W tym przypadku mamy $a = 7$, $b = 2$, $k = 2$, $p = 0$. Jako, że $a > b^k$ wykorzystamy punky \ref{mt-1}. Otrzymujemy złożoność $\Theta(n^{\log_{2} 7}) \approx \Theta(n^2.807)$
+Algorytm Strassena jest opisany w rodziale \ref{strassen}.
+Jego złożoność opisana jest rekurencyjnym wzorem $T(n) = 7 * T(n/2) + O(n^2)$.
+W tym przypadku mamy $a = 7$, $b = 2$, $k = 2$, $p = 0$.
+Jako, że $a > b^k$ wykorzystamy punky \ref{mt-1}.
+Otrzymujemy złożoność $\Theta(n^{\log_{2} 7}) \approx \Theta(n^2.807)$
