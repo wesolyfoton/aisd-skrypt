@@ -57,3 +57,7 @@ Tematy wolne:
 - problem plecakowy
 - dolne granice
 - model drzew decyzyjnych
+- element uniqness
+- dolna granica min-maks
+- counting sort
+- bucket sort
