@@ -1,0 +1,23 @@
+\begin{tikzpicture}[level distance=1.5cm,
+level 1/.style={sibling distance=3.5cm},
+level 2/.style={sibling distance=2cm},
+level 3/.style={sibling distance=1cm}]
+\tikzstyle{every node}=[circle,draw]
+
+\node (Root) {1}
+    child {
+    node {2}
+    child { node {4} edge from parent node[right,draw=none] {tak} }
+    child {
+      node {5} %edge from parent node[left,draw=none] {nie}
+      child {node {8}}
+      child {node {9}}
+    }
+}
+child {
+    node {3} %edge from parent node[right,draw=none] {nie}
+    child { node {6} }
+    child { node {7} }
+};
+
+\end{tikzpicture}

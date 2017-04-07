@@ -1,0 +1,27 @@
+\begin{tikzpicture}[level distance=1.5cm,
+level 1/.style={sibling distance=3.5cm},
+level 2/.style={sibling distance=2cm},
+level 3/.style={sibling distance=1.5cm}]
+
+\node (Root) {\small{$(c^1, a_i^1)$}}
+    child {
+    node {\small{$(c^2, a_i^2)$}}
+    child { node [green] {TAK} edge from parent node[left,draw=none] {tak} }
+    child {
+      node {\small{$(c^4, a_i^4)$}} 
+      child {node [green] {TAK} edge from parent node[left,draw=none] {tak}}
+      child {node [red] {NIE} edge from parent node[right,draw=none] {nie}}
+      edge from parent node[right,draw=none] {nie}
+    }
+    edge from parent node[left,draw=none] {tak}
+}
+child {
+    node {\small{$(c^3, a_i^3)$}}
+    child { node [green] {TAK} edge from parent node[left,draw=none] {tak}}
+    child { node [red] {NIE} edge from parent node[right,draw=none] {nie}}
+    edge from parent node[right,draw=none] {nie}
+};
+
+\label{uniqness-tree}
+
+\end{tikzpicture}
