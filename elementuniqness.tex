@@ -1,0 +1,118 @@
+\section{Model afinicznych drzew decyzyjnych}
+
+Zdefiniujmy następujący problem (ang. element uniqness).
+Mając daną tablicę \texttt{T[0..n-1]} liczb rzeczywistych, odpowiedzieć na pytanie czy istnieją w tablicy dwa elementy, które są sobie równe.
+Pierwsze rozwiązanie jakie przychodzi wielu ludziom do głowy, to posortować tablicę \texttt{T} a następnie sprawdzić sąsiednie elementy.
+Algorytm ten rozwiązuje nasz problem w czasie $\Theta(n \log n)$.
+Pytanie - czy da się szybciej?
+W niniejszym rozdziale udowodnimy, że w modelu afinicznych drzew decyzyjnych problemu nie da się rozwiązać lepiej.
+
+W modelu afinicznych drzew decyzyjnych, w każdym zapytaniu możemy wybrać sobie $n+1$ liczb: $c$, $a_0$, $a_1$, $\dots$, $a_{n-1}$, a następnie zapytać czy
+\[
+ c + \sum_{i=0}^{n-1} a_i t_i \geq 0
+\]
+gdzie $t_i$ to elementy tablicy \texttt{T}.
+Gdybyśmy użyli terminologii algebraicznej, to powiedzielibyśmy, że $t$ jest punktem w przestrzeni $\mathbb{R}^n$, lewa strona powyższej nierówności to przekształcenie afiniczne,
+a zbiór wszystkich punktów z $\mathbb{R}^n$, które spełniają tą nierówność to przestrzeń afiniczna.
+Jeśli na Algebrze nie wyrobiliście sobie jeszcze intuicji, to w $\mathbb{R}^2$ przestrzeń afiniczną otrzymujemy przez narysowanie dowolnej prostej i wzięcie wszystkich elementów z jednej ze stron.
+Podobnie w $\mathbb{R}^3$ przestrzeń afiniczną otrzymujemy poprzez narysowanie dowolnej płaszczyzny, a następnie wzięcia wszystkich elementów z jednej ze stron.
+W wyższych wymiarach wygląda to analogicznie.
+\tizkboxwithcaption{tikz/uniqnesstree.tikz}{
+Przykład afinicznego drzewa decyzyjnego.
+W wierzchołkach wewnętrznych mamy zapytanie $(c^j, a_i^j)$.
+W zależności od tego czy $c^k + \sum_{i=0}^{n-1} a^k_i t_i \geq 0$ czy też nie, idziemy odpowiednio w lewo lub w prawo.
+Liście zawierają odpowiedź naszego algorytmu.
+}
+
+Algorytm używający tego typu porównań można zapisać za pomocą drzewa (rys. \ref{uniqness-tree}).
+Zaczynamy z korzenia tego drzewa.
+W każdym wierzchołku wewnętrznym zadajemy zapytanie.
+W zależności od tego czy odpowiedż na pytanie była pozytywna czy negatywna, idziemy w drzewie w lewo lub w prawo.
+Gdy dojdziemy do liścia w drzewie otrzymujemy nasze rozwiązanie (tak lub nie).
+Takie drzewo będziemy nazywać afinicznym drzewem decyzyjnym.
+
+Aby było nam łatwiej zdefiniować główny lemat naszego rozdziału, zdefiniujemy sobie dwa pojęcia.
+\begin{definition}
+ Mówimy, że punkt $t \in \mathbb{R}^n$ \textbf{osiąga} liść $l$ w afinicznym drzewie decyzyjnym, jeśli algorytm uruchomiony dla punktu $t$ dochodzi do liścia $l$.
+\end{definition}
+\begin{definition}
+ Mówimy, że podzbiór $C \subseteq \mathbb{R}^n$ jest \textbf{zbiorem wypukłym}, jeśli dla dowolnych punktów $u, v \in C$ oraz dowolnej liczby rzeczywistej $0 \leq \alpha \leq 1$ punkt $\alpha \cdot u + (1 - \alpha) v$ także należy do $C$.
+\end{definition}
+Pierwsza z definicji pozwala nam mówić o elementach, które trafiają do tego samego liścia, a druga to sformalizowane pojęcie wypukłości znane z liceum.
+Uzbrojeni w nowe definicje, możemy przejść do obiecanego lematu:
+
+\begin{lemma}
+ Zbiór punktów osiągających liść $l$ w afinicznym drzewie decyzyjnym, jest zbiorem wypukłym.
+ \label{uniqness-lemma}
+\end{lemma}
+
+\begin{proof}
+ Weźmy dowolne afiniczne drzewo decyzyjne i wybierzmy w nim dowolny liść $l$.
+ Dobrze wiemy, że istnieje dokładnie jedna ścieżka prosta z korzenia do tego liścia.
+ Weżmy dowolny wierzchołek wewnętrzny $w$ na tej ścieżce i dowolne punkty $u$ oraz $v$, które osiągają liść $l$.
+ W końcu weźmy dowolną liczbę rzeczywistą $0 \leq \alpha \leq 1$.
+ Załóżmy ponadto, że ścieżka z korzenia do liścia $l$ w wierzchołku $w$ skręca w lewo (zatem zapytanie zadane w wierzchołku $w$ punkty $u$ oraz $v$ otrzymały odpowiedź twierdzącą).
+ Przypadek przeciwny jest analogiczny.
+ Wiemy zatem, że
+\[
+ c^w + \sum_{i=0}^{n-1} a_i^w u_i \geq 0
+\]
+ oraz, że
+\[
+ c^w + \sum_{i=0}^{n-1} a_i^w v_i \geq 0
+\]
+ Ponieważ $\alpha \geq 0$ możemy przemnożyć pierwsze równanie przez $\alpha$:
+\[
+ \alpha c^w + \sum_{i=0}^{n-1} a_i^w \alpha u_i \geq 0
+\]
+ a ponieważ $1 - \alpha \geq 0$ możemy drugie równanie przemnożmyć przez $1 - \alpha$:
+\[
+ (1 - \alpha) c^w + \sum_{i=0}^{n-1} a_i^w (1 - \alpha) v_i \geq 0
+\]
+Teraz sumując oba równania otrzymujemy:
+\[
+ c^w + \sum_{i=0}^{n-1} a_i^w (\alpha u_i + (1 - \alpha) v_i) \geq 0
+\]
+Zatem punkt $\alpha \cdot u + (1 - \alpha) v$ również w wierzchołku $w$ skręci w tą samą stronę co punkty $u$ oraz $v$.
+Ponieważ wybraliśmy dowolny wierzchołek $w$, to punkt $\alpha \cdot u + (1 - \alpha) v$ osiągnie liść $l$.
+Stąd zbiór wszystkich punktów, które osiągają liść $l$ w afinicznym drzewie decyzyjnym, jest zbiorem wypukłym.
+\end{proof}
+
+Wyobraźmy sobie, że płaszczyznę $\mathbb{R}^2$ kładziemy półpłaszczyzny.
+Wtedy przecięcie dowolnej liczby półpłaszczyzn jest zbiorem wypukłym.
+Podobnie jeśli w przestrzeni $\mathbb{R}^3$ wyznaczymy sobie półprzestrzenie, to ich przecięcie będzie tworzyło zbiór wypukły.
+Lemat \ref{uniqness-lemma} mówi, że tak samo się dzieje w każdej przestrzeni $\mathbb{R}^n$.
+
+Ten lemat za chwilę okaże się dla nas kluczowy, gdyż za jego pomocą udowodnimy, że jeśli afiniczne drzewo decyzyjne poprawnie rozwiązuje problem element uniqness to musi posiadać conajmniej $n!$ liści.
+Oznacza to, że wysokość takiego drzewa musi wynosić conajmniej $\O(n \log n)$.
+
+\begin{lemma}
+ \label{permutation-lemma}
+ Niech $\{r_0, r_1, \ldots, r_{n-1}\}$ będzie $n$ elementowym zbiorem liczb rzeczywistych i niech $(a_0, a_1, \ldots, a_{n-1})$ oraz $(b_0, b_1, \ldots, b_{n-1})$ będą dwoma różnymi permutacjami liczb z tego zbioru.
+ W każdym afinicznym drzewie decyzyjnym poprawnie rozwiązującym problem element uniqness, punkty $a$ oraz $b$ osiągają różne liście w drzewie.
+\end{lemma}
+
+\begin{proof}
+ Dowód niewprost.
+ Załóżmy, że $a$ oraz $b$ osiągają ten sam liść w drzewie.
+ Liść ten musi odpowiadać przecząco na zadany problem, gdyż ani $a$ ani $b$ nie zawierają dwóch tych samych elementów.
+ Ponieważ $a$ oraz $b$ składają się z tych samych liczb rzeczywistych i różnie się od siebie permutacją, to muszą istnieć takie indeksy $i$ oraz $j$, że $a_i > a_j$ oraz $b_i < b_j$.
+ Weźmy następującą wartość $\alpha$:
+ \[
+  \alpha = \frac{b_j - b_i}{(a_i - a_j) + (b_j - b_i)}
+ \]
+ Wykonując proste przekształcenia arytmetyczne, możemy przekonać się, że $0 < \alpha < 1$.
+ Oznacza to, na mocy lematu \ref{uniqness-lemma}, że punkt $\alpha a + (1 - \alpha)b$ również osiąga ten sam liść co punkty $a$ i $b$.
+ Ponieważ jednak zachodzi:
+ \[
+  \alpha a_i + (1 - \alpha) b_i = \alpha a_j + (1 - \alpha) b_j
+ \]
+ (o czym można się przekonać wykonując proste przekształcenia arytmetyczne), odpowiedź algorytmu dla tego punktu powinna być twierdząca.
+ Zatem afiniczne drzewo decyzyjne dla tego punktu zwraca złą odpowiedź.
+ Sprzeczność z założeniem, że drzewo rozwiązywało problem poprawnie.
+\end{proof}
+
+Weźmy dowolny $n$ elementowy zbiór liczb rzeczywistych.
+Na mocy Lematu \ref{permutation-lemma} każda permutacja tych liczb musi osiągać inny liść w afinicznym drzewie decyzyjnym poprawnie rozwiązującym problem element uniqness.
+Oznacza to, że liczba liści w takim drzewie musi wynosić przynajmniej $n!$.
+Zatem wysokość takiego drzewa musi wynosić conajmniej $O(n \log n)$.

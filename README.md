@@ -23,7 +23,7 @@ Podział:
 - Sortowanie (Ania)
 - Minimalne Drzewa Rozpinające (Kruskal, Prim) (Paweł)
 - Pokrycie zbioru (Michał)
-- Algorytm szeregownia (Ela :))
+- Algorytm szeregownia (Ela :()
 - Algorytm Dijkstry (Mikołaj)
 - O złożoności obliczeniowej (Dominika)
 - Cut Property / Circle Property (Mateusz)
@@ -32,32 +32,29 @@ Podział:
 - Algorytm Boruvki (Paweł)
 - Algorytm dwóch najbliższych punktów (Tomasz)
 - LCS (Łukasz)
+- Programowanie dynamiczne na drzewach (Łukasz)
+- O modelach obliczeń (Łukasz)
+- Sieć Banesa-Waksmana (Marcin)
+- Algorytm D&Z otoczki wypukłej (Oleś)
+- Algorytm sprawdzający czy słowo należy do języka (Przemek)
+- problemy NP (Wojtek)
+- algorytm stokrotek (Paweł)
+- optymalna kolejność mnożenia macierzy (Wojtek)
+- drzewa rozpinające drabiny (Tomek)
+- Cykl Hamiltona (Szymon)
+- 3SAT (Oleś)
+- 3-wymiarowe skojarzenie (Mikołaj)
+- pokrycie wierzchołkowe (Krzysztof (nie ja))
+- problem plecakowy (Marcin)
+- dolne granice (Ja)
+- model drzew decyzyjnych (Szymon)
+- element uniqness (też ja)
+- dolna granica min-maks (Dominika)
+- counting sort (Dominika)
+- bucket sort (Ania)
 
 Zrobione:
 
 - Algorytm Strassena (KPI)
 - Sortowanie Bitoniczne (KPI)
 - Fibonacci algorytm macierzowy (Rafał)
-
-Tematy wolne:
-
-- Programowanie dynamiczne na drzewach
-- O modelach obliczeń
-- Sieć Banesa-Waksmana
-- Algorytm D&Z otoczki wypukłej
-- Algorytm sprawdzający czy słowo należy do języka
-- problemy NP
-- algorytm stokrotek
-- optymalna kolejność mnożenia macierzy
-- drzewa rozpinające drabiny
-- Cykl Hamiltona
-- 3SAT
-- 3-wymiarowe skojarzenie
-- pokrycie wierzchołkowe
-- problem plecakowy
-- dolne granice
-- model drzew decyzyjnych
-- element uniqness
-- dolna granica min-maks
-- counting sort
-- bucket sort
