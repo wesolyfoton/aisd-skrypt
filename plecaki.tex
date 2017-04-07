@@ -1,0 +1,58 @@
+\section{Problem plecakowy}
+
+\label{sec:plecaki}
+
+W tym rozdziale opiszemy jeden z najbardziej znanych problemów optymalizacyjnych, czyli tak zwany problem plecakowy.
+
+Załóżmy, że jesteśmy złodziejem, który w trakcie włamania chce wypełnić swój plecak wielkości $W$ przedmiotamiple o jak największej wartości.
+Każdy z przedmiotów $i$ ma swoją wartość $v_i$ i wielkość $w_i$.
+To ile przedmiotów typu $i$ zabierzemy będziemy oznaczać przez $x_i \geq 0$.
+Problem plecakowy posiada aż trzy(!!!) popularne warianty.
+
+
+\begin{itemize}
+  \item 0-1 problem plecakowy, w którym $x_i \epsilon \left \{ 0, 1 \right \}$.
+  Tę wersję możemy interpretować jako okradanie gelerii sztuki.
+  \item Ograniczony problem placakowy, w którym, dla każdego $i$ mamy podaną ilość przedmiotów danego typu - $c_i$, czyli $x_i \leq c_i$.
+  Tę wersję możemy interpretować jak zwykłą kradzież ze sklepu rtv.
+  \item Nieograniczony problem plecakowy, w którym $x_i$ nie ma górnego ograniczenia.
+  Tę wersję można interpretować jako kradzież ziaren piasku z Sahary.
+\end{itemize}
+
+\subsection{Próba rozwiązania zachłannego}
+Mimo, że intuicyjnym byłoby dla każdego przedmiotu wyliczyć stosunek wartości do wielkości i branie przedmiotów
+o najlepszym współczynniku rozwiązanie takie jest nieprawidłowe.
+Prostym kontrprzykładem będzie sytuacja, w której plecak ma wielkość $w = 10$ i do dyspozycji mamy 3 przedmioty;
+$v_1=9$, $v_2=v_3=5$, $w_1=6$, $w_2=w_3=5$. W każdym z wariantów problemu postępując w ten sposób zachłannie wybierzemy przedmiot 1,
+otrzymując plecak o wartości 9, zamiast wybierając 2 i 3 otrzymując plecak o wartości 10. 
+Co ciekawe; przy założeniu, że możemy brać część, a nie całość przedmiotu podejście zachłanne jest poprawne.
+
+\subsection{Rozwiązanie dynamiczne}
+\subsubsection{0-1}
+Rozwiążmy na początku problem dla pierwszego wariantu(pozostałe będą bardzo podobne).
+Stwórzmy dwuwymiarową tablicę A.
+$A[i, w]$ będzie oznaczała maksymalną wartość plecaku wielkości $w$, rozważając $i$ pierwszych przedmiotów.
+Stwórzmy zależność rekurencyjną.
+\[A[0, w] = 0\]
+Gdyż biorąc zero przedmiotów nie otrzymamy żadnej wartości dodanej.
+\[A[i, 0] = 0\]
+\[A[i, w] = max(m[i - 1, w], m[i - 1, w - w_i] + v_i)\]
+Czyli rozważając dodanie następnego przedmiotu sprawdzamy, czy najbardziej wartościowy po jego dołożeniu jest wart więcej, niż najbardziej wartościowy plecak bez tego elementu.
+
+\subsubsection{Ograniczony}
+W wariance ograniczonym zależność podobna do 0-1.
+\[A[0, w] = 0\]
+\[A[i, 0] = 0\]
+\[A[i, w] = max(\left \{ m[i - 1, w - w_i * n] + v_i * n ~|~ 0 \leq n \leq c_i \wedge w - w_i * n \geq 0 \right \})\]
+Podobnie, do wariantu 0-1, z tym, że tutaj przy i-tym elemencie rozważamy jego każdą możliwą ilość.
+Wariant ograniczony możemy też łatwo stransformować na wariant 0-1.
+
+\subsubsection{Nieograniczony}
+W wariance nieograniczonym; jako, że nie musimy kontrolować, ile elementów wzięliśmy, sytuacja się upraszcza.
+Wystarczy nam jednowymiarowa tablica A; A[w] będzie oznaczała wartość najcennieszego plecaka o wielkości w.
+\[A[0] = 0\]
+\[A[w] = max(\left \{ A[w - w_i] + c_i ~|~ w_i <= w \right \})\]
+
+\subsubsection{Złożoność}
+Każdy z podanych algorytmów ma złożoność pseudowielomioanową $O(W * n)$.
+\comment{Wydaje mi się, że na wykładzie było użyte O, a nie $\Theta$, więc tutaj zrobiłem tak samo}
