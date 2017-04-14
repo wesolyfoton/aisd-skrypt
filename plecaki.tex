@@ -51,24 +51,29 @@ Wynik będzie w komórce $A[M, W]$.
 \subsubsection{Ograniczony}
 \[A[0, w] = 0\]
 \[A[i, 0] = 0\]
-\[A[i, w] = max(\left \{ A[i - 1, w - w_i \cdot n] + v_i \cdot n ~|~ 0 \leq n \leq c_i \right \})\]
+\[A[i, w] = \max_{0 \leq n \leq c_i}(A[i - 1, w - w_i \cdot n] + v_i \cdot n)\]
 Podobnie, do wariantu 0-1, z tym, że tutaj przy i-tym elemencie rozważamy jego każdą możliwą ilość.
 
 Wynik będzie w komórce $A[M, W]$.
 
 \subsubsection{Nieograniczony}
 W wariance nieograniczonym; jako, że nie musimy kontrolować, ile elementów wzięliśmy, sytuacja się upraszcza.
-Wystarczy nam jednowymiarowa tablica A; A[w] będzie oznaczała wartość najcennieszego plecaka o wielkości w.
+Wystarczy nam jednowymiarowa tablica $A$; $A[w]$ będzie oznaczała wartość najcennieszego plecaka o wielkości $w$.
 \[A[0] = 0\]
-\[A[w] = max(\left \{ A[w - w_i] + c_i ~|~ w_i <= w \right \})\]
+\[A[w] = \max_{w_i \le w}(A[w - w_i] + c_i) \]
 
 Wynik będzie w komórce $A[W]$.
 
-\subsubsection{Złożoność}
-\subsubsubsection{0-1}
-Złożoność pseudowielomioanowa $O(M \cdot W)$.
-\subsubsection{Ograniczony}
-Złożoność pseudowielomioanowa $O(M \cdot W)$.
-\subsubsection{Nieograniczony}
-Złożoność pseudowielomioanowa $O(M \cdot W \cdot max(\left \{ c_i \right \}))$.
+\subsection{Złożoność}
+\begin{itemize}
+  \item 0-1
+  
+  Złożoność pseudowielomioanowa $O(M \cdot W)$.
+  \item Ograniczony
+  
+  Złożoność pseudowielomioanowa $O(M \cdot W)$.
+  \item Nieograniczony
+  
+  Złożoność pseudowielomioanowa $O(M \cdot W \cdot \max\limits_{1 \le i \le n}(c_i))$.
+\end{itemize}
 \comment{Wydaje mi się, że na wykładzie było użyte O, a nie $\Theta$, więc tutaj zrobiłem tak samo}
