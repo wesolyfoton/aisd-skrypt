@@ -6,13 +6,11 @@ W tym rozdziale opiszemy jeden z najbardziej znanych problemów optymalizacyjnyc
 
 Załóżmy, że jesteśmy złodziejem, który w trakcie włamania chce wypełnić swój plecak wielkości $W$ przedmiotami o jak największej wartości.
 Mamy $M$ typów przedmiotów i plecak wielkości $W$.
-Każdy z przedmiotów typu $i$ ma swoją wartość $v_i> 0$ i wielkość $w_i> 0$.
-To ile przedmiotów typu $i$ zabierzemy będziemy oznaczać przez $x_i\epsilon N$.
-Dyskretny plecakowy posiada trzy popularne wersje.
-
+Każdy z przedmiotów typu $i\in N_+$ ma swoją wartość $v_i> 0$ i wielkość $w_i> 0$.
+To ile przedmiotów typu $i$ zabierzemy będziemy oznaczać przez $x_i\in N$.
 
 \begin{itemize}
-  \item 0-1 dyskretny problem plecakowy, w którym $x_i \epsilon \left \{ 0, 1 \right \}$.
+  \item 0-1 dyskretny problem plecakowy, w którym $x_i \in \left \{ 0, 1 \right \}$.
   Tę wersję możemy interpretować, jako okradanie galerii sztuki.
   \item Ograniczony problem placakowy, w którym, dla każdego $i$ mamy podaną ilość przedmiotów danego typu - $c_i$, czyli $x_i \leq c_i$.
   Tę wersję możemy interpretować, jak zwykłą kradzież ze sklepu rtv.
@@ -22,7 +20,7 @@ Dyskretny plecakowy posiada trzy popularne wersje.
 
 \subsection{Ciągły problem plecakowy}
 Problem plecakowy posiada także wersję ciągłą, w której możemy zabrać część, zamiast całości przedmiotu.
-Specyfikacja jest analogiczna do wariantu dyskretnego, z tą różnicą, że $x_i \epsilon R_+ \cup \left \{ 0 \right \}$.
+Specyfikacja jest analogiczna do wariantu dyskretnego, z tą różnicą, że $x_i \in R_+ \cup \left \{ 0 \right \}$.
 O tym wariancie możemy myśleć jak o kradzieży płynnych chemikaliów.
 
 \subsection{Próba rozwiązania zachłannego}
@@ -52,7 +50,7 @@ Wynik będzie w komórce $A[M, W]$.
 \[A[0, w] = 0\]
 \[A[i, 0] = 0\]
 \[A[i, w] = \max_{0 \leq n \leq c_i}(A[i - 1, w - w_i \cdot n] + v_i \cdot n)\]
-Podobnie, do wariantu 0-1, z tym, że tutaj przy i-tym elemencie rozważamy jego każdą możliwą ilość.
+Podobnie, do wariantu 0-1, z tym, że tutaj przy i-tym rodzaju rozważamy jego każdą możliwą ilość.
 
 Wynik będzie w komórce $A[M, W]$.
 
@@ -67,13 +65,12 @@ Wynik będzie w komórce $A[W]$.
 \subsection{Złożoność}
 \begin{itemize}
   \item 0-1
-  
-  Złożoność pseudowielomioanowa $O(M \cdot W)$.
+
+  Złożoność pseudowielomioanowa $\Theta(M \cdot W)$.
   \item Ograniczony
-  
-  Złożoność pseudowielomioanowa $O(M \cdot W)$.
+
+  Złożoność pseudowielomioanowa $\Theta(M \cdot W)$.
   \item Nieograniczony
-  
-  Złożoność pseudowielomioanowa $O(M \cdot W \cdot \max\limits_{1 \le i \le n}(c_i))$.
+
+    Złożoność pseudowielomioanowa $\Theta(M \cdot W \cdot \sum_{i=1}^{M} c_i)$.
 \end{itemize}
-\comment{Wydaje mi się, że na wykładzie było użyte O, a nie $\Theta$, więc tutaj zrobiłem tak samo}
