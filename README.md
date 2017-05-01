@@ -28,7 +28,6 @@ Podział:
 - O złożoności obliczeniowej (Dominika)
 - Cut Property / Circle Property (Mateusz)
 - Algorytm Karatsuby (Przemek)
-- Master Theorem (Marcin)
 - Algorytm Boruvki (Paweł)
 - Algorytm dwóch najbliższych punktów (Tomasz)
 - LCS (Łukasz)
@@ -48,7 +47,6 @@ Podział:
 - problem plecakowy (Marcin)
 - dolne granice (Ja)
 - model drzew decyzyjnych (Szymon)
-- element uniqness (też ja)
 - dolna granica min-maks (Dominika)
 - counting sort (Dominika)
 - bucket sort (Ania)
@@ -58,3 +56,12 @@ Zrobione:
 - Algorytm Strassena (KPI)
 - Sortowanie Bitoniczne (KPI)
 - Fibonacci algorytm macierzowy (Rafał)
+- Master Theorem (Marcin)
+- element uniqness (KPI)
+
+Do wzięcia:
+
+- Statystyki pozycyjne
+- Algorytm magicznych piątek
+- Lazy Select
+- Drzewa AVL
