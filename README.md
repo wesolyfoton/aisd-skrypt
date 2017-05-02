@@ -65,3 +65,5 @@ Do wzięcia:
 - Algorytm magicznych piątek
 - Lazy Select
 - Drzewa AVL
+- izomorfizm drzew
+- sortowanie ciągów różnej długości
