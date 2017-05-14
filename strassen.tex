@@ -1,4 +1,4 @@
-\section{Mnożenie macierzy}
+\section{Algorytm Strassena}
 
 \label{sec:strassen}
 
@@ -59,7 +59,7 @@ Korzystając prosto z definicji możemy napisać następujący algorytm mnożeni
   \caption{Naiwny algorytm mnożenia macierzy}
   \label{alg-mnozenie-macierzy}
 \end{algorithm}
-Powyższy algorytm działa w czasie $O(n^3)$.
+Powyższy algorytm działa w czasie $\Theta(n^3)$.
 Korzystając ze sprytnej sztuczki, jesteśmy w stanie zmniejszyć złożoność naszego algorytmu.
 
 Zacznijmy od założenia, że rozmiar macierzy jest postaci $2^k \times 2^k$.
@@ -92,9 +92,9 @@ Czy wzór ten umożliwia nam ułożenie efektywnego algorytmu mnożenia macierzy
 Nie.
 W algorytmie mamy do policzenia $4$ podmacierze macierzy $C$.
 Każda podmacierz wymaga $2$ mnożeń oraz jednego dodawania.
-Dodawanie macierzy możemy w prosty sposób zrealizować w czasie $O(n^2)$.
+Dodawanie macierzy możemy w prosty sposób zrealizować w czasie $\Theta(n^2)$.
 Mnożenie podmacierzy możemy wykonać rekurencyjnie.
-Taki algorytm będzie działał w czasie $T(n) = 8\cdot T(n/2) + O(n^2)$ czyli $O(n^3)$.
+Taki algorytm będzie działał w czasie $T(n) = 8\cdot T(n/2) + \Theta(n^2)$ czyli $\Theta(n^3)$.
 Osiągnęliśmy tą samą złożoność czasową jak w przypadku algorytmu liczącego iloczyn wprost z definicji.
 
 Algorytm Strassena osięga lepszą złożoność asymptotyczną przez pozbycie się jednego z mnożeń.
@@ -121,8 +121,8 @@ Wykonując proste przekształcenia arytmetyczne, możemy dowieść poprawności 
 Używając powyższych wzorów, możemy skonstruować algorytm rekurencyjny.
 Będzie on dzielić macierze $A$ oraz $B$ o rozmiarze $2^k \times 2^k$ na cztery równe części.
 Następnie policzy on macierze $M_i$.
-Tam, gdzie będzie musiał dodawać/odejmować użyje on algorytmu działającego w czasie $O(n^2)$.
+Tam, gdzie będzie musiał dodawać/odejmować użyje on algorytmu działającego w czasie $\Theta(n^2)$.
 Tam, gdzie będzie musiał mnożyć - wywoła się on rekurencyjnie.
-Na podstawie macierzy $M_i$ policzy macierz C.
-Ponieważ wykona dokładnie $7$ mnożeń oraz stałą ilość dodawań, jego złożoność obliczeniowa będzie wyrażała się wzorem rekurencyjnym $T(n) = 7\cdot T(n/2) + O(n^2)$.
-Korzystając z twierdzenia o rekurencji uniwersalnej otrzymujemy złożoność $O(n^{\log_2 7})$ czyli około $O(n^{2.81})$.
+Na podstawie macierzy $M_i$ policzy macierz $C$.
+Ponieważ wykona dokładnie $7$ mnożeń oraz stałą ilość dodawań, jego złożoność obliczeniowa będzie wyrażała się wzorem rekurencyjnym $T(n) = 7\cdot T(n/2) + \Theta(n^2)$.
+Korzystając z twierdzenia o rekurencji uniwersalnej otrzymujemy złożoność $\Theta(n^{\log_2 7})$ czyli około $\Theta(n^{2.81})$.

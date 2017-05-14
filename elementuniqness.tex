@@ -13,9 +13,9 @@ W modelu afinicznych drzew decyzyjnych, w każdym zapytaniu możemy wybrać sobi
 \]
 gdzie $t_i$ to elementy tablicy \texttt{T}.
 Gdybyśmy użyli terminologii algebraicznej, to powiedzielibyśmy, że $t$ jest punktem w przestrzeni $\mathbb{R}^n$, lewa strona powyższej nierówności to przekształcenie afiniczne,
-a zbiór wszystkich punktów z $\mathbb{R}^n$, które spełniają tą nierówność to przestrzeń afiniczna.
-Jeśli na Algebrze nie wyrobiliście sobie jeszcze intuicji, to w $\mathbb{R}^2$ przestrzeń afiniczną otrzymujemy przez narysowanie dowolnej prostej i wzięcie wszystkich elementów z jednej ze stron.
-Podobnie w $\mathbb{R}^3$ przestrzeń afiniczną otrzymujemy poprzez narysowanie dowolnej płaszczyzny, a następnie wzięcia wszystkich elementów z jednej ze stron.
+a zbiór wszystkich punktów z $\mathbb{R}^n$, które spełniają tą nierówność to półprzestrzeń afiniczna.
+Jeśli na Algebrze nie wyrobiliście sobie jeszcze intuicji, to w $\mathbb{R}^2$ półprzestrzeń afiniczną otrzymujemy przez narysowanie dowolnej prostej i wzięcie wszystkich elementów z jednej ze stron.
+Podobnie w $\mathbb{R}^3$ półprzestrzeń afiniczną otrzymujemy poprzez narysowanie dowolnej płaszczyzny, a następnie wzięcia wszystkich elementów z jednej ze stron.
 W wyższych wymiarach wygląda to analogicznie.
 \tizkboxwithcaption{tikz/uniqnesstree.tikz}{
 Przykład afinicznego drzewa decyzyjnego.
@@ -115,4 +115,4 @@ Oznacza to, że wysokość takiego drzewa musi wynosić conajmniej $\O(n \log n)
 Weźmy dowolny $n$ elementowy zbiór liczb rzeczywistych.
 Na mocy Lematu \ref{permutation-lemma} każda permutacja tych liczb musi osiągać inny liść w afinicznym drzewie decyzyjnym poprawnie rozwiązującym problem element uniqness.
 Oznacza to, że liczba liści w takim drzewie musi wynosić przynajmniej $n!$.
-Zatem wysokość takiego drzewa musi wynosić conajmniej $O(n \log n)$.
+Zatem wysokość takiego drzewa musi wynosić conajmniej $\Omega(n \log n)$.

@@ -1,10 +1,16 @@
 \section{Algorytm macierzowy wyznaczania liczb Fibonacciego}
 
-\comment{Algorytm szybkiego potęgowania będzie opisany w tym skrypcie, więc jak już będzie to będziemy chciali się odwołać do odpowiedniego rozdziału a nie do wikipedii.}
-W tym rozdziale opiszemy algorytm obliczania liczb Fibonacciego, który wykorzystuje szybkie potęgowanie\footnote{\url{https://en.wikipedia.org/wiki/Exponentiation_by_squaring}}.
-Algorytm działa w czasie $O(\log{n})$, co sprawia, że jest znacznie atrakcyjniejszy (gdy pytamy tylko o jedną liczbę) od algorytmu dynamicznego, który wymaga czasu $O(n)$.
+W tym rozdziale opiszemy algorytm obliczania liczb Fibonacciego, który wykorzystuje szybkie potęgowanie.
+Algorytm działa w czasie $\Theta(\log{n})$, co sprawia, że jest znacznie atrakcyjniejszy (gdy pytamy tylko o jedną liczbę) od algorytmu dynamicznego, który wymaga czasu $\Theta(n)$.
+Zacznijmy od zdefiniowania ciągu Fibonacciego:
+\begin{equation*}
+  F_n=\begin{cases}
+    n, & \text{jeśli $n \leq1$}\\
+    0, & \text{wpp.}
+  \end{cases}
+\end{equation*}
 
-Znajdźmy taką macierz $M$, która po wymnożeniu przez transponowany wektor wyrazów $F_{n}$ i $F_{n - 1}$ da nam wektor, w którym otrzymamy wyrazy $F_{n + 1}$ oraz $F_{n}$. 
+Teraz, znajdźmy taką macierz $M$, która po wymnożeniu przez transponowany wektor wyrazów $F_{n}$ i $F_{n - 1}$ da nam wektor, w którym otrzymamy wyrazy $F_{n + 1}$ oraz $F_{n}$. 
 Łatwo sprawdzić, że dla ciągu Fibonacciego taka macierz ma postać:
 \begin{equation*}
   M = \begin{bmatrix}1 & 1 \\ 1 & 0\end{bmatrix}
@@ -107,12 +113,12 @@ Pokażemy, że powyższa macierz ma zastosowanie w obliczaniu n-tej liczby Fibon
 
   \caption{Procedura \texttt{get\_fibonacci}}
 \end{algorithm}
-Mimo że powyższy algorytm działa w czasie $O(\log{n})$, warto mieć na uwadze fakt, że liczby Fibonacciego 
+Mimo że powyższy algorytm działa w czasie $\Theta(\log{n})$, warto mieć na uwadze fakt, że liczby Fibonacciego 
 rosną wykładniczo. W praktyce oznacza to pracę na liczbach przekraczających długość słowa maszynowego.
 
 Zaprezentowaną metodę można uogólnić na dowolne ciągi, które zdefiniowane są przez liniową 
-kombinację skończonej liczby poprzednich elementów. Wystarczy znaleźć odpowiednią macierz $M$; 
-dla ciągów postaci:
+kombinację skończonej liczby poprzednich elementów. Wystarczy znaleźć odpowiednią macierz $M$. 
+Dla ciągów postaci:
 \begin{equation*}
   G_{n + 1} = a_n G_n + a_{n - 1} G_{n - 1} + ... + a_{n - k} G_{n - k}
 \end{equation*}
@@ -129,4 +135,4 @@ wygląda ona następująco:
     0      & 0         & 0         & \dots  & 1             & 0
   \end{bmatrix}
 \end{align*}
-Dowód tej konstrukcji pozostawiamy czytelnikowi jako ćwiczenie.
+Dowód tej konstrukcji pozostawiamy Czytelnikowi jako ćwiczenie.
