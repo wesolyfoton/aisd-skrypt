@@ -32,17 +32,17 @@ Do tego celu służy poniższe twierdzenie, znane Twierdzeniem o rekurencji uniw
  Niech $T(n) = aT(n/b) + \Theta(n^k \log^{p} n)$ oraz $a \geq 1$, $b > 1$, $k \geq 0$ oraz $p$ liczby rzeczywiste.
  Wtedy
 \begin{enumerate}
-\item jeżeli $a > b^k$, to $T(n) = \Theta(n^{\log_b a})$ \label{mt-1}
+\item jeżeli $a > b^k$, to $T(n) \in \Theta(n^{\log_b a})$ \label{mt-1}
 \item jeżeli $a = b^k$ oraz 
 \begin{enumerate}
- \item $p > -1$ to $T(n) = \Theta(n^{\log_b a} \log^{p + 1} n)$ \label{mt-2a}
- \item $p = -1$ to $T(n) = \Theta(n^{\log_b a} \log \log n)$ \label{mt-2b}
- \item $p < -1$ to $T(n) = \Theta(n^{\log_b a})$ \label{mt-2c}
+ \item $p > -1$ to $T(n) \in \Theta(n^{\log_b a} \log^{p + 1} n)$ \label{mt-2a}
+ \item $p = -1$ to $T(n) \in \Theta(n^{\log_b a} \log \log n)$ \label{mt-2b}
+ \item $p < -1$ to $T(n) \in \Theta(n^{\log_b a})$ \label{mt-2c}
 \end{enumerate}
 \item jeżeli $a < b^k$ oraz
 \begin{enumerate}
- \item $p \geq 0$ to $T(n) = \Theta(n^k \log^{p} n)$ \label{mt-3a}
- \item $p < 0$ to $T(n) = O(n^k)$ \label{mt-3b}
+ \item $p \geq 0$ to $T(n) \in \Theta(n^k \log^{p} n)$ \label{mt-3a}
+ \item $p < 0$ to $T(n) \in O(n^k)$ \label{mt-3b}
 \end{enumerate}
 \end{enumerate}
  \label{Master}
@@ -55,6 +55,8 @@ Do tego celu służy poniższe twierdzenie, znane Twierdzeniem o rekurencji uniw
 \subsection{Przykłady wykorzystania twierdzenia}
 
 W rozdziale \ref{sec:merge-sort} zapoznamy się z algorytmem sortowania przez scalanie.
+\comment{Nie podoba mi się to, że to jest osobny podrozdział.
+Nie wiem czy to powinnien być osobny akapit, tabelka czy może coś jeszcze innego.}
 Jego złożoność określona jest wzorem rekurencyjnym $T(n) = 2 \cdot T(n/2) + \Theta(n)$.
 W tym przypadku $a = 2$, $b = 2$, $k = 1$ oraz $p = 0$.
 Ponieważ $a = b^k$ sprawdzamy dodatkowo, że $p > -1$ i otrzymujemy, że w naszym przypadku powinniśmy skorzystać z pkt \ref{mt-2a}.
@@ -66,13 +68,13 @@ W tym przypadeku $a = 2$, $b = 2$, $k=1$ i $p = 1$.
 Ponieważ $a = b^k$ i $p > -1$ korzystamy z punktu \ref{mt-2a}.
 Otrzymujemy złożoność $\Theta(n \log^2 n)$.
 
+\comment{Naprawić referencję.}
 W rozdziale \ref{sec:karatsuba} opisany jest algorytm Karatsuby. Jego złożoność opisana jest rekurencyjnym wzorem $3 T(n/2) + \Theta(n)$.
 W tym przypadku $a = 3$, $b = 2$, $k=1$ i $p=0$.
 Ponieważ $a > b^k$ korzystamy z punktu \ref{mt-1}.
-Otrzymujemy złożoność $\Theta(n^{\log_{2} 3}) \approx \Theta(n^{1.585}).$
+Otrzymujemy złożoność $\Theta(n^{\log_{2} 3})$ czyli około $\Theta(n^{1.585}).$
 
-Wyszukiwanie binarne to innowacyjny algorytm klasy Dziel i Zwyciężaj wyszukujący elementu w posortowanym ciągu.
-Ze względu na swoją złożoność obliczeniową i wydajność na współczesnych procesorach jest wykorzystywany w takich projektach jak Linux, czy WebKit.
+Wyszukiwanie binarne to algorytm klasy Dziel i Zwyciężaj wyszukujący element w posortowanym ciągu.
 Ma złożoność opisaną rekurencyjnym wzorem $T(n) = T(n/2) + \Theta(1)$.
 Mamy więc $a = 1$, $b = 2$, $k = p = 0$.
 Ponieważ $a = b^k$ i $p > -1$ korzystamy z punktu \ref{mt-2a}.
@@ -82,4 +84,4 @@ Algorytm Strassena jest opisany w rodziale \ref{sec:strassen}.
 Jego złożoność opisana jest rekurencyjnym wzorem $T(n) = 7 \cdot T(n/2) + \Theta(n^2)$.
 W tym przypadku mamy $a = 7$, $b = 2$, $k = 2$, $p = 0$.
 Jako, że $a > b^k$ wykorzystamy punkt \ref{mt-1}.
-Otrzymujemy złożoność $\Theta(n^{\log_{2} 7}) \approx \Theta(n^{2.807})$
+Otrzymujemy złożoność $\Theta(n^{\log_{2} 7})$ czyli około $\Theta(n^{2.807})$

@@ -3,7 +3,7 @@
 \label{sec:bitoniczne}
 
 W tym rozdziale przedstawimy algorytm sortowania bitonicznego.
-Jest to algorytm działający w czasie $O(n \log^2 n)$ czyli gorszym niż inne, znane algorytmy sortujące takie jak sortowanie przez scalanie albo sortowanie szybkie.
+Jest to algorytm działający w czasie $\Theta(n \log^2 n)$ czyli gorszym niż inne, znane algorytmy sortujące, takie jak sortowanie przez scalanie albo sortowanie szybkie.
 Zaletą sortowania bitonicznego jest to, że może zostać uruchomiony równolegle na wielu procesorach.
 Ponadto, dzięki temu, że algorytm zawsze porównuje te same elementy bez względu na dane wejściowe, istnieje prosta implementacja fizyczna tego algorytmu (np. w postaci tzw. sieci sortujących).
 Algorytm będzie zakładał, że rozmiar danych $n$ jest potęgą dwójki.
@@ -14,8 +14,8 @@ Sortowanie bitoniczne posługuje się tzw. ciągami bitonicznymi, które sobie t
 \begin{definition}
  \textbf{Ciągiem bitonicznym właściwym} nazywamy każdy ciąg powstały przez sklejenie ciągu niemalejącego z ciągiem nierosnącym.
 \end{definition}
-Dla przykładu ciąg $2$, $2$, $5$, $100$, $72$, $69$, $42$, $17$ jest ciągiem bitonicznym, gdyż powstał przez sklejenie ciągu niemalejącego $2$, $2$, $5$ oraz ciągu nierosnącego $100$, $72$, $69$, $42$, $17$.
-Ciąg $1$, $0$, $1$, $0$ nie jest ciągiem bitonicznym, gdyż nie istnieją taki ciąg niemalejący i taki ciąg nierosnący, które w wyniku sklejenia dałyby podany ciąg.
+Dla przykładu ciąg $2$, $2$, $5$, $100$, $72$, $69$, $42$, $17$ jest ciągiem bitonicznym właściwym, gdyż powstał przez sklejenie ciągu niemalejącego $2$, $2$, $5$ oraz ciągu nierosnącego $100$, $72$, $69$, $42$, $17$.
+Ciąg $1$, $0$, $1$, $0$ nie jest ciągiem bitonicznym właściwym, gdyż nie istnieją taki ciąg niemalejący i taki ciąg nierosnący, które w wyniku sklejenia dałyby podany ciąg.
 \begin{definition}
  \textbf{Ciągiem bitonicznym} nazywamy każdy ciąg powstały przez rotację cykliczną ciągu bitonicznego właściwego.
 \end{definition}
@@ -66,7 +66,7 @@ Procedura \texttt{bitonic\_compare} ma bardzo ważną własność, którą teraz
 \begin{theorem}
  Jeżeli elementy tablicy \texttt{A[0..n-1]} tworzą ciąg bitoniczny, to po zakończeniu procedury \texttt{bitonic\_compare} elementy tablicy \texttt{A[0..n/2-1]} oraz tablicy \texttt{A[n/2..n-1]} będą tworzyły ciągi bitoniczne.
  Ponadto jeśli wartość zmiennej \texttt{up} jest ustawiona na \texttt{true} to każdy element tablicy \texttt{A[0..n/2-1]} będzie niewiększy od każdego elementu tablicy \texttt{A[n/2..n-1]}.
- W przeciwnym przypadku będzie większy.
+ W przeciwnym przypadku będzie niemniejszy.
  \label{bitonic-theorem}
 \end{theorem}
 
@@ -102,7 +102,7 @@ Przyda nam się do tego poniższy lemat:
  Dowód nie wprost.
  Załóżmy, że twierdzenie jest prawdziwe dla wszystkich tablic zero-jedynkowych i nie jest prawdziwe dla pewnej tablicy \texttt{T[0..n-1]}.
  Niech \texttt{S[0..n-1]} oznacza zawartość tablicy po zakończeniu procedury \texttt{bitonic\_compare}.
- Jeśli twierdzenie nie jest prawdziwe, oznacza to, że albo któraś z tablic \texttt{S[0..n/2-1]}, \texttt{S[n/2..n-1]} nie jest bitoniczna albo, że elementy z jednej z nich nie są mniejsze od wszystkich elementów z drugiej tablicy.
+ Jeśli twierdzenie nie jest prawdziwe, oznacza to, że albo któraś z tablic \texttt{S[0..n/2-1]}, \texttt{S[n/2..n-1]} nie jest bitoniczna albo, że element pierwszej z nich jest większy od któregoś elementu z drugiej tablicy.
  Rozważmy dwa przypadki.
  
  Załóżmy, że tablica \texttt{S[0..n/2-1]} nie jest bitoniczna (przypadek kiedy druga z tablic nie jest bitoniczna, jest analogiczny).
@@ -116,9 +116,16 @@ Przyda nam się do tego poniższy lemat:
        0 &\quad\textsf{wpp.}
      \end{cases}
  \]
- \comment{Zrobić rysunki}
  Zwróćmy uwagę, że w takiej sytuacji twierdzenie nie byłoby prawdziwe dla tablicy $f(T)$, zatem dla tablicy zero-jedynkowej.
  Gdyż ponownie - element $f(S[i]) = 1$ byłby większy od elementu $f(S[i+1]) = 0$.
+ 
+  \begin{center}
+  \begin{tabular}{ccccccccr}
+  1 & 2 & 3 & 5          & 4            & 6 & 7 & 1 & \texttt{S[]} \\
+  0 & 0 & 0 & 1          & 0            & 1 & 1 & 0 & $f(S)$ \\
+    &   &   & $i$ & $i+1$ &   &   &   &
+  \end{tabular}
+  \end{center}
  
  Drugi przypadek.
  Załóżmy, że zmienna \texttt{up} ustawiona jest na \texttt{true} (przypadek drugi jest analogiczny).
@@ -133,6 +140,16 @@ Przyda nam się do tego poniższy lemat:
  \]
  Wtedy twierdzenie nie byłoby prawdziwe dla tablicy $f(T)$ (zero-jedynkowej).
  Ponownie - element $f(S[i]) = 0$ byłby mniejszy od elementu $f(S[j]) = 1$.
+ 
+  \begin{center}
+  \begin{tabular}{ccccccccr}
+  1 & 2 & 100        & 2 & 102 & 99         & 103 & 107 & \texttt{S[]} \\
+  0 & 0 & 1          & 0 & 1   & 0          & 1   & 1   & $f(S)$ \\
+    &   & $j$ &   &     & $i$ &     &     &
+  \end{tabular}
+  \end{center}
+ 
+ 
 \end{proof}
 
 Do pełni szczęścia potrzebujemy udowodnić, że Twierdzenie \ref{bitonic-theorem} jest prawdziwe dla wszystkich ciągów zero-jedynkowych.
@@ -198,8 +215,8 @@ Dzięki niej, wszystkie elementy mniejsze wrzucane są do pierwszej połowy tabl
 Ponadto \texttt{bitonic\_compare} gwarantuje, że obie podtablice pozostają bitoniczne (jakie to piękne!).
 Możemy zatem wykonać całą procedurę ponownie na obu podtablicach rekurencyjnie.
 
-Złożoność algorytmu wyraża się wzorem rekurencyjnym $T(n) = 2 \cdot T(n/2) + O(n)$.
-Rozwiązując rekurencję otrzymujemy, że złożoność algorytmu to $O(n \log n)$.
+Złożoność algorytmu wyraża się wzorem rekurencyjnym $T(n) = 2 \cdot T(n/2) + \Theta(n)$.
+Rozwiązując rekurencję otrzymujemy, że złożoność algorytmu to $\Theta(n \log n)$.
 
 Mamy algorytm sortujący ciągi bitoniczne.
 Jak uzyskać algorytm sortujący dowolne ciągi?
@@ -225,5 +242,5 @@ Teraz wystarczy już uruchomić algorytm sortujący ciągi bitoniczne i voilà.
   \label{bitonic-sort}
 \end{algorithm}
 
-Złożoność algorytmu wyraża się wzorem rekurencyjnym $T(n) = 2 \cdot T(n/2) + O(n \log n)$.
-Rozwiązaniem tej rekurencji jest $O(n \log^2 n)$.
+Złożoność algorytmu wyraża się wzorem rekurencyjnym $T(n) = 2 \cdot T(n/2) + \Theta(n \log n)$.
+Rozwiązaniem tej rekurencji jest $\Theta(n \log^2 n)$.
