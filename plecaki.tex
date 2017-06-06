@@ -2,75 +2,105 @@
 
 \label{sec:plecaki}
 
-W tym rozdziale opiszemy jeden z najbardziej znanych problemów optymalizacyjnych, czyli tak zwany problem plecakowy.
-
-Załóżmy, że jesteśmy złodziejem, który w trakcie włamania chce wypełnić swój plecak wielkości $W$ przedmiotami o jak największej wartości.
-Mamy $M$ typów przedmiotów i plecak wielkości $W$.
-Każdy z przedmiotów typu $i\in \mathbb{N}_+$ ma swoją wartość $v_i> 0$ i wielkość $w_i> 0$.
-To ile przedmiotów typu $i$ zabierzemy będziemy oznaczać przez $x_i\in \mathbb{N}$.
-
+Wyobraźmy sobie, że jesteśmy złodziejem.
+Pod przykryciem nocy, udało nam się dotrzeć w ustalone miejsce.
+Wszystko idzie wyjątkowo gładko.
+Wpisujemy kod, który otrzymaliśmy od sprzątaczki i jesteśmy już w środku.
+Wtem okazuje się, że zapomnieliśmy listy przedmiotów, które mieliśmy ukraść.
+Próbujemy zachować zimną krew i zmaksymalizować nasz zysk.
+Możemy ukraść przedmioty różnego rodzaju.
+Dokładniej rzecz ujmując - mamy $M$ różnych typów przedmiotów.
+Każdy typ przedmiotu ma swoją wielkość $w_i > 0$ i swoją cenę u pasera $v_i > 0$.
+Wiemy, że w naszym plecaku zmieszczą się przedmioty o łącznej wielkości nie przekraczającej $W$.
+Które przedmioty mamy wybrać (i w jakiej ilości), aby zmaksymalizować nasz zysk i żeby nie przepakować naszego plecaka?
+Bardziej formalnie: w jaki sposób wybrać zmienne $x_i$ tak aby zysk $\sum_{i=1}^{M} x_i \cdot v_i$ był jak największy oraz aby był
+zachowany warunek $\sum_{i=1}^{M} x_i \cdot w_i \leq W$.
+W zależności od tego do jakiego sklepu się włamaliśmy, rozróżniamy następujące rodzaje problemu plecakowego:
 \begin{itemize}
-  \item 0-1 dyskretny problem plecakowy, w którym $x_i \in \left \{ 0, 1 \right \}$.
-  Tę wersję możemy interpretować, jako okradanie galerii sztuki.
-  \item Ograniczony problem placakowy, w którym, dla każdego $i$ mamy podaną ilość przedmiotów danego typu - $c_i$, czyli $x_i \leq c_i$.
-  Tę wersję możemy interpretować, jak zwykłą kradzież ze sklepu rtv.
-  \item Nieograniczony problem plecakowy, w którym $x_i$ nie ma górnego ograniczenia.
-  Tę wersję możemy intepretować, jako kradzież kopii Windowsa, gdzie plecakiem będzie dysk.
+  \item Galeria sztuki.
+  W tym przypadku mamy dodatkowe ograniczenie: $x_i \in \left \{ 0, 1 \right \}$.
+  Każde dzieło sztuki jest unikalne i nie możemy z galerii wynieść dwóch takich samych waz ani obrazów.
+  Wersję tą nazywamy czasem dyskretnym $0$/$1$ problemem plecakowym.
+  \item Sklep RTV.
+  Tym razem ukraść możemy dwa takie same telewizory.
+  Ale wciąż ilość przedmiotu danego typu jest ograniczona: $x_i \in \mathbb{N}$, $x_i \leq c_i$.
+  Problem ten nazywamy czasem ograniczonym, dyskretnym problemem plecakowym.
+  \item Cyberprzestrzeń.
+  W tym przypadku możemy ukraść dowolną ilość przedmiotu danego typu (np. klucza aktywacji).
+  Wtedy $x_i \in \mathbb{N}$.
+  Problem ten można znaleźć w literaturze pod hasłem: nieograniczony, dyskretny problem plecakowy.
+  \item Laboratorium chemiczne.
+  W tym przypadku, ilość chemikaliów, które kradniemy, jest ograniczona ($0 \leq x_i \leq c_i$).
+  Pponieważ chemikalia możemy przelewać, ilość chemikaliów nie musi wyrażać się liczbą naturalną ($x_i \in \mathbb{R}$).
+  Jest to ciągły problem plecakowy.
 \end{itemize}
 
-\subsection{Ciągły problem plecakowy}
-Problem plecakowy posiada także wersję ciągłą, w której możemy zabrać część, zamiast całości przedmiotu.
-Specyfikacja jest analogiczna do wariantu dyskretnego, z tą różnicą, że $x_i \in \mathbb{R}_+ \cup \left \{ 0 \right \}$.
-O tym wariancie możemy myśleć jak o kradzieży płynnych chemikaliów.
+Najprostszym pomysłem jaki wpada do głowy, jest policzenie dla każdego przedmiotu stosunku wartości do wielkości ($v_i / w_i$).
+Następnie wzięcie w pierwszej kolejności przedmiotów o większej wartości tego ilorazu.
+Taki zachłanny algorytm sprawdza się w przypadku ciągłego problemu plecakowego (TODO: dowód).
+Złożoność tego algorytmu to $\Theta(n \log n)$, gdyż potrzebujemy posortować tablicę ilorazów.
 
-\subsection{Próba rozwiązania zachłannego}
-Mimo, że intuicyjnym byłoby dla każdego przedmiotu wyliczyć stosunek wartości do wielkości i branie przedmiotów
-o najlepszym współczynniku rozwiązanie takie jest nieprawidłowe.
-Prostym kontrprzykładem będzie sytuacja, w której plecak ma wielkość $w = 10$ i do dyspozycji mamy $3$ przedmioty;
-$v_1=9$, $v_2=v_3=5$, $w_1=6$, $w_2=w_3=5$. W każdym z wariantów problemu postępując w ten sposób zachłannie wybierzemy przedmiot $1$,
-otrzymując plecak o wartości $9$, zamiast wybierając $2$ i $3$ otrzymując plecak o wartości $10$.
-Co ciekawe podejście zachłanne sprawdza się w przypadku problemu ciągłego.
+Nie jest jednak poprawnym algorytmem dla wersji dyskretnych.
+Kontrprzykładem będzie sytuacja, w której plecak ma wielkość $W = 10$ i do dyspozycji mamy $M = 3$ przedmioty: $v_1=9$, $v_2=v_3=5$, $w_1=6$, $w_2=w_3=5$.
+W każdym z wariantów problemu postępując w sposób zachłanny, wybierzemy w pierwszym kroku przedmiot $1$.
+Otrzymamy w ten sposób plecak o wartości $9$, do którego nie jesteśmy w stanie już wstawić kolejnego przedmiotu.
+Wybierając przedmioty $2$ i $3$ otrzymując plecak o wartości $10$.
+Zatem wybranie przedmiotu o największym stosunku wartości do wielkości było w takiej sytuacji błędem.
+Poprawnym rozwiązaniem wersji dyskretnych okazuje się podejście dynamiczne.
 
-\subsection{Rozwiązanie dynamiczne}
-\subsubsection{0-1}
-Stwórzmy dwuwymiarową tablicę A.
-$A[i, w]$ będzie oznaczała maksymalną wartość plecaku wielkości $w$, rozważając $i$ pierwszych przedmiotów.
-Uznajmy przy tym, że dla indeksów ujemnych A będzie zwracać $-\infty$.
+Zacznijmy od najprostszej wersji - nieograniczonej.
+Użyjemy tutaj tablicy \texttt{T[0..W]}.
+W komórce \texttt{T[w]} będziemy pamiętać optymalne rozwiązanie dla plecaka wielkości $w$.
+Rozwiązanie naszego problemu będzie znajdowało się w komórce \texttt{T[W]}.
+Wartości poszczególnych komórek liczymy według wzoru:
+\begin{equation*}
+  T[w] = \begin{cases}
+    0, & \text{jeśli $w = 0$}\\
+    max_{w_i \leq w}\{v_i + T[w - w_i]\}, & \text{wpp}
+  \end{cases}
+\end{equation*}
+Gdy plecak jest rozmiaru $0$ nie możemy zapakować do niego żadnego przedmiotu.
+Jeśli mamy dostępne miejsce - patrzymy na wszystkie przedmioty, które mieszczą się do plecaka i obliczamy potencjalny zysk przy wzięciu każdego z nich.
+Z otrzymanych wartości bierzemy maksimum.
+Do policzenia mamy $\Theta(W)$ komórek.
+Do policzenia każdej z nich potrzebujemy $O(M)$ operacji w najgorszym przypadku.
+Złożoność całego algorytmu można zatem ograniczyć przez $O(M \cdot W)$.
 
-Stwórzmy zależność rekurencyjną.
-\[A[0, w] = 0\]
-Gdyż biorąc zero przedmiotów nie otrzymamy żadnej wartości dodanej.
-\[A[i, 0] = 0\]
-\[A[i, w] = max(A[i - 1, w], A[i - 1, w - w_i] + v_i)\]
-Czyli rozważając dodanie następnego przedmiotu sprawdzamy, czy najbardziej wartościowy po jego dołożeniu jest wart więcej, niż najbardziej wartościowy plecak bez tego elementu.
+Przejdźmy teraz do nieco trudniejszego przypadku - wersji $0$/$1$.
+W tym wariancie problemu, będziemy potrzebowali tablicy dwuwymiarowej \texttt{T[0..W][0..M]}.
+W komórce \texttt{T[w][m]} będziemy trzymać optymalne rozwiązanie w sytuacji w którym ograniczamy się do plecaka rozmiaru $w$ oraz rozważamy tylko $m$ pierwszych typów przedmiotów.
+\begin{equation*}
+  T[w][m] = \begin{cases}
+    0, & \text{jeśli $w = 0$ lub $m = 0$}\\
+    T[w][m-1], & \text{jeśli $w_m > w$}\\
+    max\{v_m + T[w - w_m][m-1], T[w][m-1]\}, & \text{wpp}
+  \end{cases}
+\end{equation*}
+Pierwsza linijka wzoru to przypadek bazowy rekurencji - wtedy gdy plecak jest pusty lub nie mamy do wyboru żadnego przedmiotu.
+Teraz gdy wiemy, że nie jesteśmy w przypadku bazowym, bierzemy do ręki przedmiot typu $m$ i kontemplujemy nad tym czy wziąć ten przedmiot czy nie.
+Linijka druga wzoru rozwiewa nasz problem w momencie w którym przedmiot ten i tak nie zmieściłby się nam do plecaka (nie bierzemy go w takiej sytuacji; duh...).
+Jeśli jednak by się zmieścił to liczymy potencjalną wartość plecaka wraz z tym przedmiotem oraz bez tego przedmiotu.
+Jako wynik bierzemy maksimum - o czym mówi linijka trzecia.
+Tym razem do policzeniania mamy $\Theta(W \cdot M)$ komórek.
+Na każdą komórkę potrzebujemy jednak tylko $\Theta(1)$ operacji.
+Zatem złożoność całego algorytmu wynosi $\Theta(W \cdot M)$.
 
-Wynik będzie w komórce $A[M, W]$.
+Ostatnim przypadkiem jest wersja ograniczona.
+Tak samo jak w przypadku wersji $0$/$1$ będziemy używać tablicy \texttt{T[0..W][0..M]}.
+Dokładnie tak samo jak w poprzednim przypadku w komórce \texttt{T[w][m]} będziemy trzymać optymalne rozwiązanie
+w sytuacji w którym ograniczamy się do plecaka rozmiaru $w$ oraz rozważamy tylko $m$ pierwszych typów przedmiotów.
+Również wzór rekurencyjny będzie wyglądał bardzo podobnie.
+\begin{equation*}
+  T[w][m] = \begin{cases}
+    0, & \text{jeśli $w = 0$ lub $m = 0$}\\
+    max_{0 \leq c \leq c_m, c \cdot w_m \leq w}\{c \cdot v_m + T[w - c \cdot w_m][m-1]\}, & \text{wpp}
+  \end{cases}
+\end{equation*}
+\comment{Tu i we wzorze wyżej wyjechałem na margines :C}
+Różnica polega na tym, że gdy rozważamy przedmiot typu $m$ to rozważamy każdą jego dostępną ilość, która mieści się w plecaku.
+Dla każdej ilości liczymy potencjalną wartość plecaka w którym wzięliśmy daną ilość przedmiotów tego typu.
+Z wszystkich wartości bierzemy maksimum jako wynik.
+Do policzenia zostaje nam $\Theta(W \cdot M)$ komórek.
+Każda komórka \texttt{T[..][m]} wymaga $O(c_m)$ operacji.
+Zakładając, że dla każdego typu przedmiotów zachodzi $c_m > 0$, cały algorytm działać będzie w czasie $O(W \cdot \sum_{m \leq M} c_m})$.
 
-\subsubsection{Ograniczony}
-\[A[0, w] = 0\]
-\[A[i, 0] = 0\]
-\[A[i, w] = \max_{0 \leq n \leq c_i}(A[i - 1, w - w_i \cdot n] + v_i \cdot n)\]
-Podobnie, do wariantu 0-1, z tym, że tutaj przy i-tym rodzaju rozważamy jego każdą możliwą ilość.
-
-Wynik będzie w komórce $A[M, W]$.
-
-\subsubsection{Nieograniczony}
-W wariance nieograniczonym; jako, że nie musimy kontrolować, ile elementów wzięliśmy, sytuacja się upraszcza.
-Wystarczy nam jednowymiarowa tablica $A$; $A[w]$ będzie oznaczała wartość najcennieszego plecaka o wielkości $w$.
-\[A[0] = 0\]
-\[A[w] = \max_{w_i \le w}(A[w - w_i] + c_i) \]
-
-Wynik będzie w komórce $A[W]$.
-
-\subsection{Złożoność}
-\begin{itemize}
-  \item 0-1
-
-  Złożoność pseudowielomioanowa $\Theta(M \cdot W)$.
-  \item Ograniczony
-
-  Złożoność pseudowielomioanowa $\Theta(M \cdot W)$.
-  \item Nieograniczony
-
-    Złożoność pseudowielomioanowa $\Theta(M \cdot W \cdot \sum_{i=1}^{M} c_i)$.
-\end{itemize}
