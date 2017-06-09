@@ -1,0 +1,47 @@
+\section{Algorytm znajdowania dwóch najbliższych punktów}
+
+Teraz zajmiemy się problemem znalezienia pary najmniej odległych punktów w zadanym zbiorze $Q = \{(x_1, y_1), \ldots, (x_n, y_n)\}$.
+Interesować nas będzie odległość euklidesowa, czyli szukamy takich indeksów $i, j$, że $d(p_i, p_j) = \min\{d(p_k, p_l) \quad | \quad 1 \leq p < l \leq n\}$, gdzie $d(p_k, p_l) = \sqrt{(x_k - x_l)^2 + (y_k - y_l)^2}$
+
+\subsection{Podejście siłowe}
+
+W podejściu siłowym potrzebujemy wyznaczyć i porównać wszystkie odległości pomiędzy punktami. 
+Jest ich ${|Q|}\choose{2}$, czyli w taki sposób problem można rozwiązać w czasie $O(n^2)$. 
+W następnym rozdziale pokażemy jak zrobić to szybciej.
+
+\subsection{Podejście Dziel i Zwyciężaj}
+
+Wiemy już, że problem ten można naiwnie rozwiązać w czasie $O(n^2)$.
+Zastanówmy się jak wykorzystując strategię Dziel i Zwyciężaj zrobić to szybciej.
+Już po chwili zastanowienia widać, że nie jest to takie trywialne, ponieważ po podziale zbioru na 2 części i znalezieniu dla nich rozwiązań, i tak musielibyśmy sprawdzić wszystkie odległości pomiędzy tymi zbiorami. 
+Ale czy na pewno?
+\\\\
+Nasz algorytm będzie wywoływał się rekurencyjnie, więc w celu uniknięcia wielokrotnego sortowania, wykorzystamy dwie tablice $X$ i $Y$, które zawierać będą wszystkie punkty z Q posortowane odpowiednio po $x$'owej i $y$'owej współrzędnej.  
+W tym miejscu istotnym jest, aby punkty ze wszystkich tablic były odpowiednio \textit{połączone} między sobą.  
+Dzięki temu przy podziale zbioru na dwie części: $Q_L$ i $Q_R$ odtworzenie tablic $X_L$, $Y_L$ i $X_R$, $Y_R$ będzie możliwe w czasie $O(|Q|)$.  
+Wystarczy przeglądać po kolei elementy z tablic $X$ oraz $Y$ i przerzucać je do mniejszych odpowiedników, w zależności czy punkt jest w części $L$ czy $R$.
+\\\\
+\begin{algorithm}[H]
+ 	\DontPrintSemicolon
+  	\SetAlgorithmName{Algorytm}{}\\
+  	\KwData{ $Q$ - zbiór punktów,  $X$, $Y$ }\\
+  	\KwResult{ najmniejsza odległość między punktami }\\
+    	\If{$|Q|  <  2$}  { \Return $\infty$ }
+        \If {$|Q| = 2$} {\Return $Q[1] - Q[2]$}
+		\texttt{wykorzystując tablicę $X$ znajdź prostą $l$ dzielącą zbiór Q na dwa prawie równoliczne zbiory}\;
+		\texttt{podziel Q na zbiory $Q_L$ i $Q_R$ względem prostej $l$ odpowiednio po jej lewej i prawej stronie}\;
+        \texttt{wyznacz tablice $X_L$, $Y_L$ i $X_R$, $Y_R$}\;
+        $d_L$ $\leftarrow$ \texttt{NAJMNIEJ-ODLEGLA-PARA($Q_L$, $X_L$, $Y_L$)}\;
+        $d_R$ $\leftarrow$ \texttt{NAJMNIEJ-ODLEGLA-PARA($Q_R$, $X_R$, $Y_R$)}\;
+         $d$ $\leftarrow$ $\min{(d_L, d_R)}$\;
+         $Y'$ $\leftarrow$ \texttt{punkty z $Y$ odległe o co najwyżej $d$ od prostej $l$}\;
+         \For {$i = 1$ to  $|Y'|$ } {
+         	\For {$j = 1$ to  $\min{(7, |Y'| - i)}$ } {
+            	\If {$P[i] - P[i+j] < d$} {
+                	$d$ $\leftarrow$ $|P[i] - P[i+j]|$
+                }
+            }
+         }
+        \Return $d$
+  	\caption{Implementacja procedury NAJMNIEJ-ODLEGLA-PARA}
+\end{algorithm}

@@ -1,0 +1,152 @@
+\section{Przynależność słowa do języka}
+
+TODO: co oznacza gwiazdka nad zbiorem?
+
+W tym rozdziale przedstawimy algorytm sprawdzające czy dane słowo należy do języka generowanego przez gramatykę bezkontekstową.
+Algorytm ten działa w czasie $\Theta(n^3)$ względem długości słowa i jego idea jest oparta na technice programowania dynamicznego.
+Na początek wprowadźmy parę definicji i oznaczeń.
+
+\begin{definition}
+\textbf{Gramatyka bezkontekstowa} to taka czwórka $\langle N, T, P, S \rangle$, że:
+    \begin{itemize}
+    	\item \textbf{N} i \textbf{T} to skończone zbiory rozłączne. 
+        $N$ nazywamy zbiorem \textbf{nieterminali}, a $T$ zbiorem \textbf{terminali}.
+        \item \textbf{P} - zbiór \textbf{produkcji} - to podzbiór $(N \times (N\cup T ))^*$
+        \item \textbf{S} to \textbf{symbol startowy} - wyróżniony element ze zbioru produkcji.
+    \end{itemize}
+\end{definition}
+Będziemy przyjmować, że elementy zbioru terminali to duże litery alfabetu angielskiego, np. $N = \{ A, B, S\}$, a elementy zbioru terminali to małe litery, np. $T = \{ a, b, c, \epsilon\}$ (z wyjątkiem epsilonu - jest to \textit{znak pusty}.
+Zbiór produkcji to zbiór par $(L, R)$, gdzie L jest terminalem, a R jest ciągiem złożonym z terminiali i nieterminali. 
+Parę $(L, R)$ będziemy zapisywali w postaci $L \rightarrow R$, np.: $A \rightarrow aAb$, $A \rightarrow c$, $B \rightarrow b$,$A \rightarrow aSbB$, $S \rightarrow A$. 
+Jeżeli w zbiorze produkcji jeden terminal pojawia się "po prawej strzałki" więcej niż raz, np. $B \rightarrow ab$, $B \rightarrow b$, to zapisujemy te dwie produkcje w skrócie: $B \rightarrow ab |  b$, 
+Poprawną produkcją nie jest $AB \rightarrow b$, ponieważ z lewej strony strzałki znajdują się dwa nieterminale.
+
+Aby wyprowadzić konkretne słowo, np. $aacbb$, to musimy zacząć od symbolu startowego $S$ i kolejno "podmieniać" terminale zgodnie ze zbiorem produkcji:
+ \[ S \Rightarrow A \Rightarrow aAb \Rightarrow aaAbb \Rightarrow aacbb \]
+W powyższym przykładzie kolejno skorzystaliśmy z produkcji: $S \rightarrow A$, $A \rightarrow aAb$ (dwukrotnie),   $A \rightarrow c$. Słowo $aabb$ zostało \textit{wyprowadzone} w gramatyce G.
+
+\begin{definition}
+Niech $G = \langle N, T, P, S \rangle$, $a,b,c \in (N \cup T)^*$ oraz $A \in N$.
+Ze słowa $aAb$ można w G \textbf{wyprowadzić} słowo $acb$ jeżeli $A \rightarrow c$ jest produkcją z P.
+Zapisujemy to: $aAb \Rightarrow acb$.
+\end{definition}
+
+Jeżeli rozważymy zbiór wszystkich słów, które da się wyprowadzić gramatyce $G$, to zbiór ten nazywamy \textit{językiem $L(G)$ nad gramatyką $G$}:
+
+\begin{definition}
+Niech $G = \langle N, T, P, S \rangle$. Język $L(G)$ generowany przez gramatykę $G$ to:
+\[ L(G) = \{w: w\in T^* \land S \Rightarrow^* w \}\]
+\end{definition}
+
+O $\Rightarrow^*$, czyli o tranzytywnym domknięciu relacji $\Rightarrow$, możemy myśleć jako wielokrotnym zaaplikowaniu (iterowaniu) relacji $\Rightarrow$.
+
+W naszym algorytmie będziemy używać gramatyk bezkontekstowych, w których po prawej stronie każdej produkcji znajdują się albo dwa terminale albo jeden nieterminal:
+
+\begin{definition}
+Gramatyka jest w \textbf{postaci Chomsky'ego} jeżeli każda produkcja jest w jednej z poniższych postaci:
+	\begin{itemize}
+		\item $A \rightarrow BC$ (typ I)
+        \item $a$ (typ II)
+	\end{itemize}
+gdzie $A,B,C$ są nieterminalami i $a$ jest terminalem.
+\end{definition}
+
+Zauważmy, że każdą gramatykę bezkontekstową można przedstawić w postaci Chomsky'ego.
+Wystarczy każdą produkcję niebędącej w pożądanej postaci rozpisać na kilka innych, poprawnych produkcji. 
+
+Mając daną gramatykę $G$ w postaci Chomsky'ego oraz słowo $w$ możemy zadać pytanie: czy słowo $w = a_1a_2...a_n$ należy do języka generowanego przez tę gramatykę? 
+Jeżeli $w$ jest długości jeden, to znaczy, że $w$ jest nieterminalem i wystarczy sprawdzić, czy w $G$ istnieje produkcja $S \rightarrow w$. 
+Jeżeli długość $w$ jest większa od $1$ i jeżeli $w$ należałoby do języka, to ostatnia produkcja w wyprowadzeniu $w$ musiała mieć postać $X \rightarrow YZ$ (bo gramatyka jest w postaci Chomsky'ego).
+W takim razie słowo $w$ da się podzielić na dwie części $a_1a_2...a_i$ oraz $a_{i+1}...a_n$, takie, że pierwszą da się wyprowadzić z $Y$, a drugą z $Z$. 
+Nie znamy indeksu $i$, więc musimy sprawdzić wszystkie możliwe jego wartości.
+Następnie tę procedurę powtarzamy zarówno dla $Y$ jak i $Z$.
+
+Niestety, może się okazać, ze wiele takich samych fragmentów słowa $w$ możemy obliczać wielokrotnie.
+Takie podejście rekurencyjne skutkuje wykładniczym czasem działania.
+Aby temu zapobiec zastosujemy programowanie dynamiczne. 
+Zaczniemy analogicznie jak w algorytmie obliczania $n-tej$ liczby Fibonacciego: rozpoczniemy od małych fragmentów, a pośrednie wyniki obliczane iteracyjne będziemy spamiętywać.
+
+\paragraph{Szkic algorytmu} Mamy daną gramatykę  $G = \langle N, T, P, S \rangle$ oraz słowo $w = a_1a_2...a_n$. Chcemy się dowiedzieć czy $w \in L(G)$.
+\begin{itemize}
+\item Na początku przeglądamy fragmenty $w$ długości jeden, czyli $a_i$ dla $i=1..n$.
+Dla każdego $a_i$ musimy sprawdzić czy istnieje taka produkcja, w której po prawej stronie występuje $a_i$. Jeżeli istnieje, to zapamiętujemy nieterminal po lewej stronie produkcji.
+\item Teraz będziemy rozważać kolejno wszystkie fragmenty $w$ długości $2,3,...n$:
+	\begin{itemize}
+		\item Fragmentów długości $2$ jest $n-1$: $a_1a_2$, $a_2a_3$, ..., $a_{n-1}a_n$. 
+        \item Fragmentów długości $3$ jest $n-2$: $a_1a_2a_3$, $a_2a_3a_4$, ..., $a_{n-2}a_{n-1}a_n$; itd.
+ 		\item Będą dwa fragmenty długości $n-1$ ($w$ bez kolejno: ostatniego i pierwszego znaku) oraz jeden długości $n$ - całe słowo $w$.
+	\end{itemize}
+
+Weźmy fragment $a_ia_{i+1}...a_j$ ($1 \leq i < j \leq n$).
+Gdyby ten fragment należał do języka, to dało by się go wyprowadzić pewną produkcją $X \rightarrow YZ$.
+Aby to sprawdzić, musimy ciachnąć $a_ia_{i+1}...a_j$ na dwie niepuste połowy.
+Możemy to zrobić na $j-i$ sposobów:
+\begin{align*}
+&a_i|a_{i+1}a_{i+2}...a_j  &a_ia_{i+1}|a_{i+2}...a_j \\ &a_i...a_k|a_{k+1}...a_j &a_i...a_{n-1}|a_n
+\end{align*}
+
+Dla każdego podziału sprawdzamy czy zarówno prawa strona jak i lewa strona dała się wcześniej wyprowadzić - takie sprawdzenie jest darmowe, wcześniej już to policzyliśmy (albo i nie).
+Jeżeli te części istnieją, to wystarczy sprawdzić czy istnieje taka produkcja $X \rightarrow YZ$, że z $X$ możemy wyprowadzić pierwszą część fragmentu: $a_i...a_k$, a z $Y$ można wyprowadzić drugą: $a_{k+1}...a_j$. Jak istnieje, to zapamiętujemy nieterminale po prawej stronie produkcji.
+\item $w$ należy do języka, jeżeli okaże się, że symbol startowy wyprowadza $w$.
+
+\end{itemize}
+Wszystkich fragmentów słowa $w$ jest rzędu $n^2$ i dla każdego fragmentu wykonujemy operacji proporcjonalnie do jego długości. Stąd wykonamy $\Theta(n^3)$ operacji.
+
+Zauważmy, że obliczenia możemy zorganizować w tabeli $n \times n$.
+W komórkach przekątnej wpisujemy wyniki kroku pierwszego: nieterminale, które wyprowadzają pojedynczy znak.
+W kolejnych przyprzekątnych obliczamy fragmenty długości $2,3...n$.
+Jeżeli w komórce [1,n] znajdzie się nieterminal $S$, to dane słowo jest wyprowadzalne.
+
+\paragraph{Przykład}
+Niech dana będzie  gramatyka $G$, w której: $T = \{a,b\}$, $N = \{S, A, B\}$, a zbiór produkcji wygląda następująco:
+\[
+	P = \{S\rightarrow SS|AB, A\rightarrow AS|AA|a, B\rightarrow SB|BB|b \}
+\]
+oraz dane słowo $w = aabbab$.
+
+Najpierw rozważamy wszystkie fragmenty długości $1$: $a,a,b,b,a,b$. 
+Każdy z nich da się wyprowadzić albo z produkcji $A\rightarrow a$ albo z $B\rightarrow b$. 
+Skoro $w_{1,1}=a$ oraz $A \rightarrow a$, to do komórki ($1,1$) tabeli wpisujemy $A$. Analogicznie wypełniamy resztę przekątnej:
+\begin{table}[h]
+\centering
+\label{my-label}
+\begin{tabular}{ccccccc}
+                       & 1                          & 2                          & 3                          & 4                          & 5                          & 6                          \\ \cline{2-7} 
+\multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{\{A\}} & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      \\ \cline{2-7} 
+\multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{\{A\}} & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      \\ \cline{2-7} 
+\multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{\{B\}} & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      \\ \cline{2-7} 
+\multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{\{B\}} & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      \\ \cline{2-7} 
+\multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{\{A\}} & \multicolumn{1}{l|}{}      \\ \cline{2-7} 
+\multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{\{B\}} \\ \cline{2-7} 
+\end{tabular}
+\end{table}
+
+Teraz fragmenty długości $2$: $aa, ab, bb, ba, ab$.
+\begin{itemize}
+\item Fragment $w_{1,2} = aa$ można tylko na jeden sposób podzielić na dwie części: $a$ oraz $a$. 
+Z poprzedniego kroku wiemy, że $a$ dało się już wyprowadzić z nieterminala $A$.
+Istnieje produkcja $A \rightarrow AA$, więc do komórki (1,2) wpisujemy $A$.
+\item $w_{2,3} = ab$. Dzielimy na pół. Z poprzeniej iteracji wiemy, że da się wyprowadzić słowo $a$ oraz $b$ z kolejno terminala $A$ oraz $B$. Istnieje produkcja $S\rightarrow AB$, więc do komórki (2,3) wpisujemy $S$.
+\item Analogicznie wypełniamy resztę przyprzekątnej. 
+Zauważmy jednak, że np. przy $w_{4,5}$ istnieją nietermianle, z których da się wyprowadzić $b$ oraz $a$, ale nie istnieje produkcja, która wyprowadza te nieterminale (nie ma produkcji postaci: $ X \rightarrow BA$). 
+Zatem do komórki (4,5) nic nie wpisujemy:
+\end{itemize}
+
+\begin{table}[h]
+\centering
+\label{my-label}
+\begin{tabular}{lllllll}
+                       & 1                          & 2                          & 3                          & 4                          & 5                          & 6                          \\ \cline{2-7} 
+\multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{\{A\}} & \multicolumn{1}{l|}{\{A\}} & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      \\ \cline{2-7} 
+\multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{\{A\}} & \multicolumn{1}{l|}{\{S\}} & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      \\ \cline{2-7} 
+\multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{\{B\}} & \multicolumn{1}{l|}{\{B\}} & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      \\ \cline{2-7} 
+\multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{\{B\}} & \multicolumn{1}{l|}{-}     & \multicolumn{1}{l|}{}      \\ \cline{2-7} 
+\multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{\{A\}} & \multicolumn{1}{l|}{\{S\}} \\ \cline{2-7} 
+\multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{\{B\}} \\ \cline{2-7} 
+\end{tabular}
+\end{table}
+
+Teraz będziemy rozważać fragmenty długości $3$: $aab, abb, bba, bab$. 
+\begin{itemize}
+\item 
+\end{itemize}

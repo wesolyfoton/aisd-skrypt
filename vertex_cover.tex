@@ -1,0 +1,36 @@
+\section{Pokrycie wierzchołkowe}
+MPK Wrocław chciałoby dokonać inspekcji wszystkich torów tramwajowych w mieście (wystarczy odwiedzić przystanek by dokonać inspekcji incydentnych) torów. Podwykonawca (TOREX) żąda opłaty za każdy odwiedzony przystanek z osobna więc MPK chciałoby zminimalizować liczbę przystanków które będzie musiała odwiedzić ekipa TOREXu (zachowując przy tym podstawowe zadanie jakim jest inspekcja WSZYSTKICH torów). 
+MPK Wrocław cannot into informatyka więc nie rozwiąże tego problemu (rozwiąże go podwyżką cen biletów). My co prawda nie potrafimy w czasie wielomianowym dostarczyć żądanego rozwiązania, ale wiemy jak się do tego zabrać.
+
+Bardziej formalnie:  
+
+\begin{definition}
+  \textbf{Pokryciem wierzchołkowym} (\texttt{dal.} PW) grafu $G = (V,E)$ nazywamy zbiór $V'$ tż.:
+  $V' \subseteq V \wedge (\forall e\in E, \exists v\in V':  v \in e)$.
+\end{definition}
+\textbf{Problem pokrycia wierzchołkowego} (\texttt{dal.} PPW) będziemy rozpatrywać na dwa sposoby: optymalizacyjnym (jakie jest najmniejsze PW) i decyzyjnym (czy istnieje PW rozmiaru $k$); posiadając wszelakie zastosowania praktyczne jest oczywiście problemem NP-zupełnym.
+  
+Jeżeli przystanki tramwajowe potraktujemy jako wierzchołki a tory między  nimi jako krawędzie, to PW nazwiemy taki podzbiór przystanków że wszystkie tory mają przynajmniej jeden koniec kończący się na przystanku z naszego podzbioru. 
+
+Przybliżone rozwiązanie:
+W dość prosty sposób możemy uzyskać przybliżone rozwiązanie (co najmniej(?) dwukrotnie gorsze od optymalnego w sensie mocy otrzymanego zbioru). Idea jest następująca: dla każdej krawędzi $e$ w $E'$ ($=E$) weźmy dwa wierzchołki które $e$ łączy, dodajmy je do zbioru rozwiązań i usuńmy z $E'$ wszystkie krawędzie incydentne do nich. 
+
+\begin{algorithm}[h]
+  \DontPrintSemicolon
+  \SetAlgorithmName{}{}
+
+  \KwData{ $G = (V, E)$}
+  \KwResult{ $S$ - pewne \texttt{PW} dla grafu $G$  }
+  $E' = E$
+  \While{$E' != \{\}$}
+  {
+  $e'$ - dowolna krawędź łącząca wierzchołki $(u,v)$
+  $S = S \bigcup u$ 
+  $S = S \bigcup v$
+  $E' = E' \backslash$ (wszystkie krawędzie incydentne do $u$ i $v$) 
+  }
+  \caption{Przybliżone rozwiązanie \texttt{PPW}}
+  \label{problem-pokrycia-wierzcholkowego}  
+\end{algorithm}
+
+
