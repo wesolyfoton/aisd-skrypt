@@ -4,6 +4,32 @@ Todo, todo, todo...
 
 \subsection{Cut Property i Circle Property}
 
+Udowodnijmy dwie własności, które okazują się być niezwykle przydatne w dowodach dotyczących minimalnych drzew rozpinających – MST.
+
+\subsection{Cycle property}
+    Niech $C$ będzie dowolnym cyklem w~ważonym grafie $G$. Załóżmy, że wszystkie wagi są różne.
+\begin{theorem}
+   Jeżeli krawędź $e_k \in C$ jest najcięższą spośród krawędzi z~$C$, to $e \notin \text{MST}\left( G \right)$.
+\end{theorem}
+\begin{proof}
+    Załóżmy nie wprost, że utworzyliśmy drzewo $\text{MST}\left( G \right)$ w~którym znajduje się krawędź $e$. Usuńmy ją. W~ten sposób otrzymaliśmy dwa rozłączne drzewa, nazwijmy je $T_1$ i $T_2$.
+    
+    Krawędź $e$ należała do cyklu $C$. Stąd wynika, że istniała druga krawędź $f$, która tworzyła „most” między $T_1$ a $T_2$. Ponadto, z~założenia, ma ona mniejszą wagę od $e$. 
+    
+    Dodajmy krawędź $f$ do naszego lasu $ \left\{ T_{1},T_{2}\right\} $. Otrzymaliśmy spójne drzewo MST o~koszcie mniejszym od pierwotnego drzewa MST. Sprzeczność.
+\end{proof}
+
+\subsection{Cut property}
+    Założenia takie same, jak w przypadku Cycle property: $C$ – dowolny cykl w~ważonym grafie $G$ o różnych wagach.
+\begin{theorem}
+   Podzielmy wszystki wierzchołki cyklu na dwa rozłączne zbiory $C_1$ i $C_2$ (czyli dokonajmy cięcia). Jeżeli $e$ jest najlżejszą krawędzią spośród łączących te dwa zbiory, to znajdzie się ona w~$\text{MST}\left( G \right) $.
+\end{theorem}
+\begin{proof}
+    Załóżmy nie wprost, że mamy drzewo $T = \text{MST}\left( G \right) $, które nie zawiera $ e $. Dodanie tej krawędzi utworzy cykl. Zatem istnieje druga krawędź $ f $, która znajduje się między podzbiorami $ C_{1} $ oraz $ C_{2} $.
+    
+    Rozważmy drzewo $ T \setminus \left\{ f \right\} \cup \left\{ e \right\} $. Tym sposobem otrzymaliśmy drzewo MST o~mniejszej wadze. Sprzeczność.
+\end{proof}
+
 \subsection{Algorytm Prima}
 
 \subsection{Algorytm Kruskala}
