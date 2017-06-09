@@ -1,0 +1,46 @@
+\section{Kopce dwumianowe w wersji leniwej}
+Kopce dwumianowe w wersji leniwej różnią się strukturalnie od wersji gorliwej, tym, że w danym momencie możemy mieć więcej niż jeden kopiec $B_k$ na liście.
+\subsection{Różnice w implementacji}
+
+\subsubsection{insert}
+Stwórz drzewo składające się wyłącznie z danego elementu a następnie wywołaj $meld$ z kopcem właściwym.
+\subsubsection{meld}
+Operacja meld polega na połączeniu list drzew dwóch kopców.
+\subsubsection{extract-min}
+W wersji leniwej, podobnie jak w Kopcach Fibonacciego
+to tutaj będziemy wykonywać całą pracę związaną z utrzymaniem struktury kopców.
+
+Idea algorytmu:
+\begin{enumerate}
+ \item Stwórz pustą tablicę $B$ wielkości największemu stopniowi drzewa niezbędnego, w kopcu o poprawnej strukturze trzymającym wszystkie elementy($\lceil \log n \rceil$)
+ \item Iterując po każdym drzewie w kopcu sprawdź, czy to nie minimum(i ustaw wskaźnik minimum jeśli jest),
+      a następnie sprawdź w tablicy $B$ jest element o indeksie jego wielkości.
+      Jeśli nie ma wstaw go do tablicy. Jeśli istnieje połącz dane drzewa i rekurencyjnie wstaw nowe drzewo do tablicy.
+\end{enumerate}
+
+\subsubsection{Pozostałe operacje}
+Pozostałe operacja implementujemy identycznie jak w gorliwych kopcach dwumianowych.
+
+\subsection{Analiza złożoności}
+Zdefiniujmy funkcję potencjału $\Phi = \#drzew~w~kopcu$
+\subsubsection{meld}
+Meld w oczywisty sposób nie zmienia sumy potencjałów kopców, jedynym kosztem będzie przepięcie wskaźników, więc złożoność tej funkcji to $\Theta(1)$
+\subsubsection{insert}
+Dodając drzewo zwiększamy potencjał o jeden.
+Następnie będziemy musieli wykonać meld, które kosztuje jedną operacje.
+\[
+  \Delta(\Phi) + 1 = 1 + 1 = 2 \in \Theta(1)
+\]
+\subsubsection{extract-min}
+Na początku będziemy musieli wstawić wszystkie dzieci od minimalnego elementu; zajmie to $O(\log n)$.
+
+Oznaczmy $T$ jako wszystkich drzew po tej operacji.
+
+Dominującym kosztem rzeczywistym łączenia będzie iteracja po wszystkich drzewach(w czasie $\Theta(T)$).
+
+Niech $\Delta(\Phi)$ oznacza różnicę potencjałów między kopcem po dodaniu dzieci minimalnego elementu, a kopcem po złączenie drzew tego samego stopnia.
+Koszt zamortyzowany wyrażać się więc będzie wzorem.
+\[
+  \Delta(\Phi) + O(\log n) + \Theta(T) = O(\log(n)) - T + O(\log(n)) + \Theta(T) = O(\log(n))
+\]
+
