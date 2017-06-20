@@ -83,7 +83,7 @@ Jako wartość $l$ weźmiemy $n^{3/4}/2 - \sqrt{n}$-szy element zbioru $R$, a ja
       $s \leftarrow s + 1$\;
      }
    }
-   \lIf{$d_l > 1/2$ or $d_u > 1/2$ or $s > n^{3/4}$}
+   \lIf{$d_l > n/2$ or $d_u > n/2$ or $s > 4 * n^{3/4}$}
    {
      \Return{fail}
    }
@@ -116,8 +116,8 @@ Teraz korzystając z nierówności Czybyszewa otrzymujemy interesującą nas war
  P\left(fail_1\right) = & P\left(|Y| < \left(\frac{1}{2} \cdot n^{\frac{3}{4}} - \sqrt{n}\right)\right) \\
                       = & P\left(\left(\frac{1}{2} \cdot n^{\frac{3}{4}} - |Y|\right) > \sqrt{n}\right) \\
                       \leq & P\left(\left(\frac{1}{2} \cdot n^{\frac{3}{4}} + \frac{1}{2} \cdot n^{-\frac{1}{4}} - |Y|\right) > \sqrt{n}\right) \\
-                      = & P\left(\left(E[|Y|] - |Y|) > \sqrt{n})\\
-                      \leq & P\left(|E[|Y|] -|Y| | > \sqrt{n}) \\
+                      = & P\left(\left(E[|Y|] - |Y|\right) > \sqrt{n}\right)\\
+                      \leq & P\left(|E[|Y|] -|Y| | > \sqrt{n}\right) \\
                       \leq & Var[|Y|] / (\sqrt{n})^2 \\
                       \leq & \frac{1}{4} \cdot n^{\frac{3}{4}} / n \\
                       = & \frac{1}{4} \cdot n^{-\frac{1}{4}}
