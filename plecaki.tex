@@ -1,4 +1,5 @@
 \section{Problem plecakowy}
+\sectionauthor{Marcin Bartkowiak, Krzysztof Piecuch}
 
 \label{sec:plecaki}
 
@@ -26,12 +27,12 @@ W zależności od tego do jakiego sklepu się włamaliśmy, rozróżniamy nastę
   Ale wciąż ilość przedmiotu danego typu jest ograniczona: $x_i \in \mathbb{N}$, $x_i \leq c_i$.
   Problem ten nazywamy czasem ograniczonym, dyskretnym problemem plecakowym.
   \item Cyberprzestrzeń.
-  W tym przypadku możemy ukraść dowolną ilość przedmiotu danego typu (np. klucza aktywacji).
+  W tym przypadku możemy ukraść dowolną ilość przedmiotu danego typu (np. klucze aktywacji).
   Wtedy $x_i \in \mathbb{N}$.
   Problem ten można znaleźć w literaturze pod hasłem: nieograniczony, dyskretny problem plecakowy.
   \item Laboratorium chemiczne.
   W tym przypadku, ilość chemikaliów, które kradniemy, jest ograniczona ($0 \leq x_i \leq c_i$).
-  Pponieważ chemikalia możemy przelewać, ilość chemikaliów nie musi wyrażać się liczbą naturalną ($x_i \in \mathbb{R}$).
+  Ponieważ chemikalia możemy przelewać, ilość chemikaliów nie musi wyrażać się liczbą naturalną ($x_i \in \mathbb{R}$).
   Jest to ciągły problem plecakowy.
 \end{itemize}
 
@@ -44,7 +45,7 @@ Nie jest jednak poprawnym algorytmem dla wersji dyskretnych.
 Kontrprzykładem będzie sytuacja, w której plecak ma wielkość $W = 10$ i do dyspozycji mamy $M = 3$ przedmioty: $v_1=9$, $v_2=v_3=5$, $w_1=6$, $w_2=w_3=5$.
 W każdym z wariantów problemu postępując w sposób zachłanny, wybierzemy w pierwszym kroku przedmiot $1$.
 Otrzymamy w ten sposób plecak o wartości $9$, do którego nie jesteśmy w stanie już wstawić kolejnego przedmiotu.
-Wybierając przedmioty $2$ i $3$ otrzymując plecak o wartości $10$.
+Wybierając przedmioty $2$ i $3$ otrzymujemy plecak o wartości $10$.
 Zatem wybranie przedmiotu o największym stosunku wartości do wielkości było w takiej sytuacji błędem.
 Poprawnym rozwiązaniem wersji dyskretnych okazuje się podejście dynamiczne.
 

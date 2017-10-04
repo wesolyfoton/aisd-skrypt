@@ -1,4 +1,5 @@
 \section{Algorytm znajdowania dwóch najbliższych punktów}
+\sectionauthor{Tomasz Nanowski}
 
 Teraz zajmiemy się problemem znalezienia pary najmniej odległych punktów w zadanym zbiorze $Q = \{(x_1, y_1), \ldots, (x_n, y_n)\}$.
 Interesować nas będzie odległość euklidesowa, czyli szukamy takich indeksów $i, j$, że $d(p_i, p_j) = \min\{d(p_k, p_l) \quad | \quad 1 \leq p < l \leq n\}$, gdzie $d(p_k, p_l) = \sqrt{(x_k - x_l)^2 + (y_k - y_l)^2}$
@@ -11,7 +12,7 @@ W następnym rozdziale pokażemy jak zrobić to szybciej.
 
 \subsection{Podejście Dziel i Zwyciężaj}
 
-Wiemy już, że problem ten można naiwnie rozwiązać w czasie $O(n^2)$.
+Wiemy już, że problem ten można naiwnie rozwiązać w czasie $\Theta(n^2)$.
 Zastanówmy się jak wykorzystując strategię Dziel i Zwyciężaj zrobić to szybciej.
 Już po chwili zastanowienia widać, że nie jest to takie trywialne, ponieważ po podziale zbioru na 2 części i znalezieniu dla nich rozwiązań, i tak musielibyśmy sprawdzić wszystkie odległości pomiędzy tymi zbiorami. 
 Ale czy na pewno?

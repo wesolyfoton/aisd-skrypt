@@ -1,4 +1,5 @@
 \section{Model afinicznych drzew decyzyjnych}
+\sectionauthor{Krzysztof Piecuch}
 
 Zdefiniujmy następujący problem (ang. element uniqness).
 Mając daną tablicę \texttt{T[0..n-1]} liczb rzeczywistych, odpowiedzieć na pytanie czy istnieją w tablicy dwa elementy, które są sobie równe.
@@ -49,7 +50,7 @@ Uzbrojeni w nowe definicje, możemy przejść do obiecanego lematu:
 \begin{proof}
  Weźmy dowolne afiniczne drzewo decyzyjne i wybierzmy w nim dowolny liść $l$.
  Dobrze wiemy, że istnieje dokładnie jedna ścieżka prosta z korzenia do tego liścia.
- Weżmy dowolny wierzchołek wewnętrzny $w$ na tej ścieżce i dowolne punkty $u$ oraz $v$, które osiągają liść $l$.
+ Weźmy dowolny wierzchołek wewnętrzny $w$ na tej ścieżce i dowolne punkty $u$ oraz $v$, które osiągają liść $l$.
  W końcu weźmy dowolną liczbę rzeczywistą $0 \leq \alpha \leq 1$.
  Załóżmy ponadto, że ścieżka z korzenia do liścia $l$ w wierzchołku $w$ skręca w lewo (zatem zapytanie zadane w wierzchołku $w$ punkty $u$ oraz $v$ otrzymały odpowiedź twierdzącą).
  Przypadek przeciwny jest analogiczny.
@@ -78,7 +79,7 @@ Ponieważ wybraliśmy dowolny wierzchołek $w$, to punkt $\alpha \cdot u + (1 - 
 Stąd zbiór wszystkich punktów, które osiągają liść $l$ w afinicznym drzewie decyzyjnym, jest zbiorem wypukłym.
 \end{proof}
 
-Wyobraźmy sobie, że płaszczyznę $\mathbb{R}^2$ kładziemy półpłaszczyzny.
+Wyobraźmy sobie, że na płaszczyznę $\mathbb{R}^2$ kładziemy półpłaszczyzny.
 Wtedy przecięcie dowolnej liczby półpłaszczyzn jest zbiorem wypukłym.
 Podobnie jeśli w przestrzeni $\mathbb{R}^3$ wyznaczymy sobie półprzestrzenie, to ich przecięcie będzie tworzyło zbiór wypukły.
 Lemat \ref{uniqness-lemma} mówi, że tak samo się dzieje w każdej przestrzeni $\mathbb{R}^n$.

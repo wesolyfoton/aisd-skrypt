@@ -1,0 +1,81 @@
+\section{Counting sort}
+\sectionauthor{Dominika Wójcik}
+
+W tym rozdziale będzie można zapoznać się z algorytmem sortowania przez zliczanie (ang. \textit{counting sort}). 
+W metodzie zakładamy, że każdy z $n$ elementów ciągu jest liczbą całkowitą z przedziału od 0 do k.
+Sortowanie przez zliczanie działa w czasie $\Theta(n+k)$.
+Jeśli jednak założymy, że $k \in O(n)$, możemy powiedzieć, że jest to czas liniowy.
+
+\textbf{Idea.} W sortowaniu przez zliczanie głównym pomysłem jest wyznaczenie dla każdego $x$ z ciągu wejściowego liczby elementów mniejszych od $x$.
+Dlaczego?
+Załóżmy, że policzyliśmy, że jest 10 elementów mniejszych od $x$.
+Z tego możemy już wywnioskować, że element $x$ będzie na 11 miescu w tablicy.
+Jeśli chcemy dopuścić powtórzenia w ciągu wejsciowym musimy dokonać drobnej modyfikacji i zamiast pamiętać liczby mniejsze od $x$, pamiętamy te mniejsze lub równe.
+Spójrzmy na pseudokod algorytmu.
+
+\begin{algorithm}[h]
+
+  \DontPrintSemicolon
+  
+  \SetAlgorithmName{Algorytm}{}
+  
+  \KwData{ tablica $A$, liczba $k$}
+
+  \KwResult{ posortowana tablica $B$ }
+  
+  \For{$i \leftarrow 0 .. k$}   {
+    $C[i] \leftarrow 0$;
+  }
+   \For{$j \leftarrow 1 .. A.length$}   {
+    $C[A[j]] \leftarrow C[A[j]]+1$;
+  }
+   \For{$i \leftarrow 1 .. k$}   {
+    $C[i] \leftarrow C[i]+C[i-1]$;
+  }
+   \For{$j \leftarrow A.length .. 1$}   {
+    $B[C[A[j]]] \leftarrow A[j]$\;
+    $C[A[j]] \leftarrow C[A[j]]-1$;
+  }
+  
+  \caption{Procedura \texttt{counting sort}}
+  \label{alg-count}
+\end{algorithm}
+\textbf{Opis.}
+A teraz pokażemy, czemu dokładnie służą kolejne pętle for w pseudokodzie.
+\begin{enumerate}
+\item Na początku inicjujemy tablicę $C$.
+\item W następnej pętli for przechodziy po kolei po wszytskich elementach i dla wartości $x$ danego elementu, wartość tablicy $C[x]$ zwiększamy o jeden. A zatem po wykonaniu drugiej pętli tablica $C$ zawieraliczbę wystąpień elementów np. $x$ występuje $C[x]$ razy.
+\item Obliczamy ile jest elementów mniejszych lub równych $x$. Odbywa się to przez sumowanie komórek $C[x]$ z wartościami mniejszych indeksów tablicy.
+\item W ostatniej pętli for umieszczamy elementy na właściwych pozycjach w tablicy wyjściowej $B$. Jeśli w tablicy wejściowej A nie ma powtórzeń, to dla każdego $A[j]$ wartość $C[A[j]]$ jest poprawnym ostatecznym numerem pozycji w tablicy $B$. Jeśli jednak dopuszczamy powtórki musime tę wartość rekrementować za każdym razem gdy wartość $A[j]$ jest wstawiana do tablicy $B$. Dzieki temu nastęny element o tej samej wartości (jeśli istnieje) zostanie wstawiony do tablicy $B$ na pozycję o numerze o jeden mniejszym.
+\end{enumerate}
+
+\textbf{Złożoność.} 
+Bedziemy określać złożoność czasową po przez oszacowaniej każdej kolejenj pętli.
+Pierwsza działa w czasie $\Theta(k)$, druga w czasie $\Theta(n)$, kolejna w czasie $\Theta(k)$ a ostatnia w $\Theta(n)$.
+Całkowity czas działania procedury to $\Theta(k+n)$ ale w praktyce najczęściej $k \in O(n)$ a wtedy złożónoścczasowa to \textbf{$\Theta(n)$}.
+
+\textbf{Stabilność.} 
+Stabilność to własność sortowania, dzięki której elementy o tych samych wartościach występują w tablicy wynikowej w takiej samej kolejności jak w ciągu wejściowym.
+Sortowanie przez zliczanie jest stabilne, co jest ważną zaletą pozwalającą wykorzystać tą procedurę w sortowaniu pozycyjnym.
+
+\textbf{Uwagi.} 
+\begin{enumerate}
+\item Gdy przyjrzymy się dokładnie algorytmowi sortowania przez zliczanie możemy zastanawiać się, dlaczego postępujemy w tak dziwny sposób?
+Przecież mając zliczone wystąpienia każdej wartości w licznikach, możemy je od razu przepisać do zbioru wyjściowego.
+Istotnie tak by było, gdyby chodziło jedynie o posortowanie liczb. Jest jednak inaczej.
+Celem nie jest posortowanie jedynie samych wartości elementów.
+Sortowane wartości są zwykle tzw. kluczami, czyli wartościami skojarzonymi z elementami, które wyliczono na podstawie pewnego kryterium sortując klucze chcemy posortować zawierające je elementy.
+Dlatego do zbioru wynikowego musimy przepisać całe elementy ze zbioru wejściowego, gdyż w praktyce klucze stanowią jedynie część (raczej małą) danych zawartych w elementach.
+Zatem algorytm sortowania przez zliczanie wyznacza docelowe pozycje elementów na podstawie reprezentujących je kluczy, które mogą się wielokrotnie powtarzać.
+Następnie elementy są umieszczane na właściwym miejscu w zbiorze wyjściowym.
+
+\item Być może niektórych niepokoi fakt, że osiągnęliśmy lepszą złozoność czasową niż mówi o tym dolna granica sortowania, czyli $\Theta(n lg n)$.
+Zauważmy jednak, żę w tym wypadku mamy więcej danych o elementach.
+Wymagamy aby były to liczby całkowite z danego zakresu.
+Ponadto dolna granica mówi nam o wykonywaniu algorytmu sortowaniu za pomocą porównań.
+W sortowaniu przez zliczanie nie korzystamy z porównań a zatem ta granica nie dotyczy tego algorytmu.
+\end{enumerate}
+
+\textbf{Podsumowanie.} 
+Sortowanie przez zliczanie działą w czasie liniowym, jest stabilne, wymaga aby elementy były liczbami całkowitymi z danego zakresu.
+Jest ono wykorzystywane w sortowaniu pozycyjnym.
