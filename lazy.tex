@@ -1,6 +1,7 @@
 \section{Lazy Select}
+\sectionauthor{Krzysztof Piecuch}
  
-Naszym celem w tym rozdziale będzie znalezienie mediany w tablicy nieuporządkowanej w czasie liniowym.
+Naszym celem w tym rozdziale będzie znalezienie mediany w nieuporządkowanej tablicy w czasie liniowym.
 Przedstawimy algorytm zrandomizowany, który albo (z dużym prawdopodobieństwem) zwróci poprawną medianę, albo stwierdzi, że poszukiwania zakończyły się fiaskiem.
 Proszę mieć na uwadze fakt, że algorytm może posłużyć do znalezienia $k$-tego elementu, dla dowolnej wartości $k$.
 
@@ -24,7 +25,7 @@ W tym celu policzmy $d_l$ - liczbę elementów mniejszych od $l$ w zbiorze $A$ o
 Mediana zbioru $A$ to $n/2 - d_l + 1$-szy element posortowanego zbioru $C$.
 
 W swoim (słynnym) skrypcie do programowania funkcyjnego Marcin Kubica napisał, że informatyka to dziedzina magii.
-W ``Nowej encyklopedii powszechnej PWN'' możemy znaleźć następujące określenie magii: ``zespół działań zasadniczo pozaempirycznych, zymbolicznych, których celem jest bezpośrednie osiągnięcie (...) pożądanych skutków (...)''.
+W ``Nowej encyklopedii powszechnej PWN'' możemy znaleźć następujące określenie magii: ``zespół działań zasadniczo pozaempirycznych, symbolicznych, których celem jest bezpośrednie osiągnięcie (...) pożądanych skutków (...)''.
 Wyróżniamy przy tym następujące składniki działań magicznych:
 \begin{itemize}
  \item zrytualizowane działania (manipulacje)

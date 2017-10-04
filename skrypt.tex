@@ -19,6 +19,14 @@
 \usetikzlibrary{shapes.arrows}
 
 %% Użyteczne komendy
+\makeatletter
+\newcommand{\sectionauthor}[1]{%
+  {\parindent0pt\vspace*{-10pt}%
+  \linespread{1.1}\large\scshape#1%
+  \par\nobreak\vspace*{15pt}}
+  \@afterheading%
+}
+\makeatother
 
 \newtheorem{theorem}{Twierdzenie}
 \newtheorem{definition}{Definicja}
@@ -175,6 +183,8 @@
 \include{dwanajblizszepunkty}
 
 \include{leniwedwumianowe}
+
+\include{countingsort}
 
 %% Dodatki
 

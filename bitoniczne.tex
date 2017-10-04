@@ -1,4 +1,5 @@
 \section{Sortowanie bitoniczne}
+\sectionauthor{Krzysztof Piecuch}
 
 \label{sec:bitoniczne}
 
@@ -64,7 +65,7 @@ Dalej porównujemy $7$ z $5$ i zamieniamy je miejscami i w końcu porównujemy $
 Procedura \texttt{bitonic\_compare} ma bardzo ważną własność, którą teraz udowodnimy.
 
 \begin{theorem}
- Jeżeli elementy tablicy \texttt{A[0..n-1]} tworzą ciąg bitoniczny, to po zakończeniu procedury \texttt{bitonic\_compare} elementy tablicy \texttt{A[0..n/2-1]} oraz tablicy \texttt{A[n/2..n-1]} będą tworzyły ciągi bitoniczne.
+ Jeżeli elementy tablicy \texttt{A[0..n-1]} tworzą ciąg bitoniczny, to po zakończeniu procedury \texttt{bitonic\_compare} elementy tablic \texttt{A[0..n/2-1]} oraz \texttt{A[n/2..n-1]} będą tworzyły ciągi bitoniczne.
  Ponadto jeśli wartość zmiennej \texttt{up} jest ustawiona na \texttt{true} to każdy element tablicy \texttt{A[0..n/2-1]} będzie niewiększy od każdego elementu tablicy \texttt{A[n/2..n-1]}.
  W przeciwnym przypadku będzie niemniejszy.
  \label{bitonic-theorem}
@@ -168,22 +169,22 @@ Do pełni szczęścia potrzebujemy udowodnić, że Twierdzenie \ref{bitonic-theo
   \item $0^n$.
    Po wykonaniu procedury \texttt{bitonic\_compare} otrzymamy $0^{n/2}$ oraz $0^{n/2}$.
    Oba ciągi są bitoniczne i każdy element z pierwszego ciągu jest niewiększy od każdego elementu z ciągu drugiego.
-  \item $0^k1^l$ oraz $k < n/2$.
+  \item $0^k1^l$ oraz $k \leq n/2$.
    Wtedy po wykonaniu procedury \texttt{bitonic\_compare} otrzymamy ciągi $0^k1^{l-n/2}$ oraz $1^{n/2}$.
    Oba ciągi są bitoniczne i każdy element z pierwszego ciągu jest niewiększy od każdego elementu z ciągu drugiego.
-  \item $0^k1^l$ oraz $k > n/2$.
+  \item $0^k1^l$ oraz $k \geq n/2$.
    Otrzymamy ciągi $0^{n/2}$ oraz $0^{k-n/2}1^l$.
    Znowu - oba są bitoniczne i każdy element z pierwszego jest niewiększy od każdego z drugiego.
-  \item $0^k1^l0^m$ oraz $k > n/2$.
+  \item $0^k1^l0^m$ oraz $k \geq n/2$.
    Wtedy otrzymujemy ciągi $0^{n/2}$ oraz $0^{k-n/2}1^l0^m$.
    Spełniają one tezę twierdzenia.
-  \item $0^k1^l0^m$ oraz $m > n/2$.
+  \item $0^k1^l0^m$ oraz $m \geq n/2$.
    Ciągi, które otrzymamy wyglądają tak: $0^{n/2}$ oraz $0^k1^l0^{m-n/2}$.
    Są to ciągi, które nas cieszą.
-  \item $0^k1^l0^m$ oraz $l > n/2$.
+  \item $0^k1^l0^m$ oraz $l \geq n/2$.
    Dostaniemy wtedy ciągi $0^k1^{l-n/2}0^m$ oraz $1^{n/2}$.
    Są to ciągi, które spełniają naszą tezę.
-  \item $0^k1^l0^m$ oraz $k, l, m < n/2$.
+  \item $0^k1^l0^m$ oraz $k, l, m \leq n/2$.
    Ciągi, które uzyskamy to $0^{n/2}$ oraz $1^{n/2-m}0^{n/2-l}$ $1^{n/2-k}$.
    Spełniają one naszą tezę.
  \end{itemize}
@@ -221,7 +222,7 @@ Rozwiązując rekurencję otrzymujemy, że złożoność algorytmu to $\Theta(n 
 Mamy algorytm sortujący ciągi bitoniczne.
 Jak uzyskać algorytm sortujący dowolne ciągi?
 Zrealizujemy to w najprostszy możliwy sposób!
-Posortujemy (rekurencyjnie) pierwszą połowę tablicy rosnąco, drugą połowę tablicy malejąco (dlatego potrzebna nam była zmienna \texttt{up}!) i uzyskamy w ten sposób ciąg bitoniczny.
+Posortujemy (rekurencyjnie) pierwszą połowę tablicy rosnąco, drugą połowę tablicy malejąco (dlatego potrzebna nam była zmienna \texttt{up}) i uzyskamy w ten sposób ciąg bitoniczny.
 Teraz wystarczy już uruchomić algorytm sortujący ciągi bitoniczne i voilà.
 
 \begin{algorithm}[h]

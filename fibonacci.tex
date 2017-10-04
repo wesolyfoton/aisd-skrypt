@@ -1,4 +1,5 @@
 \section{Algorytm macierzowy wyznaczania liczb Fibonacciego}
+\sectionauthor{Rafał Florczak}
 
 W tym rozdziale opiszemy algorytm obliczania liczb Fibonacciego, który wykorzystuje szybkie potęgowanie.
 Algorytm działa w czasie $\Theta(\log{n})$, co sprawia, że jest znacznie atrakcyjniejszy (gdy pytamy tylko o jedną liczbę) od algorytmu dynamicznego, który wymaga czasu $\Theta(n)$.
@@ -6,7 +7,7 @@ Zacznijmy od zdefiniowania ciągu Fibonacciego:
 \begin{equation*}
   F_n=\begin{cases}
     n, & \text{jeśli $n \leq1$}\\
-    0, & \text{wpp.}
+    F_{n-1} + F_{n-2}, & \text{wpp.}
   \end{cases}
 \end{equation*}
 
@@ -83,7 +84,7 @@ Pokażemy, że powyższa macierz ma zastosowanie w obliczaniu n-tej liczby Fibon
     \end{bmatrix}^{n}
     \times
     \begin{bmatrix}1 \\ 0\end{bmatrix}
-    \stackrel{teza}{=}
+    \stackrel{Z.I.}{=}
     \begin{bmatrix}
       1 & 1 \\
       1 & 0
