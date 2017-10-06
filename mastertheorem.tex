@@ -1,6 +1,8 @@
 \section{Twierdzenie o rekurencji uniwersalnej}
 \sectionauthor{Marcin Bartkowiak, Krzysztof Piecuch}
 
+\label{sec:mastertheorem}
+
 Popularną metodą rozwiązywania zadań jest strategia Dziel i Zwyciężaj.
 Polega ona na podzieleniu problemu na mniejsze, rozwiązaniu ich w sposób rekurencyjny, a następnie na scaleniu wyniku w jeden.
 Schemat tej metody jest przedstawiony jako Schemat \ref{recursion-example}.
@@ -69,7 +71,6 @@ W tym przypadeku $a = 2$, $b = 2$, $k=1$ i $p = 1$.
 Ponieważ $a = b^k$ i $p > -1$ korzystamy z punktu \ref{mt-2a}.
 Otrzymujemy złożoność $\Theta(n \log^2 n)$.
 
-\comment{Naprawić referencję.}
 W rozdziale \ref{sec:karatsuba} opisany jest algorytm Karatsuby. Jego złożoność opisana jest rekurencyjnym wzorem $3 T(n/2) + \Theta(n)$.
 W tym przypadku $a = 3$, $b = 2$, $k=1$ i $p=0$.
 Ponieważ $a > b^k$ korzystamy z punktu \ref{mt-1}.

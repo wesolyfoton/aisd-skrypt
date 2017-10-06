@@ -1,9 +1,10 @@
 \section{Pokrycie zbioru}
 \sectionauthor{Michał Wierzbicki}
 
+\label{sec:pokrycie}
+
 Problem pokrycia zbioru jest problemem optymalizacyjnym związany z problemem alokacji zasobów. 
 Przedstawimy zachłanny algorytm o logarytmicznym współczynniku aproksymacji rozwiązujący ten problem.\\
-
 
 Dane dla problemu pokrycia zbioru to para $(U,\mathcal{S})$ oraz funkcja kosztu $c$. $U$, zwane uniwersum, jest skończonym zbiorem elementów, a $\mathcal{S}$ jest rodziną podzbiorów $U$, taką że:\\
 \[ \bigcup\limits_{i=1}^{n} S_{i} = U \] \\
@@ -12,8 +13,8 @@ Z kolei $c: S_{i} \rightarrow \mathbb{R} $, każdemu podzbiorowi $S_{i}$ określ
 
 Problem polega na znalezieniu podrodziny $\mathcal{T} \subseteq \mathcal{S}$, której elementy pokrywają cały zbiór $U$:
 \[ U = \bigcup_{T \in \mathcal{T}} T \]  
-Spośród wszystkich takich rozwiązań interesuje nas to, którego koszt $c(\mathcal{T})$ jest minimalny: \[ min(c(\mathcal{T})) = \sum\nolimits_{T \in \mathcal{T}} c(T) \]  \\
-
+Spośród wszystkich takich rozwiązań interesuje nas to, którego koszt $c(\mathcal{T})$ jest minimalny:
+\[ c(\mathcal{T}) = \sum\nolimits_{T \in \mathcal{T}} c(T) \]  \\
 
 Mając zdefiniowaną cenę podzbior możemy zdefiniować cenę rynkową elementu, która będzie naszym kryterium wyboru podzbiorów.
 Niech $e_{1}, e_{2}, ... , e_{n}$ będą elementami $U$ w porządku pokrycia przez algorytm.

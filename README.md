@@ -57,6 +57,10 @@ Nie zaczęte (41):
 Rozdziały, których jeszcze nie mamy, a może chcielibyśmy mieć :)
 Jeśli jest imię przy rozdziale, oznacza to, że temat jest już zaklepany
 
+- O modelach obliczeń
+- Programowanie dynamiczne na drzewach
+- O złożoności obliczeniowej
+- Algorytm szeregownia
 - Drzewa Splay
 - Drzewce
 - Union-find
@@ -84,15 +88,11 @@ Jeśli jest imię przy rozdziale, oznacza to, że temat jest już zaklepany
 - 3-wymiarowe skojarzenie
 - Algorytm stokrotek
 - Algorytm D&Z otoczki wypukłej
-- O modelach obliczeń
-- Programowanie dynamiczne na drzewach
 - LCS 
 - Algorytm Karatsuby
 - Algorytm Boruvki
-- O złożoności obliczeniowej 
-- Algorytm szeregownia
-- Minimalne Drzewa Rozpinające (Kruskal, Prim)
-- Kopiec binarny
+- Kruskal
+- Prim
 - Statystyki pozycyjne
 - Algorytm magicznych piątek
 - Drzewa AVL

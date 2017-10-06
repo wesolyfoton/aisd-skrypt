@@ -1,6 +1,8 @@
 \section{Algorytm znajdowania dwóch najbliższych punktów}
 \sectionauthor{Tomasz Nanowski}
 
+\label{sec:dwanajblizszepunkty}
+
 Teraz zajmiemy się problemem znalezienia pary najmniej odległych punktów w zadanym zbiorze $Q = \{(x_1, y_1), \ldots, (x_n, y_n)\}$.
 Interesować nas będzie odległość euklidesowa, czyli szukamy takich indeksów $i, j$, że $d(p_i, p_j) = \min\{d(p_k, p_l) \quad | \quad 1 \leq p < l \leq n\}$, gdzie $d(p_k, p_l) = \sqrt{(x_k - x_l)^2 + (y_k - y_l)^2}$
 

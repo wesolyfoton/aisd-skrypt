@@ -61,7 +61,7 @@ Korzystając prosto z definicji możemy napisać następujący algorytm mnożeni
   \caption{Naiwny algorytm mnożenia macierzy}
   \label{alg-mnozenie-macierzy}
 \end{algorithm}
-Powyższy algorytm działa w czasie $\Theta(n^3)$.
+Powyższy algorytm działa w czasie $\Theta(n \cdot p \cdot m)$ ($\Theta(n^3)$ dla macierzy kwadratowych o boku $n$).
 Korzystając ze sprytnej sztuczki, jesteśmy w stanie zmniejszyć złożoność naszego algorytmu.
 
 Zacznijmy od założenia, że rozmiar macierzy jest postaci $2^k \times 2^k$.

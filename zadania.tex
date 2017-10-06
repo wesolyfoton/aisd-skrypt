@@ -1,0 +1,211 @@
+\chapter{Zadania na programowanie dynamiczne i algorytmy zachłanne}
+
+Na egzaminie z Algorytmów i Struktur Danych, na drugiej części egzaminu lubią pojawiać się zadania na programowanie dynamiczne oraz algorytmy zachłanne.
+Z doświadczenia wiem, że najlepszą metodą na nauczenie się rozwiązywania tego typu zadań jest zrobienie dużej ilości zadań tego rodzaju.
+W niniejszym dodatku umieszczam mały zbiór zadań w nadziei, że pomoże on Czytelnikowi lepiej radzić sobie z zadaniami tego typu.
+
+\section*{Optymalne mnożenie macierzy}
+
+O mnożeniu macierzy mowa była już w rozdziale \ref{sec:strassen}.
+Przedstawiliśmy tam algorytm mnożenia macierzy, który dla macierzy o rozmiarze $n \times m$ oraz $m \times p$ działa w czasie $\Theta(n \cdot m \cdot p)$.
+Ponadto powinniśmy pamiętać z Algebry, że mnożenie macierzy jest przemienne, czyli, że $(A \cdot B) \cdot C = A \cdot (B \cdot C)$.
+Lub mówiąc inaczej - ustawienie nawiasów w ciągu iloczynów macierzy nie wpływa na wynik mnożenia.
+Jednakże ustawienie nawiasów wpływa na coś innego - na sumaryczną ilość operacji jaką wykona algorytm mnożący wszystkie macierze.
+Dla przykładu niech macierz $A$ będzie rozmiaru $5 \times 10$, macierz $B$ rozmiaru $10 \times 20$, a $C$ rozmiaru $20 \times 35$.
+Jeśli algorytm pierw przemnoży macierz $A$ przez $B$ a następnie wynik tego mnożenia przez $C$, wykona $4500$ operacji.
+Jeśli natomiast najpierw przemnoży $B$ przez $C$ a następnie $A$ przez wynik poprzedniego mnożenia, wtedy wykona $8750$ operacji.
+Mając dany ciąg $a_1, a_2, \cdots a_{n+1}$ należy wypisać takie nawiasowanie macierzy $A_1, A_2, \cdots A_n$ przy którym algorytm wykona jak najmniejszą ilość operacji.
+Zakładamy przy tym, ż macierz $A_i$ jest rozmiaru $a_i \times a_{i+1}$.
+
+\section*{Wydawanie reszty}
+
+Przyjmijmy, że mamy następujące nominały: $50$ groszy, $25$ groszy, $10$ groszy, $5$ groszy oraz $1$ grosz.
+Chcemy wydać resztę używając tych nominałów.
+Możemy to zrobić na różne sposoby.
+Dla przykładu, gdy chcemy wydać $11$ groszy, możemy to zrobić używając $10$-groszówki i $1$-groszówki, dwóch $5$-groszówek oraz $1$-groszówki, jednej $5$ groszówki oraz sześciu $1$-groszówek lub jedenastu $1$-groszówek.
+Ułóż algorytm, który dla zadanej reszty liczy ile jest sposobów na wydanie reszty za pomocą wspomnianych nominałów.
+
+\section*{Łamanie patyka}
+
+Dany jest długi patyk, który należy połamać w określonych miejscach.
+Jak powszechnie wiadomo (?) im dłuższy patyk, tym  trudniej go złamać.
+Firma profesjonalnie zajmująca się łamaniem patyków, każe sobie płacić proporcjonalnie dużo od długości patyka.
+W zależności od tego w jakiej kolejności każemy firmie łamać patyk, może zależeć to ile za takie łamanie zapłacimy.
+Dla przykładu powiedzmy, że mamy patyk o długości $10$ m i musimy go złamać w $2$, $4$ i $7$ metrach.
+Jeśli firma wpierw złamie go w $2$-gim metrze, następnie w $4$-tym a na końcu w $7$-mym to zapłacimy za tą niewątpliwą przyjemność $10 + 8 + 6 = 24$.
+Jeśli natomiast najpierw poprosilibyśmy, aby firma złamała go w $4$-tym metrze, a następnie w $2$-gim i $7$-mym to zapłacilibyśmy $10 + 4 + 6 = 20$.
+Mając daną długość patyka oraz miejsca przełamań policz najtańszą kolejność łamania patyka.
+
+\section*{Wąskie liczby}
+
+Liczbę w systemie $k$-tkowym nazywamy wąską, jeśli każde dwie sąsiednie cyfry różnią się od siebie nie więcej niż o jeden.
+Dla danych liczb $k$ oraz $n$ policz ile jest $n$-cyfrowych liczb w systemie $k$-tkowym, które są wąskie.
+
+\section*{Mądre słonie}
+
+Niektórym wydaje się, że im większy jest słoń, tym jest mądrzejszy.
+Aby zaprzeczyć temu twierdzeniu chcesz znaleźć w podanej bazie danych słoni jak najdłuższy ciąg w którym waga słoni rośnie, a IQ maleje.
+
+\section*{Odwracanie naleśników}
+
+Dany jest talerz z naleśnikami.
+Naleśniki mają różne średnice i leżą na talerzu na wspólnym stosie.
+Chcemy posortować naleśniki, przy czym jedyną dopuszczalną operacją jest włożenie łopatki pod wybrany naleśnik a następnie odwrócenie go wraz z wszystkimi naleśnikami leżącymi wyżej.
+Należy znaleźć ciąg operacji odwracania naleśników, który doprowadzi do posortowania naleśników według średnic.
+Możesz założyć, że naleśniki są z serem.
+
+\section*{Upośledzony Gustaw}
+
+Gustaw potrafi liczyć.
+Teraz uczy się jak liczby zapisuje się na papierze.
+Ponieważ Gustaw jest bardzo dobrym uczniem, zna już cyfry $1$, $2$, $3$ oraz $4$.
+Nie zorientował się on jeszcze, że $4$ to jest inna cyfra niż $1$, więc myśli, że ``$4$'' to inny sposób aby zapisać ``$1$''.
+Pomimo tego wymyślił bardzo ``ciekawą'' grę.
+Mając daną liczbę $n$ zastanawia się ile zna liczb, których cyfry sumują się do $n$.
+Jeśli na przykład $n$ jest równe $2$ to Gustaw zna pięć takich liczb: $11$, $14$, $41$ oraz $2$.
+Opracuj algorytm, który dla zadanaj liczby $n$ policzy ile liczb zna Gustaw, które sumują się do $n$.
+
+\section*{Gra w klasy}
+
+W bogatej dzielnicy Sosnowca dzieci znalazły sobie nową zabawą.
+Na chodniku malują szachownicę o rozmiarach $n \times n$.
+Następnie na każde pole szachownicy kładą różną ilość groszy.
+Kolejnie jedno dziecko staje w dolnym lewym rogu szachownicy i zbiera wszystkie monety leżące na tym polu.
+Następnie wybiera pomiędzy dwoma kierunkami: prawo lub góra i skacze na wybrane przez siebie pole
+(o ile jest w stanie na nie doskoczyć; powiedzmy, że jest w każdym momencie skoczyć na pole nie dalsze niż o $k$).
+Pole to musi zawierać więcej groszy niż pole na którym stał uprzednio.
+Z tego pola zbiera wszystkie monety i zabawę kontynuuje dopóty ma możliwe ruchy.
+Opracuj algorytm, który mając daną szachownicę obliczy ile dany gracz jest w stanie zebrać groszy.
+
+\section*{Pokrycie przedziałowe}
+
+Dane są przedziały liczbowe postaci $(l_i, r_i)$.
+Należy wybrać jak najmniejszą liczbę przedziałów tak, aby ich suma zawierała przedział $(0, M)$.
+
+\section*{Problem chińskich pałeczków}
+
+Dlaczego łyżkę kojarzy się z jesienią?
+Bo je się nią.
+Ale nie w Chinach.
+Tam je się pałeczkami.
+Profesor L. wymyślił właśnie nowy system jedzenia w którym używa się $3$ pałeczek.
+Jednej normalnej pary oraz jednego długiego patyka, którym zjada duże kawałki dziabiąc nim.
+Oczywiście dobrze by było, aby dwie małe pałeczki były o zbliżonym rozmiarze, natomiast rozmiar największej pałeczki nie ma znaczenia.
+Formalnie - jeśli $A \leq B \leq C$ to rozmiar pałeczek to niedobroć zestawu definiujemy jako $(B-A)^2$.
+Profesor L. organizuje właśnie imprezę na którą przyjdzie $K$ gości.
+Chce on zaprezentować swoim gościom swój nowy system.
+Planuje teraz wybrać ze swojej kolekcji $N$ pałeczek $K$ zestawów, tak aby zminimalizować sumę niedobroci zestawów.
+
+\section*{Konstruowanie BST}
+
+Mamy zadaną wysokość $H$ oraz liczbę elementów $N$.
+Chcemy znaleźć taką permutację liczb $1, 2, \cdots N$, że wstawiając do początkowo pustego drzewa BST otrzymamy drzewo o wysokości nie większej niż $H$.
+Jeśli jest więcej takich permutacji to chcemy znaleźć leksykograficznie najmniejszą.
+
+\section*{Optymalne BST}
+
+Mamy zadany zbiór par $\{(e_i, p_i)\}$.
+Chcemy z nich utworzyć drzewo w ten sposób, aby tworzyło ono drzewo BST po wartościach $e_i$.
+Ponadto dla każdego drzewa definiujemy jego wagę jako $\sum p_i \cdot d_i$ gdzie $d_i$ to odległość $i$-tego wierzchołka od korzenia.
+Należy znaleźć drzewo BST złożone z zadanych elementów o minimalnej wadze.
+
+\section*{Willy Wonka}
+
+Willy Wonka chce rozdać trójce dzieci cukierki.
+Cukierków jest $N$ ($N \leq 30$) i każdy z nich ma swoją wagę w gramach ($w_i \leq W \leq 20$).
+Willy chce rozdać wszystkie cukierki i chce aby dzieciaki dostały mniej więcej po równo - tj. chce zminimalizować różnicę w wadze między dzieciakiem, który dostał najcięższy worek cukierków a dzieciakiem, który dostał worek najlżejszy.
+
+\section*{Ustawianie domina}
+
+Chcemy ustawić szereg domina złożony z $N$ kostek domina.
+Powiedzmy, że nasz szereg wygląda tak: ``DD\_\_DxDDD\_D''.
+Chcemy teraz wstawić kolejną kostkę w pole oznaczone jako ``x''.
+Ponieważ mylić się jest rzeczą ludzką - prawdopodobieństwo, że kostka przwróci się w lewo wynosi $p_l$ a w prawo $p_r$.
+Zakładamy, że $0 < p_l + p_r \leq 0.5$.
+Gdy kostka się przewróci - przewraca blok kostek znajdujący się obok niego.
+W przykładzie - jeśli kostka którą stawiamy przewróci się w lewo - przewróci dodatkowo jedną kostkę.
+Jeśli w prawo - przewróci dodatkowo aż trzy kostki.
+Kostki te będziemy musieli postawić na nowo.
+Ile wynosi oczekiwana ilość kostek, które musimy postawić w optymalnej strategii ustawienia?
+
+\section*{Hazard}
+
+Z sześciu symboli rozlosowywane są $3$ (z powtórzeniami).
+Stawiamy $a \leq L$ złotych na jeden symbol (gdzie $L$ to dostępny limit na zakład).
+Jeśli zostanie on wylosowany to odzyskujemy swoje $a$ złotych plus dodatkowo zyskujemy $a$ złotych za każde wystąpienie naszego symbolu wśród $3$ wylosowanych.
+Jacek opracował Strategię Na Pewno Wygrywającą.
+Wygląda ona w ten sposób, że Jacek stawia w pierwszym zakładzie $1$ złoty.
+Jeśli przegra to w następnym zakładzie stawia dwa razy więcej niż w zakładzie poprzednim.
+Łatwo można zauważyć, że gdy któryś zakład wygramy - wychodzimy na plus.
+Wtedy zaczynamy naszą strategię od nowa - stawiając ponownie złotówkę na zakład.
+Problemem jest limit na zakład.
+Gdy Jacek go osiągnie, zaczyna strategię od nowa - mając nadzieję, że jeszcze się odkuje.
+Jakie jest prawdopodobieństwo, że między $K$-tym zakładem, a $M$-tym chociaż raz będziemy na plusie?
+
+\section*{Złote monety}
+
+W Bajtocji istnieje dziwny system monetarny.
+Każda moneta ma wybity nominał, który jest liczbą naturalną.
+Każdą monetę o nominale $A$ można w Banku Bajtockim rozmienić na monety $\lfloor A / 2 \rfloor$, $\lfloor A / 3 \rfloor$ oraz $\lfloor A / 4 \rfloor$.
+Ponadto monety można zamieniać na polskie złotówki przy kursie jeden do jednego (nie można dokonywać zamian w przeciwną stronę).
+Mamy jedną monetę o nominale $A$.
+Ile złotówek możemy otrzymać za nią?
+
+\section*{Deski i gwoździe}
+
+Dany jest zbiór przedziałów $\{(s_i, k_i)\}$.
+Pytamy się o najmnijeszy zbiór punktów $\{p_j\}$ taki, że dla każdego $i$ istenieje takie $j$, że $p_j \in (s_i, k_i)$.
+
+\section*{Sumowanie}
+
+Dany jest zbiór liczb naturalnych $\{a_i\}$, który należy zsumować.
+Koszt zsumowania liczb $a$ oraz $b$ wynosi $a + b$.
+W jakiej kolejności należy sumować elementy, aby zminimalizować koszt sumowania?
+
+\section*{Rzeźbiarz}
+
+Do pracowni rzeźbiarskiej właśnie dotarła marmurowa płyta o rozmiarach $H \times W$.
+Płytę tą można ciąć na dwa prostokąty wzdłóż jednego z jego boków.
+W pracowni potrzebne są określone rozmiary płyt $\{ (h_i, w_i) \}$.
+Jeden rozmiar można wykorzystać wielokrotnie.
+Pracownia chce teraz tak pociąć dostarczoną płytę, aby zminimalizować ilość ``odpadków''.
+
+\section*{Dzikie kodowanie}
+
+Każdej literze przyporządkowujemy dodatnią liczbę całkowitą, określającą jej pozycję w alfabecie.
+Słowa kodujemy zapisując każdą literę za pomocą przypisanej jej liczby.
+Na przykład słowo ``BEAN'' zakodowalibyśmy jako ``25114''.
+Problem jest z dekodowaniem słowa.
+Dla przykładu - ``25114'' można zdekodować na $6$ sposobów.
+Dla danej liczby należy policzyć na ile sposobów mozna ją zdekodować.
+
+\section*{Transport przez rzekę}
+
+Mamy dany statek, który może na raz przetransportować $n$ samochodów z jednego brzegu rzeki na drugi.
+Transport trwa $k$ jednostek czasu w jedna stronę, po którym statek musi powrócić na pierwszy brzeg.
+Mamy danych $m$ samochodów oraz $s_i$ - czas przyjazdu każdego samochodu nad rzekę.
+Pytamy się o to w jaki sposób należy transportować samochody, aby ostatni samochód przekroczył rzekę jak najwcześniej.
+Ile conajmniej kursów musi zrobić statek, aby osiągnąć taki czas?
+
+\section*{Gra na grafie}
+
+Dany mamy graf pełny z pętelkami.
+Każda krawędź ma jeden z trzech kolorów.
+Na grafie znajdują się $3$ pionki.
+Możemy przesunąć pionek z wierzchołka $u$ na wierzchołek $v$ jeśli krawędź między tymi wierzchołkami jest tego samego koloru co krawędź łączącą pozycje dwóch pozostałych pionków.
+Pytamy się o minimalną liczbę ruchów jakie trzeba wykonać, aby przesunąć wszystkie pionki na jedno pole.
+
+\section*{Sklep z kwiatami}
+
+Mamy dany zbiór kwiatów oraz rząd donniczek.
+Musimy umieścić kwiaty w donniczkach zachowując następujące zasady:
+\begin{itemize}
+ \item donniczek nie można przestawiać
+ \item jeden rodzaj kwiatu może wystąpić w wielu donniczkach
+ \item kwiaty muszą być ustawione w kolejności alfabetycznej (narcyzy muszą znaleźć się na lewo od róż)
+\end{itemize}
+Nie wszystkie kwiaty tak samo ładnie wyglądają w różnych donniczkach.
+Bardziej formalnie - mamy zadaną macierz $\{m_{i,j}\}$ określającą ``ładność'' wyglądu $i$-tego gatunku kwiatów w $j$-tej donniczce.
+Pytamy się o najładniejsze ustawienie kwiatów w donniczkach.
+
+TODO: Dodać zadania z średnie.pdf
