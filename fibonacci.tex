@@ -123,14 +123,14 @@ Zaprezentowaną metodę można uogólnić na dowolne ciągi, które zdefiniowane
 kombinację skończonej liczby poprzednich elementów. Wystarczy znaleźć odpowiednią macierz $M$. 
 Dla ciągów postaci:
 \begin{equation*}
-  G_{n + 1} = a_n G_n + a_{n - 1} G_{n - 1} + ... + a_{n - k} G_{n - k}
+  G_{n + 1} = a_0 G_n + a_1 G_{n - 1} + ... + a_k G_{n - k}
 \end{equation*}
 wygląda ona następująco:
 \begin{align*}
   M
   =
   \begin{bmatrix}
-    a_n    & a_{n - 1} & a_{n - 2} & \dots  & a_{n - k + 1} & a_{n - k} \\
+    a_0    & a_1       & a_2       & \dots  & a_{k - 1}     & a_k \\
     1      & 0         & 0         & \dots  & 0             & 0 \\
     0      & 1         & 0         & \dots  & 0             & 0 \\
     0      & 0         & 1         & \dots  & 0             & 0 \\
