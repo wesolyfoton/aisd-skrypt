@@ -1,6 +1,43 @@
 \section{Algorytm Borůvki}
-\sectionauthor{Jeszcze Nikt}
+\sectionauthor{Michał Bronikowski}
 
 \label{sec:boruvka}
 
-Todo, todo, todo...
+\paragraph{} Algorytm Borůvki jest przykładem algorytmu zachłannego znajdującego minimalne drzewo rozpinające. Algorytm został opracowany przez 
+Czeskiego matematyka Otakara Borůvke w 1926 roku. Miał pomóc zoptymalizować zasięg sieci elektrycznej w Czechach. 
+
+\subsection{Działanie}
+Niech $G = (V, E)$ będzie grafem ważonym, w którym wszystkie krawędzie mają różne wagi.
+W pierwszym kroku algorytm Borůvki wybiera dla wszystkich wierzchołków $ v \in V$ najlżejszą krawędź $e \in E$,
+która jest z nimi incydentna i dołącza  wierzchołki wraz z wybranymi krawędziami do lasu $F$. W następnym kroku 
+tworzymy graf $G'$ będący kopią $G$, z tą różnicą, że wszystkie spójne składowe z $F$ zostały ze sobą ``połączone'' w pojedyńcze wierzchołki zwane      
+superwierzchołkami. Powyższe czynności powtarzamy zamieniając $G'$ na $G$, dopóki nie otrzymamy jednej spójnej składowej, będzie to nasze $MST$.
+
+\subsection{Pseudokod}
+
+\begin{algorithm}[H]
+  \DontPrintSemicolon
+  \SetAlgorithmName{Algorytm}{}\\
+  \KwData{ $\mathcal{G}$ - Graf, w którym szukamy MST }\\
+  \KwResult{ $\mathcal{T}$, takie że $\mathcal{T}$ jest $MST$ $\mathcal{G}$ }\\
+$\mathcal{T} \leftarrow \emptyset$  \\
+$\mathcal{F} \leftarrow \emptyset$  \\
+  \While{$|\mathcal{G}(V)| > 1$}
+  {
+     Do $\mathcal{F}$ dołącz wszystkie wierzchołki z $\mathcal{G}$ wraz z incedentnymi krwędziami o najniższej wadze\\
+     W $\mathcal{F}$ wszystkie spójne składowe zamień na pojedyńcze wierzchołki\\
+     $\mathcal{G'} \leftarrow \mathcal{G} \setminus F$ \\
+     $\mathcal{G} \leftarrow \mathcal{G'}$
+  }
+  \caption{Algorytm Borůvki}
+  \label{alg-boruvka}
+\end{algorithm}
+
+\subsection{Dowód poprawnośći}
+W każdym kroku algorytmu budujemy rozwiązanie będące $MST$, poprzez dodanie do niego spójnych składowych z $F$ w postaci jednego wierzchołka, a z
+$Cut\ Property$ wiemy, że te wierzchołki należą do $MST$
+
+\subsection{Złożoność czasowa}
+W pojedyńczym kroku algorytmu wykonujemy maksymalnie $m$ operacji, gdzie $m$ jest ilością krawędzi w $G$.
+W każdym kroku algorytmu ilość wierzchołków zmniejsza się przynbajmniej o połowę.
+W związku z tym złożoność algorymu Borůvki wynosi $O(m\log{}n)$, gdzie $n$ oznacza ilość wierzchołków w $G$.
