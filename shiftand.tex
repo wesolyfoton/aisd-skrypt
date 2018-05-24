@@ -1,6 +1,132 @@
+% vim: set ts=2 sw=2 :
 \section{Algorytm Shift-And}
-\sectionauthor{Jeszcze Nikt}
+\sectionauthor{Mateusz Urbańczyk}
 
 \label{sec:shiftand}
 
-Todo, todo, todo...
+Rozważmy następujący problem (ang. \textit{string searching}). Dla zadanych dwóch ciągów
+znaków, tekstu i wzorca, odpowiedzieć na pytanie, czy wzorzec zawiera się w tekście.
+Mówiąc inaczej, czy tekst zwiera spójny podciąg znaków, który jest równy wzorcowi.
+Zdefiniujmy problem bardziej formalnie. \\
+
+Niech $\Sigma$ będzie skończonym alfabetem. Dla zadanego $\mathcal{T},\mathcal{P} \in \Sigma^*$
+takiego, że $|\mathcal{P}| \le |\mathcal{T}|$ (zwykle $|\mathcal{P}| \ll |\mathcal{T}|$), chcemy
+odpowiedzieć na pytanie, czy
+
+\begin{equation}
+    \label{eq:stringSearchingDefinition}
+    \mathlarger{\exists_{0 \leq j \leq n - m}} \enspace
+    \textit{\textsf{t. że}} \enspace \mathcal{T}[j..j+m] = \mathcal{P}
+\end{equation}
+
+gdzie $m = |\mathcal{P}|$ oraz $n = |\mathcal{T}|$. Posłużymy się tymi oznaczeniami także w dalszej
+części opisu. Algorytm \textit{Shift-And}, który zostanie omówiony, będzie obliczał wszystkie
+prefiksy $\mathcal{P}$ które są suffiksami $\mathcal{T}[0..j]$ dla $j=0..n$. Wynik trzymany będzie
+w masce bitowej $\mathcal{D} = d_m..d_1$ ($\forall_{1 \leq i \leq m} d_{i} \in \{0, 1\} $), która dla danej iteracji $j$ będzie spełniać niezmiennik:
+
+\begin{equation}
+ \label{eq:invariant}
+ \mathcal{D}[i] =
+  \begin{cases}
+      1 & \textit{\textsf{jeśli}} \enspace \mathcal{P}[0..i] = \mathcal{T}[j-i..j]
+            \quad\quad dla \enspace i=0..m \\
+      0 & w.p.p
+  \end{cases}
+\end{equation}
+
+Ponadto, zdefiniujmy sobie również tablicę $\mathcal{B}$, która dla każdego znaku będzie
+trzymać maski bitowe wystąpień we wzorcu:
+
+$$
+    \forall x \in \mathcal{L} = \{c: c \in \mathcal{P} \wedge c \notin \mathcal{L}\}
+$$
+$$
+    \mathcal{B}[x][i] =
+     \begin{cases}
+         1 & \textit{\textsf{jeśli}} \enspace \mathcal{P}[i] = c \quad\quad dla \enspace i=0..m \\
+         0 & w.p.p
+     \end{cases}
+$$
+
+Przejdźmy teraz do faktycznego pomysłu na algorytm. \textbf{Idea:} przechodząc od lewej do prawej,
+dla każdego znaku w tekście szukamy najdłuższego prefiksu we wzorcu, który również jest
+suffiksem w aktualnym oknie, gdzie okno jest ciągiem znaków z $\mathcal{T}$ o długości $m$,
+kończące się na aktualnie rozważanym znaku. Prefiksy będziemy znajdować wykorzystując następujące
+operacje bitowe na tablicy $\mathcal{D}$ zachowujące niezmiennik (\ref{eq:invariant}):
+
+\begin{equation}
+    \label{eq:resultUpdate}
+    \mathcal{D'} \leftarrow ((\mathcal{D} \ll 1 ) \enspace | \enspace 1)
+        \enspace \& \enspace \mathcal{B}[\mathcal{T}[j]]
+\end{equation}
+
+\begin{lemma}
+    Dla $\mathcal{D}$ w iteracji $j$ spełniona jest równoważność:
+    $$
+        \mathcal{D'}[i+1] = 1 \Leftrightarrow{}
+            \mathcal{D}[i] = 1 \wedge{} \mathcal{T}[j+1] = \mathcal{P}[i+1]
+    $$
+    gdzie $\mathcal{D'}$ to wynik w następnej iteracji algorytmu.
+\end{lemma}
+\begin{proof}
+    Jeżeli lemat jest prawdziwy, to zachowany będzie również niezmiennik algorytmu. \\
+    $(\Rightarrow)$
+    Weźmy dowolne $i$, $j$ i rozważmy $\mathcal{D'}$. Dowód przeprowadzimy nie wprost.
+    Załóżmy, że
+        $\mathcal{D'}[i+1] = 1$
+    $\wedge$
+        ($\mathcal{D}[i] \neq 1 \vee{} \mathcal{T}[j+1] \neq \mathcal{P}[i+1]$)
+    i rozważmy przypadki:
+    \begin{itemize}
+        \item $\mathcal{D}[i] \neq 1$. To implikuje, że $\mathcal{D}[i]$ = 0.
+           W kolejnej iteracji wykonamy
+           $\mathcal{D} \ll 1, zatem \enspace \mathcal{D'}[i+1] = 0$. Sprzeczność
+        \item $\mathcal{T}[j+1] \neq \mathcal{P}[i+1]$.
+            Zauważmy, że wtedy $\mathcal{B}[\mathcal{T}[j+1]][i+1] = 0$,
+            a stąd bit $\mathcal{D'}[i+1]$ zostanie wyzerowany po operacji \textit{AND}. Sprzeczność.
+
+    \end{itemize}
+    $(\Leftarrow)$
+    Analogicznie. Zostawiam jako proste ćwiczenie dla czytelnika.
+\end{proof}
+
+\begin{observation}
+Jeżeli po wykonaniu iteracji $\mathcal{D}[m-1] = 1$, to nasz wzorzec występuje w tekście.
+\end{observation}
+
+Dokładny algorytm wynika wprost z powyższej obserwacji oraz z (\ref{eq:resultUpdate}):
+
+\begin{algorithm}[h]
+  \DontPrintSemicolon
+  \SetAlgorithmName{Algorytm}{}
+
+  \KwData{\enspace $\mathcal{T}, \mathcal{P} \in \Sigma, |\mathcal{P}| \le |\mathcal{T}|$}
+
+  \KwResult{\enspace ewaluacja wyrażenia (\ref{eq:stringSearchingDefinition})}
+
+  \For{$c \in \Sigma$} {
+      $\mathcal{B}[c] \leftarrow 0$
+  }
+  \For{$i=1..m$} {
+      $
+        \mathcal{B}[\mathcal{P}[i]] \leftarrow
+          \mathcal{B}[\mathcal{P}[i]] \enspace | \enspace (1 \ll (i-1))
+      $
+  }
+  $\mathcal{D} \leftarrow 0$ \\
+  \For{j=1..n} {
+    $
+      \mathcal{D} \leftarrow ((\mathcal{D} \ll 1 ) \enspace | \enspace 1)
+        \enspace \& \enspace \mathcal{B}[\mathcal{T}[j]]
+    $ \\
+    \If{$\mathcal{D} \enspace \& \enspace (1 \ll (m-1))$}{
+          \Return true
+    }
+  }
+  \Return false
+
+  \caption{Algorym Shift-And}
+  \label{alg-wiesniakow}
+\end{algorithm}
+
+
