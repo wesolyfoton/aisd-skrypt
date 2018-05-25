@@ -1,6 +1,71 @@
 \section{Szybka Transformata Fouriera}
-\sectionauthor{Jeszcze Nikt}
+\sectionauthor{Wiktor Garbarek}
+
+%\newthoerem{remark_small}{Mała uwaga}
+\newtheorem{observation_small}{Malutka obserwacja}
+\newtheorem{observation_bigger}{Nieco większa obserwacja}
+
 
 \label{sec:fft}
 
-Todo, todo, todo...
+Zacznijmy od problemu mnożenia wielomianów. Mamy dwa wielomiany stopnia co najwyżej, dla późniejszej wygody w zapisie, $n-1$, powiedzmy $A(x) = \sum_{i=0}^{n-1} a_i\cdot x^i$ i analogicznie $B(x)$, gdzie $a_i$ oraz $b_i$ są rzeczywiste.
+Szukamy zatem wielomianu $$C(x) = \sum_{i=0}^{2n-2} c_ix^i$$, gdzie $c_i = \sum_{j=0} a_jb_{i-j} = \sum_{p + q = i} a_pb_q $ (oba te zapisy $c_i$ są równoważne, jeśli założymy, że $ 0 \leq p,q$).
+Na pierwszy rzut oka możemy zauważyć, że istnieje algorytm obliczający $C(x)$ w czasie $\Theta(n^2)$. Czy da się lepiej? Ano owszem, bo inaczej nie byłoby tego rozdziału.\\
+
+%\begin{remark_small}
+    Mała uwaga, bardzo podobne działanie na wektorach $a,b\in \mathbb{R}^n$ matematycy nazywają splotem.
+    $$c = a * b \Leftrightarrow c_i = \sum_{j=1}^{n}a_jb_{i-j}$$.
+%\end{remark_small}
+
+Zacznijmy od paru obserwacji
+\begin{observation_small} (Interpolacja)
+    Każdy wielomian stopnia $n-1$ o współczynnikach rzeczywistych da się przedstawić jednoznacznie jako $n$-elementowa lista par $(x_i, W(x_i))$, gdzie ciąg $x_i$ jest dowolnym ciągiem parami różnych liczb rzeczywistych.
+\end{observation_small}
+\begin{proof}
+    Prosty dowód pozostawiamy czytelnikowi.
+\end{proof}
+
+\begin{observation_bigger}
+    Jeśli mamy wielomiany $A(x)$ oraz $B(x)$ w powyższej postaci obliczonej dla jednego (wspólnego) ciągu $x_i$ (długości $2n$, to ważne!, ale nas to nie boli), to "łatwo" (tj. w czasie liniowym) możemy znaleźć ich iloczyn.
+\end{observation_bigger}
+\begin{proof}
+    Wystarczy powiedzieć, że $C(x)$ to ciąg $(x_i, A(x_i)B(x_i))$.
+\end{proof}
+Super! W takim razie, jedyne co pozostaje nam, to znaleźć algorytm, który zamieni wielomian w postaci listy współczynników na próbki naszego wielomianu w $2n$ punktach, obliczymy prosto iloczyn tych wielomianów i jeszcze musimy teraz wrócić do domu obliczając współczynniki wielomianu interpolacyjnego.
+No i tutaj jest cały problem, bo trywialny algorytm obliczy każdą tą zamianę postaci w czasie $\Theta(n^2)$ (Mamy $2n$ argumentów, dla każdego z nich obliczamy wartość wielomianu w czasie $\Theta(n)$)
+Spróbujmy zastosować tutaj metodę divide and conquer. Najpierw jednak zauważmy ciekawą zależność.
+
+\begin{observation_small}
+Dla każdego wielomianu zachodzi następująca równość $$A(x) = A^e(x^2) + xA^o(x^2)$$, gdzie $A^e(x) = \sum_{i=0}^{n/2 - 1}a_{2i}x^i$ oraz $A^o(x) = \sum_{i=0}^{n/2 - 1} a_{2i+1}x^i$
+('e' oznacza \textit{even}, elementy na parzystych indeksach, a 'o' oznacza \textit{odd})
+\end{observation_small}
+Niektórzy mogą pomyśleć, że to już koniec. Prosto bierzemy sobie wielomian $A(x)$, jakiś dowolny zbiór $X$, obliczamy rekurencyjnie wartość dla wielomianów $A^e$ i $A^o$ przy wykorzystaniu zbioru $X' = \{x^2 : x \in X\}$.
+Nic bardziej mylnego, zauważmy bowiem, że gdy będziemy łączyć wyniki, to tak naprawdę za każdym razem wykonamy $\Theta(|X|)$ kroków, a przy dowolnie wybranym zbiorze, ten zbiór $X'$ wcale nie musi (i co najbardziej prawdopodobne, nie będzie) zmniejszać swojego rozmiaru
+(Nota bene taki algorytm dalej ma złożoność $\Theta(n^2)$).
+Ale jednak jest nadzieja! Możemy go wybrać dowolnie, więc wystarczy znaleźć $X$ taki, że $|X'| = \frac{|X|}{2}$. Brzmi niewykonalnie? Jednak wcale nie jest. Popatrzmy sobie na pierwiastki jedynki na płaszczyźnie zespolonej. Spójrzmy na przykład dla pierwiastków ósmego stopnia.
+Gdy weźmiemy dowolną liczbę z tego zbioru i podniesiemy ją do kwadratu, to wtedy jej moduł się nie zmienia, a jedyne co robimy to podwajamy kąt między jej promieniem wodzącym, a dodatnią półosią OX. W takim razie zamiast rozpatrywać kąty 0, 45, 90, 135, 180, 225, 270, 315 będziemy rozpatrywać kąty 0, 90, 180, 270, 360, 450, 540, 630. Jednakże obrót o 450 stopni, to tak naprawdę obrót o 90, 540 to tak naprawdę 180 stopni itd.
+Czyli widzimy, że podnosząc do kwadratu wszystkie elementy w tym zbiorze zmniejszyliśmy jego liczność do połowy. (I znaleźliśmy też pierwiastki czwartego stopnia z jedynki).
+
+\begin{algorithm}[H]
+  \DontPrintSemicolon
+  \SetAlgorithmName{Algorytm}{Cooley-Tukey}
+
+  \KwData{ $x = [x_0, x_1, ... x_{N-1}] \in \mathbb{C}^n$ - wektor liczb zespolonych długości N}
+
+  \KwResult{$y \in \mathbb{C}^n$, taki, że $y_k = \sum_{n=0}^{N-1}x_n \cdot \exp{\frac{-2\pi i n k}{N}}$ dla $k = 0,1,...,N-1$}
+
+  \For{$i \leftarrow 1$ to $n$}
+  {
+     \For{$j \leftarrow 1$ to $p$}
+     {
+	$C[i][j] \leftarrow 0$\;
+	\For{$r \leftarrow 1$ to $m$}
+	{
+	  $C[i][j] \leftarrow C[i][j] + A[i][r] \cdot B[r][j]$\;
+	}
+     }
+  }
+
+  \caption{Algorytm Cooleya-Tukeya}
+  \label{alg-fft-cooley-tukey}
+\end{algorithm}
