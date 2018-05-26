@@ -46,6 +46,22 @@ Ale jednak jest nadzieja! Możemy go wybrać dowolnie, więc wystarczy znaleźć
 Gdy weźmiemy dowolną liczbę z tego zbioru i podniesiemy ją do kwadratu, to wtedy jej moduł się nie zmienia, a jedyne co robimy to podwajamy kąt między jej promieniem wodzącym, a dodatnią półosią OX. W takim razie zamiast rozpatrywać kąty 0, 45, 90, 135, 180, 225, 270, 315 będziemy rozpatrywać kąty 0, 90, 180, 270, 360, 450, 540, 630. Jednakże obrót o 450 stopni, to tak naprawdę obrót o 90, 540 to tak naprawdę 180 stopni itd.
 Czyli widzimy, że podnosząc do kwadratu wszystkie elementy w tym zbiorze zmniejszyliśmy jego liczność do połowy. (I znaleźliśmy też pierwiastki czwartego stopnia z jedynki).
 
+Reasumując obliczamy w takim razie $$\{W(e^{\frac{2k\pi i}{2n}}) = \sum_{j=0}^{n-1}a_je^{\frac{2k\pi ij}{2n}} | k = 0,...,2n-1\}$$
+Żeby jednak nasze indeksowanie ładnie wyglądało, to możemy pomyśleć, że tak naprawdę $a_n, a_{n+1}, ..., a_{2n-1}$ są zerami, a wtedy możemy zapisać to przekształcenie w ten sposób.
+Mając wektor $\vec{a} = [a_0, ..., a_{N-1}]$, szukamy wektora $\vec{y} = [y_0, ..., y_{N-1}]$ takiego, że
+$$y_k = \sum_{j=0}^{N-1}a_je^{\frac{2k\pi ij}{N}}$$. Oto jest właśnie (już prawie!) Dyskretna Transformata Fouriera.
+\begin{definition}
+    Dyskretną Transformatą Fouriera nazywamy następującą funkcję $dft: \mathbb{C}^N \rightarrow \mathbb{C}^N$
+    gdzie, jeśli $\vec{y} = dft(\vec{a})$ to $$y_k = \sum_{j=0}^{N-1}a_je^{\frac{-2k\pi ij}{N}}$$
+\end{definition}
+Niby jedyną różnicą (i aż jedyną!) jest minus - jaki to ma wpływ na wynik w praktyce, pozostawiamy czytelnikowi do sprawdzenia.
+Algorytm ten zawdzięczamy Cooley'owi oraz Tukey'owi (1965), jednakże idea ta była znana już 160 lat wcześniej Gaussowi.
+
+Poruszmy jeszcze jedną ważną rzecz - przede wszystkim w powyższych rozważaniach niemo wymagaliśmy, by długość naszego wektora była potęgą dwójki. Jeśli chodzi natomiast o problem mnożenia wielomianów, w żaden sposób nas to nie boli, ponieważ zawsze możemy dopełnić wektor jakąś ilością zer do najbliższej potęgi dwójki, a skoro wydłużył on się co najwyżej dwukrotnie, to ta idea nie zmienia złożoności całego algorytmu.
+Nie obchodzą nas też w żaden sposób wartości pośrednie (czytaj: zamiana wielomianu z wektora współczynników, na wektor punktów do interpolacji)
+Jednak gdyby zależało nam na policzeniu powyższego działania (tj. nie mnożenia wielomianów, a już obliczenia DFT dla dowolnego wektora) pojawia się duży problem. Przede wszystkim całą zabawę psuje liczba $\exp{\frac{\mathunderscore}{N}}$, której nie pozbędziemy się w żaden trywialny sposób.
+
+Wracając jednak do algorytmu, zapiszemy go jeszcze w pseudokodzie.
 \begin{algorithm}[H]
   \DontPrintSemicolon
   \SetAlgorithmName{Algorytm}{Cooley-Tukey}
