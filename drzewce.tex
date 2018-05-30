@@ -48,53 +48,27 @@ Z twierdzenia tego i jego dowodu wprost wynika, że drzewiec tworzy BST o takim 
  \label{xyz}
 \end{theorem}
 \begin{proof}
-
+Nasz dowód rozpoczniemy od pomocniczej definicji
+\begin{definition}
+\textbf{Lewym/Prawym Kręgosłupem} drzewa nazywamy cieżkę od korzenia do wierzchołka z najmniejszym/największym kluczem (złożoną wyłącznie z lewych/prawych krawędzi).
+\end{definition}
 \end{proof}
 
-
+Powyższe twierdzenia pokazują, że wysokoć drzewców, a tym samym operacje na nich nie tylko mają dobrą złożonoć asymptotyczną, ale też, że (oczekiwany) narzut związany z rotacjami jest ograniczony przez niewielką stałą.
 
 \begin{algorithm}
   \DontPrintSemicolon
   \SetAlgorithmName{Algorytm}{}
 
-  \KwData{ root, value }
+  \KwData{ root }
+
+  $new\_root \leftarrow root.right$\;
+  $root.right \leftarrow new\_root.left$\;
+  $new\_root.left \leftarrow root$\;
+  \Return new\_root\;
   
-  \If{$root = null$}
-    {
-      \Return $null$\;
-    }
-  \ElseIf{$root.key > value$}
-  {
-     root.left $\leftarrow$ delete(root->left, value)\;
-  }
-  \ElseIf{$root.key < value$}
-  {
-     root.right $\leftarrow$ delete(root->right, value)\;
-  }
-  \ElseIf{$root.key = value$}
-  {
-  	\If{$root.left = null$}
-  	{
-  	  \Return $root.right$\;
-  	}
-  	\ElseIf{$root.right = null$}
-  	{
-  	  \Return $root.left$\;
-  	}
-  	\ElseIf{$root.left.priority < root.right.priority$}
-  	{
-  	  $root \leftarrow rotateLeft(root)$\;
-  	  $root.left \leftarrow delete(root.left, value)$\;
-  	}
-  	\Else
-  	{
-  	  $root \leftarrow rotateRight(root)$\;
-  	  $root.right \leftarrow delete(root.right, value)$\;
-  	}
-  }
-  \Return $root$\;
-  \caption{\texttt{delete}}
-  \label{treap-delete}
+  \caption{\texttt{rotateLeft (rotacja w prawo jest analogiczna)}}
+  \label{treap-rotate-left}
 \end{algorithm}
 
 \begin{algorithm}
@@ -136,13 +110,42 @@ Z twierdzenia tego i jego dowodu wprost wynika, że drzewiec tworzy BST o takim 
   \DontPrintSemicolon
   \SetAlgorithmName{Algorytm}{}
 
-  \KwData{ root }
-
-  $new\_root \leftarrow root.right$\;
-  $root.right \leftarrow new\_root.left$\;
-  $new\_root.left \leftarrow root$\;
-  \Return new\_root\;
+  \KwData{ root, value }
   
-  \caption{\texttt{rotateLeft (rotacja w prawo jest analogiczna)}}
-  \label{treap-rotate-left}
+  \If{$root = null$}
+    {
+      \Return $null$\;
+    }
+  \ElseIf{$root.key > value$}
+  {
+     $root.left $\leftarrow$ delete(root->left, value)$\;
+  }
+  \ElseIf{$root.key < value$}
+  {
+     $root.right $\leftarrow$ delete(root->right, value)$\;
+  }
+  \ElseIf{$root.key = value$}
+  {
+  	\If{$root.left = null$}
+  	{
+  	  \Return $root.right$\;
+  	}
+  	\ElseIf{$root.right = null$}
+  	{
+  	  \Return $root.left$\;
+  	}
+  	\ElseIf{$root.left.priority < root.right.priority$}
+  	{
+  	  $root \leftarrow rotateLeft(root)$\;
+  	  $root.left \leftarrow delete(root.left, value)$\;
+  	}
+  	\Else
+  	{
+  	  $root \leftarrow rotateRight(root)$\;
+  	  $root.right \leftarrow delete(root.right, value)$\;
+  	}
+  }
+  \Return $root$\;
+  \caption{\texttt{delete}}
+  \label{treap-delete}
 \end{algorithm}
