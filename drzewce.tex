@@ -50,8 +50,28 @@ Z twierdzenia tego i jego dowodu wprost wynika, że drzewiec tworzy BST o takim 
 \begin{proof}
 Nasz dowód rozpoczniemy od pomocniczej definicji
 \begin{definition}
-\textbf{Lewym/Prawym Kręgosłupem} drzewa nazywamy cieżkę od korzenia do wierzchołka z najmniejszym/największym kluczem (złożoną wyłącznie z lewych/prawych krawędzi).
+\textbf{Lewym/Prawym Kręgosłupem} drzewa nazywamy cieżkę od korzenia do węzła z najmniejszym/największym kluczem (złożoną wyłącznie z lewych/prawych krawędzi).
 \end{definition}
+Rozważmy teraz długoć kręgosłupów dzieci dodawanego wezła w czasie operacji $insert$.
+Nie trudno zauważyć, że początkowo oba są długoci $0$ oraz, że kazda rotacja w lewo wydłuża prawy kręgosłup lewego dziecka o $1$.
+Analogicznie kazda rotacja w prawo wydłuża lewy kręgosłup prawego drzewa o $1$.
+Wynika stąd, że iloć rotacji potrzebnych przy wstawianiu węzła jest równa długoci lewego kręgosłupa prawego dziecka i prawego kręgosłupa lewego dziecka  nowo wstawionego węzła (po zakończeniu procedury).
+
+Spróbujmy teraz okrelić wartoci oczekiwane tych parametrów.
+Weźmy dwa różna węzły $x$ i $y$ należące do drzewca, oznaczmy $i=y.key$ i $k=x.key$, i wyznaczmy zmienną losową
+
+$$
+X_{ik} =
+  \begin{cases} 
+  1 &  y \in\ $prawego\ kręgosłupa\ lewego\ poddrzewa\ x$\\
+  0 & wpp.
+  \end{cases}
+$$
+
+Pokażemy teraz, że $X_{ik} = 1 \iff y.priority > x.priority \land y.key < x.key \land (\forall z\ y.key < z.key < x.key \implies y.priority < z.priority)$
+
+Wynikanie w lewo wynika wprost z definicji drzewca.
+Rozważmy zatem implikację w drugą stronę.
 \end{proof}
 
 Powyższe twierdzenia pokazują, że wysokoć drzewców, a tym samym operacje na nich nie tylko mają dobrą złożonoć asymptotyczną, ale też, że (oczekiwany) narzut związany z rotacjami jest ograniczony przez niewielką stałą.
@@ -65,7 +85,7 @@ Powyższe twierdzenia pokazują, że wysokoć drzewców, a tym samym operacje na
   $new\_root \leftarrow root.right$\;
   $root.right \leftarrow new\_root.left$\;
   $new\_root.left \leftarrow root$\;
-  \Return new\_root\;
+  \Return $new\_root$\;
   
   \caption{\texttt{rotateLeft (rotacja w prawo jest analogiczna)}}
   \label{treap-rotate-left}
@@ -118,11 +138,11 @@ Powyższe twierdzenia pokazują, że wysokoć drzewców, a tym samym operacje na
     }
   \ElseIf{$root.key > value$}
   {
-     $root.left $\leftarrow$ delete(root->left, value)$\;
+     $root.left \leftarrow delete(root->left, value)$\;
   }
   \ElseIf{$root.key < value$}
   {
-     $root.right $\leftarrow$ delete(root->right, value)$\;
+     $root.right \leftarrow delete(root->right, value)$\;
   }
   \ElseIf{$root.key = value$}
   {
