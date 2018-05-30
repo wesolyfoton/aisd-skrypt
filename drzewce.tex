@@ -1,6 +1,148 @@
 \section{Drzewce}
-\sectionauthor{Jeszcze Nikt}
+\sectionauthor{Bartłomiej Betka}
 
 \label{sec:drzewce}
 
-Todo, todo, todo...
+Podobnie jak drzewa AVL oraz drzewa czerwono-czarne drzewce rozwiązują problem potencjalnego niezrównoważenia "zwykłego" BST.
+Osiągają one jednak ten cel w zupełnie inny sposób.
+Zamiast kontrolować wysokość drzewa i jego poddrzew drzewce opierają się na randomizacji, która, jak zaraz pokażemy, zapewnia asymptotycznie równie dobre oczekiwane własności. 
+
+\begin{definition} 
+Drzewiec to drzewo binarne, którego każdy węzeł posiada zarówno klucz jak i priorytet.
+Względem kluczy drzewiec jest drzewem przeszukiwań binarnych a względem priorytetów jest on kopcem.
+\end{definition}
+
+\paragraph{Podstawowe operacje, które implementują drzewce:}
+\begin{itemize}
+    \item \textbf{Find} Wygląda dokładnie tak, jak w drzewie BST (względem kluczy).
+    \item \textbf{Insert} Najpierw wstawiamy wartość (wraz z losowym kluczem) jak do drzewa BST, następnie rotacjami/zamianą z ojcem przywracamy porządek kopcowy.
+    \item \textbf{Delete} Znajdujemy klucz, rotacjami spychamy go do liścia, następnie usuwamy ten liść (co nie zaburza ani porządku BST ani kopca).
+    \item Pomocniczo potrzebne są również operacje rotacji służące do przywracania porządku kopcowego.
+\end{itemize}
+
+Na końcu rozdziału znajduje się pseudo-kod, który pokazuje jak można zaimplementować powyższe metody i pozwala przekonać się, że jest to znacznie łatwiejsze niż w przypadku analogicznych operacji na drzewach AVL czy drzewach czerwono-czarnych.
+
+Teraz udowodnimy kilka własności drzewców.\footnote{Przy analizie drzewców zakładamy, że wszystkie priorytety sa różne.}
+
+\begin{theorem}
+ Dla każdego zbioru par $(klucz, priorytet)$ istnieje dokładnie jeden drzewiec
+ \label{xyz}
+\end{theorem}
+\begin{proof}
+Oczywiście para, w której znajduje się najwyższy priorytet musi znajdować się w korzeniu drzewa.
+W jego lewym poddrzewie znajdować się muszą wszystkie pary o mniejszych kluczach, a w prawym wszystkie pary o większych kluczach, które, indukcyjnie, tworzą drzewce według tej samej zasady.
+\end{proof}
+
+Z twierdzenia tego i jego dowodu wprost wynika, że drzewiec tworzy BST o takim kształcie, jakby kolejne klucze były dodawane w kolejności rosnących priorytetów.
+
+\begin{theorem}
+ Asymptotyczna wysokość drzewca wynosi $O(log\ n)$
+ \label{xyz}
+\end{theorem}
+\begin{proof}
+
+\end{proof}
+
+\begin{theorem}
+ Oczekiwana ilość rotacji przy insert/delete < 2
+ \label{xyz}
+\end{theorem}
+\begin{proof}
+
+\end{proof}
+
+
+
+\begin{algorithm}
+  \DontPrintSemicolon
+  \SetAlgorithmName{Algorytm}{}
+
+  \KwData{ root, value }
+  
+  \If{$root = null$}
+    {
+      \Return $null$\;
+    }
+  \ElseIf{$root.key > value$}
+  {
+     root.left $\leftarrow$ delete(root->left, value)\;
+  }
+  \ElseIf{$root.key < value$}
+  {
+     root.right $\leftarrow$ delete(root->right, value)\;
+  }
+  \ElseIf{$root.key = value$}
+  {
+  	\If{$root.left = null$}
+  	{
+  	  \Return $root.right$\;
+  	}
+  	\ElseIf{$root.right = null$}
+  	{
+  	  \Return $root.left$\;
+  	}
+  	\ElseIf{$root.left.priority < root.right.priority$}
+  	{
+  	  $root \leftarrow rotateLeft(root)$\;
+  	  $root.left \leftarrow delete(root.left, value)$\;
+  	}
+  	\Else
+  	{
+  	  $root \leftarrow rotateRight(root)$\;
+  	  $root.right \leftarrow delete(root.right, value)$\;
+  	}
+  }
+  \Return $root$\;
+  \caption{\texttt{delete}}
+  \label{treap-delete}
+\end{algorithm}
+
+\begin{algorithm}
+  \DontPrintSemicolon
+  \SetAlgorithmName{Algorytm}{}
+
+  \KwData{ root, value }
+  \If{$root = null$}
+  {
+    \Return $Node(value, random())$\;
+  }
+  \ElseIf{$root.key = value$}
+  {
+    \Return $root$\;
+  }
+  \ElseIf{$root.key > value$}
+  {
+    $root.left \leftarrow insert(root.left, value)$\;
+    \If{$root.left.priority < root.priority$}
+    {
+      $root \leftarrow rotateLeft(root)$\;
+    }
+  }
+  \ElseIf{$root.key < value$}
+  {
+    $root.right \leftarrow insert(root.right, value)$\;
+    \If{$root.right.priority < root.priority$}
+    {
+      $root \leftarrow rotateRight(root)$\;
+    }
+  }
+  
+  \Return root\;
+  \caption{\texttt{insert}}
+  \label{treap-insert}
+\end{algorithm}
+
+\begin{algorithm}
+  \DontPrintSemicolon
+  \SetAlgorithmName{Algorytm}{}
+
+  \KwData{ root }
+
+  $new\_root \leftarrow root.right$\;
+  $root.right \leftarrow new\_root.left$\;
+  $new\_root.left \leftarrow root$\;
+  \Return new\_root\;
+  
+  \caption{\texttt{rotateLeft (rotacja w prawo jest analogiczna)}}
+  \label{treap-rotate-left}
+\end{algorithm}
