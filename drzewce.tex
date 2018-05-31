@@ -36,14 +36,52 @@ W jego lewym poddrzewie znajdować się muszą wszystkie pary o mniejszych klucz
 Z twierdzenia tego i jego dowodu wprost wynika, że drzewiec tworzy BST o takim kształcie, jakby kolejne klucze były dodawane w kolejności rosnących priorytetów.
 
 \begin{theorem}
- Oczekiwana wysokość drzewca jest $O(log\ n)$.
+Oczekiwana wysokość drzewca jest $O(log\ n)$.
 \end{theorem}
 \begin{proof}
+Aby udowodnić nasze twierdzenie pokażemy, że wartość oczekiwana głębokości dowolnego węzła (ilość jego przodków) jest $O(log\ n)$.
 
+Oznaczmy $N_k$ - węzeł o kluczu $k$ i wyznaczmy zmienną losową:
+
+$$
+X_{ij} =
+  \begin{cases} 
+  1 &  N_j\text{ jest przodkiem }N_i\\
+  0 & $wpp.$
+  \end{cases}
+$$
+
+Bez straty ogólności załóżmy teraz, że klucze są kolejnymi dodatnimi liczbami naturalnymi ($[1,n]$) i spróbujmy obliczyć $P(X_{ij})$.
+
+Rozważmy węzły o kluczach z $[i, j]$ (węzły z kluczami z poza tego zakresu nie mają znaczenia dla obliczania $P(X_{ij})$) oraz ich priorytety, mamy trzy możliwe przypadki:
+\begin{enumerate}
+\item Węzeł $N_i$  ma najniższy priorytet.
+W tej sytuacji $N_j$ nie może, oczywiście, być przodkiem $N_i$.
+\item Element o kluczu $k$ różnym od $i$ i $j$ ma najniższy priorytet.
+W tym przypadku $N_k$ znajdzie się w korzeniu drzewca zawierającego zarówno $N_i$ jak i $N_j$, a ponieważ $i < k< j \lor j < k < i$ to $N_i$ i $N_j$ trafią do różnych poddrzew $N_k$.
+\item Element o kluczu $j$ ma najwyższy priorytet.
+Tylko w tym wypadku $N_j$ jest przodkiem $N_i$ ponieważ między nimi nie ma żadnego węzła o niższym priorytecie, który rozdzieliłby je do osobnych poddrzew jak w przypadku powyżej.
+\end{enumerate}
+
+Interesuje nas zatem $(|j - i|)!$ spośród $(|j - i| + 1)!$ permutacji, czyli $P(X_{ij}) = \frac{1}{|j-i| + 1}$.
+
+A stąd oczekiwana wysokość $N_i$ to:
+$$
+\mathbf{E}[\text{wysokość }N_i]=
+\sum_{j=1, j\neq i}^{n} \frac{1}{|j-i| + 1}=
+\overbrace{
+\sum_{j=1}^{i-1}\frac{1}{i-j+1}+
+\sum_{j=i+1}^{n}\frac{1}{j-i+1}
+}^\text{szeregi harmoniczne bez jedynek}<
+2ln\ n=
+O(log\ n)
+$$
 \end{proof}
 
+\newpage
+
 \begin{theorem}
- Oczekiwana ilość rotacji przy \texttt{insert}/\texttt{delete} < 2.
+Oczekiwana ilość rotacji przy \texttt{insert}/\texttt{delete} < 2.
 \end{theorem}
 \begin{proof}
 Nasz dowód rozpoczniemy od pomocniczej definicji:
@@ -60,8 +98,8 @@ Weźmy dwa różna węzły $x$ i $y$ należące do drzewca, oznaczmy $i=y.key$ i
 
 $$
 X_{ik} =
-  \begin{cases} 
-  1 &  y \in\ $prawego\ kręgosłupa\ lewego\ poddrzewa\ x$\\
+  \begin{cases}
+  1 &  y \in$ prawego kręgosłupa lewego poddrzewa x$\\
   0 & $wpp.$
   \end{cases}
 $$
@@ -96,6 +134,8 @@ Identyczna liczba rotacji dla \texttt{delete} wynika wprost z powyższego oraz T
 \end{proof}
 
 Powyższe twierdzenia pokazują, że wysokość drzewców, a tym samym operacje na nich, nie tylko mają dobrą złożoność asymptotyczną, ale też, że (oczekiwany) narzut związany z rotacjami jest ograniczony przez niewielką stałą.
+
+\newpage
 
 \begin{algorithm}
   \DontPrintSemicolon
