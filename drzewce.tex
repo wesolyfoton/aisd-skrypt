@@ -26,7 +26,7 @@ Teraz udowodnimy kilka własności drzewców.\footnote{Przy analizie drzewców z
 
 \begin{theorem}
 \label{unique treap}
- Dla każdego zbioru par $(klucz, priorytet)$ istnieje dokładnie jeden drzewiec
+ Dla każdego zbioru par $(klucz, priorytet)$ istnieje dokładnie jeden drzewiec.
 \end{theorem}
 \begin{proof}
 Oczywiście para, w której znajduje się najwyższy priorytet musi znajdować się w korzeniu drzewa.
@@ -36,17 +36,17 @@ W jego lewym poddrzewie znajdować się muszą wszystkie pary o mniejszych klucz
 Z twierdzenia tego i jego dowodu wprost wynika, że drzewiec tworzy BST o takim kształcie, jakby kolejne klucze były dodawane w kolejności rosnących priorytetów.
 
 \begin{theorem}
- Oczekiwana wysokość drzewca jest $O(log\ n)$
+ Oczekiwana wysokość drzewca jest $O(log\ n)$.
 \end{theorem}
 \begin{proof}
 
 \end{proof}
 
 \begin{theorem}
- Oczekiwana ilość rotacji przy insert/delete < 2
+ Oczekiwana ilość rotacji przy insert/delete < 2.
 \end{theorem}
 \begin{proof}
-Nasz dowód rozpoczniemy od pomocniczej definicji
+Nasz dowód rozpoczniemy od pomocniczej definicji:
 \begin{definition}
 \textbf{Lewym/Prawym Kręgosłupem} drzewa nazywamy ścieżkę od korzenia do węzła z najmniejszym/największym kluczem (złożoną wyłącznie z lewych/prawych krawędzi).
 \end{definition}
@@ -62,7 +62,7 @@ $$
 X_{ik} =
   \begin{cases} 
   1 &  y \in\ $prawego\ kręgosłupa\ lewego\ poddrzewa\ x$\\
-  0 & wpp.
+  0 & $wpp.$
   \end{cases}
 $$
 
@@ -75,7 +75,7 @@ Teraz, gdyby $y$ nie należał do prawego kręgosłupa lewego poddrzewa $x$ to m
 
 Bez straty ogólności załóżmy teraz, że klucze są kolejnymi dodatnimi liczbami naturalnymi ($[1,n]$) i spróbujmy obliczyć $P(X_{ik})$.
 
-Rozważmy teraz węzły o kluczach z $[i, k]$, jeli chcemy, żeby $\forall z\in[i+1,k-1]\ x.priority < y.priority < z.priority$ to spośród wszystkich $(k-i+1)!$ permutacji interesują nas te, w których $y.priority$ i $x.priority$ są kolejno na dwóch pierwszych pozycjach, takich permutacji jest  $(k-i-1)!$.
+Rozważmy teraz węzły o kluczach z $[i, k]$, jeśli chcemy, żeby $\forall z\in[i+1,k-1]\ x.priority < y.priority < z.priority$ to spośród wszystkich $(k-i+1)!$ permutacji interesują nas te, w których $y.priority$ i $x.priority$ są kolejno na dwóch pierwszych pozycjach, takich permutacji jest  $(k-i-1)!$.
 Stąd $P(X_{ik}) = \frac{(k -i - 1)!}{(k -i + 1)!} =  \frac{1}{(k-i+1)(k-i)}$.
 
 Teraz policzmy:
@@ -90,7 +90,7 @@ $$
 
 Po przeprowadzeniu analogicznego rozumowania dla lewego kręgosłupa prawego poddrzewa (klucze z $[k,n]$) otrzymujemy wartość oczekiwaną $1 - \frac{1}{n-k+1}$.
 
-Co razem daje nam oczekiwaną iloc rotacji równą $1 - \frac{1}{k} + 1 - \frac{1}{n-k+1} = 2 -  \frac{1}{k} - \frac{1}{n-k+1} < 2$.
+Co razem daje nam oczekiwaną ilość rotacji równą $1 - \frac{1}{k} + 1 - \frac{1}{n-k+1} = 2 -  \frac{1}{k} - \frac{1}{n-k+1} < 2$.
 
 Identyczna liczba rotacji dla delete wynika wprost z powyższego oraz Twierdzenia \ref{unique treap}.
 \end{proof}
