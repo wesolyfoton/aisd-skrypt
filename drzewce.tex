@@ -141,7 +141,7 @@ Powyższe twierdzenia pokazują, że wysokość drzewców, a tym samym operacje 
   \DontPrintSemicolon
   \SetAlgorithmName{Algorytm}{}
 
-  \KwData{ root }
+  \KwData{ $root$ }
 
   $new\_root \leftarrow root.right$\;
   $root.right \leftarrow new\_root.left$\;
@@ -156,7 +156,7 @@ Powyższe twierdzenia pokazują, że wysokość drzewców, a tym samym operacje 
   \DontPrintSemicolon
   \SetAlgorithmName{Algorytm}{}
 
-  \KwData{ root, value }
+  \KwData{ $root$, $value$ }
   \If{$root = null$}
   {
     \Return $Node(value, random())$\;
@@ -182,7 +182,7 @@ Powyższe twierdzenia pokazują, że wysokość drzewców, a tym samym operacje 
     }
   }
   
-  \Return root\;
+  \Return $root$\;
   \caption{\texttt{insert}}
   \label{treap-insert}
 \end{algorithm}
@@ -191,7 +191,7 @@ Powyższe twierdzenia pokazują, że wysokość drzewców, a tym samym operacje 
   \DontPrintSemicolon
   \SetAlgorithmName{Algorytm}{}
 
-  \KwData{ root, value }
+  \KwData{ $root$, $value$ }
   
   \If{$root = null$}
     {
