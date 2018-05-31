@@ -22,12 +22,11 @@ Względem kluczy drzewiec jest drzewem przeszukiwań binarnych a względem prior
 
 Na końcu rozdziału znajduje się pseudo-kod, który pokazuje jak można zaimplementować powyższe metody i pozwala przekonać się, że jest to znacznie łatwiejsze niż w przypadku analogicznych operacji na drzewach AVL czy drzewach czerwono-czarnych.
 
-Teraz udowodnimy kilka własności drzewców.\footnote{Przy analizie drzewców zakładamy, że wszystkie priorytety sa różne.}
+Teraz udowodnimy kilka własności drzewców.\footnote{Przy analizie drzewców zakładamy, że wszystkie priorytety są różne.}
 
 \begin{theorem}
 \label{unique treap}
  Dla każdego zbioru par $(klucz, priorytet)$ istnieje dokładnie jeden drzewiec
- \label{xyz}
 \end{theorem}
 \begin{proof}
 Oczywiście para, w której znajduje się najwyższy priorytet musi znajdować się w korzeniu drzewa.
@@ -38,7 +37,6 @@ Z twierdzenia tego i jego dowodu wprost wynika, że drzewiec tworzy BST o takim 
 
 \begin{theorem}
  Oczekiwana wysokość drzewca jest $O(log\ n)$
- \label{xyz}
 \end{theorem}
 \begin{proof}
 
@@ -46,19 +44,18 @@ Z twierdzenia tego i jego dowodu wprost wynika, że drzewiec tworzy BST o takim 
 
 \begin{theorem}
  Oczekiwana ilość rotacji przy insert/delete < 2
- \label{xyz}
 \end{theorem}
 \begin{proof}
 Nasz dowód rozpoczniemy od pomocniczej definicji
 \begin{definition}
-\textbf{Lewym/Prawym Kręgosłupem} drzewa nazywamy cieżkę od korzenia do węzła z najmniejszym/największym kluczem (złożoną wyłącznie z lewych/prawych krawędzi).
+\textbf{Lewym/Prawym Kręgosłupem} drzewa nazywamy ścieżkę od korzenia do węzła z najmniejszym/największym kluczem (złożoną wyłącznie z lewych/prawych krawędzi).
 \end{definition}
-Rozważmy teraz długoć kręgosłupów dzieci dodawanego wezła w czasie operacji $insert$.
-Nie trudno zauważyć, że początkowo oba są długoci $0$ oraz, że kazda rotacja w lewo wydłuża prawy kręgosłup lewego dziecka o $1$.
-Analogicznie kazda rotacja w prawo wydłuża lewy kręgosłup prawego drzewa o $1$.
-Wynika stąd, że iloć rotacji potrzebnych przy wstawianiu węzła jest równa długoci lewego kręgosłupa prawego dziecka i prawego kręgosłupa lewego dziecka  nowo wstawionego węzła (po zakończeniu procedury).
+Rozważmy teraz długość kręgosłupów dzieci dodawanego węzła w czasie operacji $insert$.
+Nie trudno zauważyć, że początkowo oba są długości $0$ oraz, że każda rotacja w lewo wydłuża prawy kręgosłup lewego dziecka o $1$.
+Analogicznie każda rotacja w prawo wydłuża lewy kręgosłup prawego drzewa o $1$.
+Wynika stąd, że ilość rotacji potrzebnych przy wstawianiu węzła jest równa długości lewego kręgosłupa prawego dziecka i prawego kręgosłupa lewego dziecka  nowo wstawionego węzła (po zakończeniu procedury).
 
-Spróbujmy teraz okrelić wartoci oczekiwane tych parametrów.
+Spróbujmy teraz określić wartości oczekiwane tych parametrów.
 Weźmy dwa różna węzły $x$ i $y$ należące do drzewca, oznaczmy $i=y.key$ i $k=x.key$, i wyznaczmy zmienną losową
 
 $$
@@ -74,11 +71,11 @@ Pokażemy teraz, że $X_{ik} = 1 \iff y.priority > x.priority \land y.key < x.ke
 Implikacja w prawo wynika wprost z definicji drzewca.
 Rozważmy zatem implikację w drugą stronę.
 Ponieważ $y.priority > x.priority \land y.key < x.key$ to $y$ należy do lewego poddrzewa $x$.
-Teraz, gdyby $y$ nie należał do prawego kręgosłupa lewego poddrzewa $x$ to musiałby istnieć $z$ t.że $y.key < z.key < x.key$ i $y.priority > z.priority$, co daje sprzecznoć.
+Teraz, gdyby $y$ nie należał do prawego kręgosłupa lewego poddrzewa $x$ to musiałby istnieć $z$ t.że $y.key < z.key < x.key$ i $y.priority > z.priority$, co daje sprzeczność.
 
-Bez straty ogólnoci załóżmy teraz, że klucze są kolejnymi dodatnimi liczbami naturalnymi ($[1,n]$) i spróbujmy obliczyć $P(X_{ik})$.
+Bez straty ogólności załóżmy teraz, że klucze są kolejnymi dodatnimi liczbami naturalnymi ($[1,n]$) i spróbujmy obliczyć $P(X_{ik})$.
 
-Rozważmy teraz węzły o kluczah z $[i, k]$, jeli chcemy, żeby $\forall z\in[i+1,k-1]\ x.priority < y.priority < z.priority$ to sporód wszystkich $(k-i+1)!$ permutacji interesują nas te, w których $y.priority$ i $x.priority$ są kolejno na dwóch pierwszych pozycjach, takich permutacji jest  $(k-i-1)!$.
+Rozważmy teraz węzły o kluczach z $[i, k]$, jeli chcemy, żeby $\forall z\in[i+1,k-1]\ x.priority < y.priority < z.priority$ to spośród wszystkich $(k-i+1)!$ permutacji interesują nas te, w których $y.priority$ i $x.priority$ są kolejno na dwóch pierwszych pozycjach, takich permutacji jest  $(k-i-1)!$.
 Stąd $P(X_{ik}) = \frac{(k -i - 1)!}{(k -i + 1)!} =  \frac{1}{(k-i+1)(k-i)}$.
 
 Teraz policzmy:
@@ -91,14 +88,14 @@ $$
 1-\frac{1}{k}
 $$
 
-Po przeprowadzeniu analogicznego rozumowania dla lewego kręgosłupa prawego poddrzewa (klucze z $[k,n]$) otrzymujemy wartoć oczekiwaną $1 - \frac{1}{n-k+1}$.
+Po przeprowadzeniu analogicznego rozumowania dla lewego kręgosłupa prawego poddrzewa (klucze z $[k,n]$) otrzymujemy wartość oczekiwaną $1 - \frac{1}{n-k+1}$.
 
 Co razem daje nam oczekiwaną iloc rotacji równą $1 - \frac{1}{k} + 1 - \frac{1}{n-k+1} = 2 -  \frac{1}{k} - \frac{1}{n-k+1} < 2$.
 
 Identyczna liczba rotacji dla delete wynika wprost z powyższego oraz Twierdzenia \ref{unique treap}.
 \end{proof}
 
-Powyższe twierdzenia pokazują, że wysokoć drzewców, a tym samym operacje na nich nie tylko mają dobrą złożonoć asymptotyczną, ale też, że (oczekiwany) narzut związany z rotacjami jest ograniczony przez niewielką stałą.
+Powyższe twierdzenia pokazują, że wysokość drzewców, a tym samym operacje na nich nie tylko mają dobrą złożoność asymptotyczną, ale też, że (oczekiwany) narzut związany z rotacjami jest ograniczony przez niewielką stałą.
 
 \begin{algorithm}
   \DontPrintSemicolon
