@@ -70,8 +70,29 @@ $$
 
 Pokażemy teraz, że $X_{ik} = 1 \iff y.priority > x.priority \land y.key < x.key \land (\forall z\ y.key < z.key < x.key \implies y.priority < z.priority)$
 
-Wynikanie w lewo wynika wprost z definicji drzewca.
+Implikacja w prawo wynika wprost z definicji drzewca.
 Rozważmy zatem implikację w drugą stronę.
+Ponieważ $y.priority > x.priority \land y.key < x.key$ to $y$ należy do lewego poddrzewa $x$.
+Teraz, gdyby $y$ nie należał do prawego kręgosłupa lewego poddrzewa $x$ to musiałby istnieć $z$ t.że $y.key < z.key < x.key$ i $y.priority > z.priority$, co daje sprzecznoć.
+
+Bez straty ogólnoci załóżmy teraz, że klucze są kolejnymi dodatnimi liczbami naturalnymi ($[1,n]$) i spróbujmy obliczyć $P(X_{ik})$.
+
+Rozważmy teraz węzły o kluczah z $[i, k]$, jeli chcemy, żeby $\forall z\in[i+1,k-1]\ x.priority < y.priority < z.priority$ to sporód wszystkich $(k-i+1)!$ permutacji interesują nas te, w których $y.priority$ i $x.priority$ są kolejno na dwóch pierwszych pozycjach, takich permutacji jest  $(k-i-1)!$.
+Stąd $P(X_{ik}) = \frac{(k -i - 1)!}{(k -i + 1)!} =  \frac{1}{(k-i+1)(k-i)}$.
+
+Teraz policzmy:
+$$
+\mathbf{E}[\sum_{i=1}^{k}X_{ik}]=
+\sum_{i=1}^{k}\mathbf{E}[X_{ik}]=
+\sum_{i=1}^{k}\frac{1}{(k-i+1)(k-i)}=
+\sum_{i=1}^{k}\frac{1}{i(i+1)}=
+\sum_{i=1}^{k}(\frac{1}{i}-\frac{1}{i+1})=
+1-\frac{1}{k}
+$$
+
+Po przeprowadzeniu analogicznego rozumowania dla lewego kręgosłupa prawego poddrzewa (klucze z $[k,n]$) otrzymujemy wartoć oczekiwaną $1 - \frac{1}{n-k+1}$.
+
+Co razem daje nam oczekiwaną iloc rotacji równą $1 - \frac{1}{k} + 1 - \frac{1}{n-k+1} = 2 -  \frac{1}{k} - \frac{1}{n-k+1} < 2$.
 \end{proof}
 
 Powyższe twierdzenia pokazują, że wysokoć drzewców, a tym samym operacje na nich nie tylko mają dobrą złożonoć asymptotyczną, ale też, że (oczekiwany) narzut związany z rotacjami jest ograniczony przez niewielką stałą.
