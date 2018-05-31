@@ -8,19 +8,19 @@ Osiągają one jednak ten cel w zupełnie inny sposób.
 Zamiast kontrolować wysokość drzewa i jego poddrzew drzewce opierają się na randomizacji, która, jak zaraz pokażemy, zapewnia asymptotycznie równie dobre oczekiwane własności. 
 
 \begin{definition} 
-Drzewiec to drzewo binarne, którego każdy węzeł posiada zarówno klucz jak i priorytet.
-Względem kluczy drzewiec jest drzewem przeszukiwań binarnych a względem priorytetów jest on kopcem.
+Drzewiec to drzewo binarne, którego każdy węzeł posiada zarówno klucz, jak i priorytet.
+Względem kluczy drzewiec jest drzewem przeszukiwań binarnych, a względem priorytetów jest on kopcem.
 \end{definition}
 
 \paragraph{Podstawowe operacje, które implementują drzewce:}
 \begin{itemize}
     \item \textbf{Find} Wygląda dokładnie tak, jak w drzewie BST (względem kluczy).
     \item \textbf{Insert} Najpierw wstawiamy wartość (wraz z losowym kluczem) jak do drzewa BST, następnie rotacjami/zamianą z ojcem przywracamy porządek kopcowy.
-    \item \textbf{Delete} Znajdujemy klucz, rotacjami spychamy go do liścia, następnie usuwamy ten liść (co nie zaburza ani porządku BST ani kopca).
+    \item \textbf{Delete} Znajdujemy klucz, rotacjami spychamy go do liścia, następnie usuwamy ten liść (co nie zaburza ani porządku BST, ani kopca).
     \item Pomocniczo potrzebne są również operacje rotacji służące do przywracania porządku kopcowego.
 \end{itemize}
 
-Na końcu rozdziału znajduje się pseudo-kod, który pokazuje jak można zaimplementować powyższe metody i pozwala przekonać się, że jest to znacznie łatwiejsze niż w przypadku analogicznych operacji na drzewach AVL czy drzewach czerwono-czarnych.
+Na końcu rozdziału znajduje się pseudokod, który pokazuje, jak można zaimplementować powyższe metody i pozwala przekonać się, że jest to znacznie łatwiejsze niż w przypadku analogicznych operacji na drzewach AVL czy drzewach czerwono-czarnych.
 
 Teraz udowodnimy kilka własności drzewców.\footnote{Przy analizie drzewców zakładamy, że wszystkie priorytety są różne.}
 
@@ -29,8 +29,8 @@ Teraz udowodnimy kilka własności drzewców.\footnote{Przy analizie drzewców z
  Dla każdego zbioru par $(klucz, priorytet)$ istnieje dokładnie jeden drzewiec.
 \end{theorem}
 \begin{proof}
-Oczywiście para, w której znajduje się najwyższy priorytet musi znajdować się w korzeniu drzewa.
-W jego lewym poddrzewie znajdować się muszą wszystkie pary o mniejszych kluczach, a w prawym wszystkie pary o większych kluczach, które, indukcyjnie, tworzą drzewce według tej samej zasady.
+Oczywiście para, w której znajduje się najwyższy priorytet, musi znajdować się w korzeniu drzewa.
+W jego lewym poddrzewie znajdować się muszą wszystkie pary o mniejszych kluczach, a w prawym wszystkie pary o większych kluczach, które indukcyjnie tworzą drzewce według tej samej zasady.
 \end{proof}
 
 Z twierdzenia tego i jego dowodu wprost wynika, że drzewiec tworzy BST o takim kształcie, jakby kolejne klucze były dodawane w kolejności rosnących priorytetów.
@@ -53,14 +53,14 @@ $$
 
 Bez straty ogólności załóżmy teraz, że klucze są kolejnymi dodatnimi liczbami naturalnymi ($[1,n]$) i spróbujmy obliczyć $P(X_{ij})$.
 
-Rozważmy węzły o kluczach z $[i, j]$ (węzły z kluczami z poza tego zakresu nie mają znaczenia dla obliczania $P(X_{ij})$) oraz ich priorytety, mamy trzy możliwe przypadki:
+Rozważmy węzły o kluczach z $[i, j]$ (węzły z kluczami spoza tego zakresu nie mają znaczenia dla obliczania $P(X_{ij})$) oraz ich priorytety. Mamy trzy możliwe przypadki:
 \begin{enumerate}
 \item Węzeł $N_i$  ma najniższy priorytet.
 W tej sytuacji $N_j$ nie może, oczywiście, być przodkiem $N_i$.
 \item Element o kluczu $k$ różnym od $i$ i $j$ ma najniższy priorytet.
-W tym przypadku $N_k$ znajdzie się w korzeniu drzewca zawierającego zarówno $N_i$ jak i $N_j$, a ponieważ $i < k< j \lor j < k < i$ to $N_i$ i $N_j$ trafią do różnych poddrzew $N_k$.
+W tym przypadku $N_k$ znajdzie się w korzeniu drzewca zawierającego zarówno $N_i$, jak i $N_j$, a ponieważ $i < k< j \lor j < k < i$ to $N_i$ i $N_j$ trafią do różnych poddrzew $N_k$.
 \item Element o kluczu $j$ ma najwyższy priorytet.
-Tylko w tym wypadku $N_j$ jest przodkiem $N_i$ ponieważ między nimi nie ma żadnego węzła o niższym priorytecie, który rozdzieliłby je do osobnych poddrzew jak w przypadku powyżej.
+Tylko w tym wypadku $N_j$ jest przodkiem $N_i$, ponieważ między nimi nie ma żadnego węzła o niższym priorytecie, który rozdzieliłby je do osobnych poddrzew jak w przypadku powyżej.
 \end{enumerate}
 
 Interesuje nas zatem $(|j - i|)!$ spośród $(|j - i| + 1)!$ permutacji, czyli $P(X_{ij}) = \frac{1}{|j-i| + 1}$.
@@ -89,17 +89,17 @@ Nasz dowód rozpoczniemy od pomocniczej definicji:
 \textbf{Lewym/Prawym Kręgosłupem} drzewa nazywamy ścieżkę od korzenia do węzła z najmniejszym/największym kluczem (złożoną wyłącznie z lewych/prawych krawędzi).
 \end{definition}
 Rozważmy teraz długość kręgosłupów dzieci dodawanego węzła w czasie operacji \texttt{insert}.
-Nie trudno zauważyć, że początkowo oba są długości $0$ oraz, że każda rotacja w lewo wydłuża prawy kręgosłup lewego dziecka o $1$.
+Nie trudno zauważyć, że początkowo oba są długości $0$ oraz że każda rotacja w lewo wydłuża prawy kręgosłup lewego dziecka o $1$.
 Analogicznie każda rotacja w prawo wydłuża lewy kręgosłup prawego drzewa o $1$.
 Wynika stąd, że ilość rotacji potrzebnych przy wstawianiu węzła jest równa długości lewego kręgosłupa prawego dziecka i prawego kręgosłupa lewego dziecka nowo wstawionego węzła (po zakończeniu procedury).
 
 Spróbujmy teraz określić wartości oczekiwane tych parametrów.
-Weźmy dwa różna węzły $x$ i $y$ należące do drzewca, oznaczmy $i=y.key$ i $k=x.key$, i wyznaczmy zmienną losową:
+Weźmy dwa różne węzły $x$ i $y$ należące do drzewca. Oznaczmy $i=y.key$ i $k=x.key$, i wyznaczmy zmienną losową:
 
 $$
 X_{ik} =
   \begin{cases}
-  1 &  y \in$ prawego kręgosłupa lewego poddrzewa x$\\
+  1 &  y \in$ prawego kręgosłupa lewego poddrzewa $x\\
   0 & $wpp.$
   \end{cases}
 $$
@@ -109,11 +109,11 @@ Pokażemy teraz, że $X_{ik} = 1 \iff y.priority > x.priority \land y.key < x.ke
 Implikacja w prawo wynika wprost z definicji drzewca.
 Rozważmy zatem implikację w drugą stronę.
 Ponieważ $y.priority > x.priority \land y.key < x.key$ to $y$ należy do lewego poddrzewa $x$.
-Teraz, gdyby $y$ nie należał do prawego kręgosłupa lewego poddrzewa $x$ to musiałby istnieć $z$ t.że $y.key < z.key < x.key$ i $y.priority > z.priority$, co daje sprzeczność.
+W takim razie gdyby $y$ nie należał do prawego kręgosłupa lewego poddrzewa $x$, to musiałby istnieć $z$ t.że $y.key < z.key < x.key$ i $y.priority > z.priority$, co daje sprzeczność.
 
-Bez straty ogólności załóżmy teraz, że klucze są kolejnymi dodatnimi liczbami naturalnymi ($[1,n]$) i spróbujmy obliczyć $P(X_{ik})$.
+Bez straty ogólności załóżmy, że klucze są kolejnymi dodatnimi liczbami naturalnymi ($[1,n]$) i spróbujmy obliczyć $P(X_{ik})$.
 
-Rozważmy teraz węzły o kluczach z $[i, k]$, jeśli chcemy, żeby $\forall z\in[i+1,k-1]\ x.priority < y.priority < z.priority$ to spośród wszystkich $(k-i+1)!$ permutacji interesują nas te, w których $y.priority$ i $x.priority$ są kolejno na dwóch pierwszych pozycjach, takich permutacji jest  $(k-i-1)!$.
+Rozważmy teraz węzły o kluczach z $[i, k]$. Jeśli chcemy, żeby $\forall z\in[i+1,k-1]\ x.priority < y.priority < z.priority$, to spośród wszystkich $(k-i+1)!$ permutacji interesują nas te, w których $y.priority$ i $x.priority$ są kolejno na dwóch pierwszych pozycjach. Takich permutacji jest  $(k-i-1)!$.
 Stąd $P(X_{ik}) = \frac{(k -i - 1)!}{(k -i + 1)!} =  \frac{1}{(k-i+1)(k-i)}$.
 
 Teraz policzmy:
@@ -128,7 +128,7 @@ $$
 
 Po przeprowadzeniu analogicznego rozumowania dla lewego kręgosłupa prawego poddrzewa (klucze z $[k,n]$) otrzymujemy wartość oczekiwaną $1 - \frac{1}{n-k+1}$.
 
-Co razem daje nam oczekiwaną ilość rotacji równą $1 - \frac{1}{k} + 1 - \frac{1}{n-k+1} = 2 -  \frac{1}{k} - \frac{1}{n-k+1} < 2$.
+To razem daje nam oczekiwaną ilość rotacji równą $1 - \frac{1}{k} + 1 - \frac{1}{n-k+1} = 2 -  \frac{1}{k} - \frac{1}{n-k+1} < 2$.
 
 Identyczna liczba rotacji dla \texttt{delete} wynika wprost z powyższego oraz Twierdzenia \ref{unique treap}.
 \end{proof}
