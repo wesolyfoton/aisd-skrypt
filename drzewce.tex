@@ -25,6 +25,7 @@ Na końcu rozdziału znajduje się pseudo-kod, który pokazuje jak można zaimpl
 Teraz udowodnimy kilka własności drzewców.\footnote{Przy analizie drzewców zakładamy, że wszystkie priorytety sa różne.}
 
 \begin{theorem}
+\label{unique treap}
  Dla każdego zbioru par $(klucz, priorytet)$ istnieje dokładnie jeden drzewiec
  \label{xyz}
 \end{theorem}
@@ -36,7 +37,7 @@ W jego lewym poddrzewie znajdować się muszą wszystkie pary o mniejszych klucz
 Z twierdzenia tego i jego dowodu wprost wynika, że drzewiec tworzy BST o takim kształcie, jakby kolejne klucze były dodawane w kolejności rosnących priorytetów.
 
 \begin{theorem}
- Asymptotyczna wysokość drzewca wynosi $O(log\ n)$
+ Oczekiwana wysokość drzewca jest $O(log\ n)$
  \label{xyz}
 \end{theorem}
 \begin{proof}
@@ -93,6 +94,8 @@ $$
 Po przeprowadzeniu analogicznego rozumowania dla lewego kręgosłupa prawego poddrzewa (klucze z $[k,n]$) otrzymujemy wartoć oczekiwaną $1 - \frac{1}{n-k+1}$.
 
 Co razem daje nam oczekiwaną iloc rotacji równą $1 - \frac{1}{k} + 1 - \frac{1}{n-k+1} = 2 -  \frac{1}{k} - \frac{1}{n-k+1} < 2$.
+
+Identyczna liczba rotacji dla delete wynika wprost z powyższego oraz Twierdzenia \ref{unique treap}.
 \end{proof}
 
 Powyższe twierdzenia pokazują, że wysokoć drzewców, a tym samym operacje na nich nie tylko mają dobrą złożonoć asymptotyczną, ale też, że (oczekiwany) narzut związany z rotacjami jest ograniczony przez niewielką stałą.
