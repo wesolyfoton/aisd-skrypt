@@ -43,20 +43,20 @@ Z twierdzenia tego i jego dowodu wprost wynika, że drzewiec tworzy BST o takim 
 \end{proof}
 
 \begin{theorem}
- Oczekiwana ilość rotacji przy insert/delete < 2.
+ Oczekiwana ilość rotacji przy \texttt{insert}/\texttt{delete} < 2.
 \end{theorem}
 \begin{proof}
 Nasz dowód rozpoczniemy od pomocniczej definicji:
 \begin{definition}
 \textbf{Lewym/Prawym Kręgosłupem} drzewa nazywamy ścieżkę od korzenia do węzła z najmniejszym/największym kluczem (złożoną wyłącznie z lewych/prawych krawędzi).
 \end{definition}
-Rozważmy teraz długość kręgosłupów dzieci dodawanego węzła w czasie operacji $insert$.
+Rozważmy teraz długość kręgosłupów dzieci dodawanego węzła w czasie operacji \texttt{insert}.
 Nie trudno zauważyć, że początkowo oba są długości $0$ oraz, że każda rotacja w lewo wydłuża prawy kręgosłup lewego dziecka o $1$.
 Analogicznie każda rotacja w prawo wydłuża lewy kręgosłup prawego drzewa o $1$.
-Wynika stąd, że ilość rotacji potrzebnych przy wstawianiu węzła jest równa długości lewego kręgosłupa prawego dziecka i prawego kręgosłupa lewego dziecka  nowo wstawionego węzła (po zakończeniu procedury).
+Wynika stąd, że ilość rotacji potrzebnych przy wstawianiu węzła jest równa długości lewego kręgosłupa prawego dziecka i prawego kręgosłupa lewego dziecka nowo wstawionego węzła (po zakończeniu procedury).
 
 Spróbujmy teraz określić wartości oczekiwane tych parametrów.
-Weźmy dwa różna węzły $x$ i $y$ należące do drzewca, oznaczmy $i=y.key$ i $k=x.key$, i wyznaczmy zmienną losową
+Weźmy dwa różna węzły $x$ i $y$ należące do drzewca, oznaczmy $i=y.key$ i $k=x.key$, i wyznaczmy zmienną losową:
 
 $$
 X_{ik} =
@@ -92,10 +92,10 @@ Po przeprowadzeniu analogicznego rozumowania dla lewego kręgosłupa prawego pod
 
 Co razem daje nam oczekiwaną ilość rotacji równą $1 - \frac{1}{k} + 1 - \frac{1}{n-k+1} = 2 -  \frac{1}{k} - \frac{1}{n-k+1} < 2$.
 
-Identyczna liczba rotacji dla delete wynika wprost z powyższego oraz Twierdzenia \ref{unique treap}.
+Identyczna liczba rotacji dla \texttt{delete} wynika wprost z powyższego oraz Twierdzenia \ref{unique treap}.
 \end{proof}
 
-Powyższe twierdzenia pokazują, że wysokość drzewców, a tym samym operacje na nich nie tylko mają dobrą złożoność asymptotyczną, ale też, że (oczekiwany) narzut związany z rotacjami jest ograniczony przez niewielką stałą.
+Powyższe twierdzenia pokazują, że wysokość drzewców, a tym samym operacje na nich, nie tylko mają dobrą złożoność asymptotyczną, ale też, że (oczekiwany) narzut związany z rotacjami jest ograniczony przez niewielką stałą.
 
 \begin{algorithm}
   \DontPrintSemicolon
