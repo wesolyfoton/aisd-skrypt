@@ -44,14 +44,14 @@ Niektóre wymagają przepisania, niektóre trzeba poprawić do niektórych trzeb
 - Cut Property / Circle Property
 - Algorytm Dijkstry
 - Problemy NP
-- Sieć Banesa-Waksmana
+- Sieć Banesa-Waksmana (michał)
 - Pokrycie zbioru
 - Algorytm sprawdzający czy słowo należy do języka
 - Pokrycie wierzchołkowe
 - Algorytm dwóch najbliższych punktów
-- Drzewa dwumianowe leniwe
+- Drzewa dwumianowe leniwe (czarek)
 - Counting sort
-- Shift-And
+- Shift-And (mateusz)
 
 Nie zaczęte (41):
 
@@ -61,9 +61,9 @@ Jeśli jest imię przy rozdziale, oznacza to, że temat jest już zaklepany
 - O modelach obliczeń
 - Programowanie dynamiczne na drzewach
 - O złożoności obliczeniowej
-- Algorytm szeregownia
-- Drzewa Splay
-- Drzewce
+- Algorytm szeregownia (piotr)
+- Drzewa Splay (szymon)
+- Drzewce (bartek)
 - Union-find
 - Drzewa przedziałowe
 - Hashowanie
@@ -71,12 +71,12 @@ Jeśli jest imię przy rozdziale, oznacza to, że temat jest już zaklepany
 - MP / KMP
 - KR
 - Drzewa czerwono-czarne
-- B-drzewa
-- Słownik statyczny
+- B-drzewa (karol)
+- Słownik statyczny (paweł)
 - Geometria obliczeniowa
 - Kopce Fibonacciego
-- Szybka transformata
-- Drzewa Bossa
+- Szybka transformata (wiktor)
+- Drzewa Bossa (krzysztof)
 - Bucket sort
 - Model drzew decyzyjnych
 - Dolna granica min-maks
@@ -89,12 +89,12 @@ Jeśli jest imię przy rozdziale, oznacza to, że temat jest już zaklepany
 - Algorytm stokrotek
 - Algorytm D&Z otoczki wypukłej
 - LCS 
-- Algorytm Karatsuby
-- Algorytm Boruvki
+- Algorytm Karatsuby (karol nie paweł)(
+- Algorytm Boruvki (zrobione, prawie)
 - Kruskal
 - Prim
 - Statystyki pozycyjne
 - Algorytm magicznych piątek
 - Drzewa AVL
-- Izomorfizm drzew
-- Sortowanie ciągów różnej długości
+- Izomorfizm drzew (dominik)
+- Sortowanie ciągów różnej długości (sławek nie karol)
