@@ -1,6 +1,69 @@
 \section{Algorytm szeregowania}
-\sectionauthor{Jeszcze Nikt}
+\sectionauthor{Piotr Kowalczyk}
 
 \label{sec:szeregowanie}
 
-Todo, todo, todo...
+Ten rozdział jest poświęcony prostemu problemowi szeregowania zadań z terminami dla pojedynczego procesora, który da się rozwiązać algorytmem zachłannym (co jest wyjątkowe, ponieważ większość problemów szeregowania jest NP-trudna).
+
+Problem: system z jednym procesorem ma do wykonania $n$ zadań.
+Każde z zadań wykonuje się przez jedną jednostkę czasu.
+Dla każdego zadania znane są: deadline $d_i \in \mathbb{N}$ oraz zysk $g_i \in \mathbb{R}_{+}$.
+Zadanie musi być wykonane przed upływem deadline'u, w przeciwnym wypadku zysk za to zadanie wynosi 0.
+Naszym zadaniem jest wyznaczyć wykonywalny podzbiór zbioru zadań, który maksymalizuje sumę zysków.
+
+W takim razie, jaki zbiór zadań jest wykonywalny?
+
+\begin{definition}
+\textbf{Wykonalnym ciągiem zadań} nazywamy ciąg $\left\langle i_1, i_2, \dots, i_n \right\rangle$ taki, że $\forall_{k \in \{1, 2, \dots, n\}} k \leq d_{i_k}$. \\
+\textbf{Wykonalnym zbiorem zadań} nazywamy zbiór, którego wszystkie elementy można ustawić w ciąg wykonalny.
+\end{definition}
+
+Teraz możemy już przedstawić \textbf{strategię zachłanną}: zaczynamy od pustego zbioru zadań $S$.
+W każdym kroku znajdujemy zadanie $z$ o największym zysku spośród jeszcze nierozważonych i jeśli zbiór $S \cup \{z\}$ jest wykonalny, to dodajemy zadanie $z$ do $S$.
+
+\begin{proof}
+Załóżmy, że algorytm zachłanny (bazujący na powyższej strategii) wybrał zbiór zadań $I$ oraz że istnieje zbiór optymalny $J$ taki, iż $I \neq J$.
+Pokażemy, że suma zysków z wykonania zadań jest taka sama dla tych zbiorów.
+Niech $\pi_I$, $\pi_J$ będą wykonywalnymi ciągami zadań odpowiednio z $I$ oraz $J$.
+Najpierw, wykonując przestawienia, otrzymamy wykonywalne ciągi $\pi ^{\prime}_I$, $\pi^{\prime}_J$, w których wszystkie zadania wspólne dla zbiorów $I$ oraz $J$ (tj. takie, które należą do $I \cap J$) wykonują się w tym samym czasie.
+
+Niech $a \in I \cap J$ będzie zadaniem umieszczonym na różnych pozycjach, tj. na pozycji $i$ w $\pi_I$ oraz pozycji $j$ w $\pi_J$, gdzie $i \neq j$.
+Załóżmy BSO, że $i < j$.
+Niech $b$ będzie zadaniem, które jest na pozycji $j$ w ciągu $\pi_I$.
+Zamieńmy miejscami zadania $a$ oraz $b$ w $\pi_I$.
+Niech otrzymany ciąg zwie się $\pi^{\prime\prime}_I$.
+Ciąg $\pi^{\prime\prime}_I$ jest wykonalny, ponieważ $d_a \geq j$ (dlatego, że $a$ jest na pozycji $j$ w $\pi_J$) oraz $d_b > i$ (dlatego, że $b$ jest w $\pi_I$ na pozycji $j$).
+Liczba zadań z $I \cap J$, które są na różnych pozycjach w ciągach $\pi^{\prime\prime}_I$, $\pi_J$ jest o co najmniej jeden mniejsza, niż w ciągach $\pi_I$, $\pi_J$.
+Iterując postępowanie otrzymujemy tezę.
+
+Teraz pokażemy, że ciągi $\pi_I \prime$, $\pi_J \prime$ mają na każdej pozycji zaplanowane zadania o tym samym zysku.
+
+Rozważmy dowolną pozycję $i$. Jeśli ciągi $\pi^{\prime}_I$, $\pi^{\prime}_J$ mają na pozycji $i$ to samo zadanie, to zysk z tego zadania jest taki sam dla zbiorów $I$ oraz $J$.
+W przeciwnym przypadku niech $a$, $b$ będą zadaniami z pozycji $i$ z, odpowiednio, $\pi^{\prime}_I$ i $\pi^{\prime}_J$.
+Zauważmy, że oba ciągi mają jakieś zadanie na tej pozycji (gdyby $\pi^{\prime}_I$ miał tę pozycję wolną, algorytm włożyłby tam zadanie $b$, a gdyby $\pi^{\prime}_J$ miał tę pozycję wolną, to zbiór $J \cap \{a\}$ też jest wykonywalny i lepszy niż $J$, czyli $J$ nieoptymalny - sprzeczność).
+
+Wystarczy teraz pokazać, że $g_a = g_b$. \\
+Załóżmy, że $g_a > g_b$.
+Stąd mamy $J \setminus \{b\} \cup \{a\}$ daje większy zysk niż $J$ - sprzeczność. \\
+Załóżmy, że $g_a < g_b$.
+Zauważmy, że teraz algorytm rozpatruje najpierw zadanie $b$, a później $a$.
+Zauważmy też, że zbiór $I \setminus  \{a\} \cup  \{b\}$ jest wykonalny, a więc każdy jego podzbiór jest wykonalny, w szczególności ten podzbiór, który był skonstruowany przez algorytm w momencie rozpatrywania zadania $b$.
+Stąd wynika, że zadanie $b$ byłoby dołączone do rozwiązania przez algorytm - sprzeczność.
+
+Stąd wynika, że ciągi $\pi^{\prime}_I$, $\pi^{\prime}_J$ mają na każdej pozycji zaplanowane zadania o tym samym zysku, czyli sumy zysków obu ciągów są równe.
+\end{proof}
+
+Pozostaje jeszcze tylko pytanie, jak ustalić, czy zbiór złożony z $k$ zadań jest wykonywalny. Można to robić, sprawdzając wykoknywalność wszystkich $k!$ ciągów, ale wystarczy sprawdzić jeden ciąg.
+
+\begin{lemma}
+Niech $I$ będzie dowolnym zbiorem zadań, a $k$ będzie mocą $I$.
+Niech $\sigma = (s_1, s_2, \dots, s_k)$ będzie taką permutacją zadań ze zbioru $I$, że $d_{s_1} \leq d_{s_2} \leq \dots \leq d_{s_k}$.
+Wówczas $J$ jest zbiorem wykonywalnym wtedy i tylko wtedy, gdy $\sigma$ jest ciągiem wykonywalnym.
+\end{lemma}
+
+\begin{proof}
+Dowód lematu jako oczywisty pomijamy.
+\end{proof}
+
+Teraz możemy w łatwy (i dość nieefektywny sposób) zaimplementować ww. strategię, na początku sortując zadania malejąco według zysków (tak, że $g_1 \geq g_2 \geq \dots \geq g_n$), potem tworząc pusty ciąg $\sigma$ (w szczególności posortowany rosnąco według deadline'ów), a następnie, dodając zadanie numer $i$ do ciągu, używać procedury podobnej do \texttt{insert} z algorytmu sortowania przez wstawianie, zachowywać w $\sigma$ porządek (rosnący, według deadline'ów).
+Taka implementacja działa w czasie $\Omega(n^2)$.
