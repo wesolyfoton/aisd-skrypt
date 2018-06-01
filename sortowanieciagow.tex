@@ -1,6 +1,79 @@
 \section{Sortowanie ciągów różnej długości}
-\sectionauthor{Jeszcze Nikt}
+\sectionauthor{Sławomir Górawski}
 
 \label{sec:sortowanieciagow}
 
-Todo, todo, todo...
+Chcemy posortować leksykograficznie $k$ ciągów znaków (nad danym alfabetem $\Sigma$) różnej długości, o sumarycznej długości $n$, np.:
+
+\begin{verbatim}
+    1) b a
+    2) x f a f g
+    3) a
+    4) a k j i c s f t a q
+    5) a b c
+    6) a b
+\end{verbatim}
+
+Moglibyśmy użyć do tego celu zwykłego algorytmu sortowania leksykograficznego, w którym zakładaliśmy równą długość sortowanych ciągów, przez dopisanie do każdego z nich pustych znaków, traktowanych w porównaniach jako mniejsze od każdego symbolu z $\Sigma$, tj.:
+
+\begin{verbatim}
+    1) b a _ _ _ _ _ _ _ _
+    2) x f a f g _ _ _ _ _
+    3) a _ _ _ _ _ _ _ _ _
+    4) a k j i c s f t a q
+    5) a b c _ _ _ _ _ _ _
+    6) a b _ _ _ _ _ _ _ _
+\end{verbatim}
+
+Takie podejście jednak okazuje się być bardzo nieefektywne dla przypadków, w których występuje znacząca różnica długości sortowanych ciągów, gdyż złożoność rośnie wtedy do $O(kl_{\max})$, co może być znacząco gorsze od $O(n)$ ($l_{\max}$ - długość najdłuższego ciągu).
+Aby osiągnąć złożoność linową względem sumy długości ciągów konieczna jest modyfikacja algorytmu.
+
+Zauważmy, że gdy ciągi są różnej długości, na początku $i$-tej iteracji wszystkie słowa, których długości są mniejsze od $l_{\max} - i$, znajdują się na początkowych miejscach sortowanej kolekcji.
+Aby tak było, nie jest wcale konieczne ich uczestnictwo w poprzednich iteracjach sortowania -- wystarczy znajomość długości każdego ciągu przed rozpoczęciem działania właściwego algorytmu.
+
+Na początku policzmy długości wszystkich ciągów -- przy założeniu, że dla jednego ciągu odbywa się to w czasie liniowym względem jego długości, zajmie nam to $O(n)$ operacji.
+Następnie możemy posortować ciągi względem ich długości -- używając np. RadixSorta (sortowania leksykograficznego dla liczb) jesteśmy w stanie zrobić to w czasie $O(k + l_{\max})$, a zatem $O(n)$, gdyż zarówno $k$, jak i $l_{\max}$ są mniejsze od $n$, jeżeli nie dopuszczamy pustych ciągów.
+
+Teraz, mając posortowaną listę długości wszystkich ciągów, jesteśmy w stanie stwierdzić, które z nich muszą brać udział w danej iteracji sortowania -- bez wchodzenia w szczegóły implementacji, można np. trzymać tablicę list $T$, gdzie indeksy w tablicy wskazywałyby na iterację, od której wszystkie ciągi z listy pod tym adresem muszą dołączyć do sortowania.
+
+Następnie możemy zacząć sortowanie -- załóżmy, że nasze ciągi zostały ustawione rosnąco względem długości, tj.:
+
+\begin{verbatim}
+    1) a
+    2) b a
+    3) a b
+    4) a b c
+    5) x f a f g
+    6) a k j i c s f t a q
+\end{verbatim}
+
+Widzimy, że ciąg nr 4 nie musi brać udziału w sortowaniu aż do 6-tej iteracji, natomiast ciąg nr 3 -- do 8-mej itd. (technicznie ciągu nr 6 w ogóle nie musielibyśmy wcześniej sortować tylko z samym sobą, ale to szczegół niemający wpływu na złożoność asymptotyczną).
+
+Zatem działanie algorytmu ostatecznie przedstawia się następująco (niech $U$ - ciągi biorące udział w sortowaniu, $T$ - tablica list ciągów biorących udział w sortowaniu od danej iteracji):
+
+\begin{algorithm}[h]
+  \DontPrintSemicolon
+  \SetAlgorithmName{Algorytm}{}
+  
+  $U \leftarrow \varnothing$
+  
+  \For{$i \leftarrow 1$ to $l_{\max}$}
+  {
+    \If{not $T[i]$.empty}
+    {
+      $U \leftarrow U \cup T[i]$
+    }
+    Posortuj leksykograficznie ciągi z $U$ wg $i$-tej litery od końca.
+  }
+  
+  \caption{Sortowanie ciągów różnej długości}
+  \label{var-len-sort}
+\end{algorithm}
+
+Jeżeli chodzi o złożoność, możemy wyróżnić 3 fazy działania algorytmu:
+
+\begin{enumerate}
+    \item Liczenie długości ciągów -- $O(n)$,
+    \item Sortowanie ciągów po długości -- $O(n)$,
+    \item Iteracyjne sortowanie leksykograficzne ciągów -- łatwo zauważyć, że ilość operacji zależy liniowo od sumy mocy $U$ po każdej iteracji (lub inaczej -- wysokości kolumn znaków na przykładzie). Suma wysokości kolumn znaków to to samo, co suma długości ciągów, czyli $n$, zatem ten krok zajmuje $O(n)$ operacji, w związku z tym cały algorytm również.
+\end{enumerate}
