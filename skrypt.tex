@@ -33,7 +33,7 @@
 \newtheorem{lemma}{Lemat}
 \newtheorem{fact}{Fakt}
 \newtheorem{observation}{Obserwacja}
-\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
 \newcommand{\tizkboxwithcaption}[2]{\noindent\begin{figure}[!h]\centering\begin{adjustbox}{min width=0.75\textwidth, max width=1\textwidth}\input{#1}\end{adjustbox}\caption{#2}\end{figure}}
 
 \newcommand{\comment}[1]{\marginpar{\tiny\raggedright #1}}
@@ -115,8 +115,8 @@
   (c) --
   ++(45:2.5) --
   ++(135:2.5) --
-  ++(225:2.5) coordinate[pos=0.3] (d);   
-\draw 
+  ++(225:2.5) coordinate[pos=0.3] (d);
+\draw
   (d) -- +(135:1);
 \end{scope}
 \end{tikzpicture}%
@@ -129,7 +129,7 @@
 \titleGM
 \titlepagedecoration
 
-\tableofcontents 
+\tableofcontents
 \pagestyle{plain}
 
 \chapter{Zrobione}
@@ -161,6 +161,8 @@
 \include{mst}
 
 \include{dijkstra}
+
+\include{fft}
 
 \include{problemynp}
 
@@ -216,8 +218,6 @@
 \include{geometria}
 
 \include{kopcefib}
-
-\include{fft}
 
 \include{boss}
 
