@@ -51,6 +51,7 @@ Niektóre wymagają przepisania, niektóre trzeba poprawić do niektórych trzeb
 - Algorytm dwóch najbliższych punktów
 - Drzewa dwumianowe leniwe (czarek)
 - Counting sort
+- Shift-And (mateusz)
 
 Nie zaczęte (41):
 
@@ -66,7 +67,6 @@ Jeśli jest imię przy rozdziale, oznacza to, że temat jest już zaklepany
 - Union-find
 - Drzewa przedziałowe
 - Hashowanie
-- Shift-And (mateusz)
 - Wyszukiwanie wzorca za pomocą automatu
 - MP / KMP
 - KR
