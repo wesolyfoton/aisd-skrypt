@@ -1,6 +1,91 @@
 \section{B-drzewa}
-\sectionauthor{Jeszcze Nikt}
+\sectionauthor{Karol Rodziński}
 
 \label{sec:bdrzewa}
 
-Todo, todo, todo...
+Specyfika pamięci dyskowej polega na tym, że czas dostępu do niej jest znacznie (o kilka rzędów wielkości) dłuższy niż do pamięci wewnętrznej (RAM).
+Drzewa BST, nawet w wersjach zrównoważonych, nie nadają się do przechowywania danych na dysku.
+Kiedy dane z dysku są odczytywane, zapisywane, musimy posługiwać się porcjami danych zwanymi blokami (stronami).
+Możemy uogólnić, iż na czas dostępu do danych składa się: czas wyszukania, opóźnienie rotacyjne, czas transferu. 
+
+W takim przypadku lepiej jest sięgąć po większe ilości danych na raz aniżeli ciągle przemieszczać się w celu odczytu mniejszych porcji danych, co prowadzi do wniosku, że dane należy zorganizować w taki sposób, żeby odczytów było możliwie jak najmniej.
+
+Odpowiedzią na ten problem mają być B-drzewa, które są bardzo często wykorzystywane do implementowania systemów plików czy też systemów bazodanowych.
+
+\comment{Rudolf Bayer i Ed McCreight stworzyli strukturę B-drzew podczas pracy w Boeing Research Labs w 1971 r. Do dzisiaj jednak nie są w stanie powiedzieć, co oznacza B w nazwie tej struktury: Boeing, balanced, broad, bushy, Bayer etc. McCreight powiedział, że "im więcej myślisz o tym, co oznacza B w tej nazwie, tym bardziej rozumiesz tę strukturę."}
+
+\begin{definition}
+Formalnie B-Drzewo rzędu $K$ ($K \geq 3$) to drzewiasta struktura danych, która spełnia następujace warunki:
+\begin{itemize}
+\item Korzeń jest liściem albo ma od 2 do $K$ synów
+\item Wszystkie liście znajdują się na tym samym poziomie 
+\item Każdy węzeł, który nie jest liściem ani korzeniem, ma od $\lceil\frac{K}{2}\rceil$ do $K$ synów.
+Węzeł mający $L$ synów zawiera $L-1$ kluczy
+\item Każdy liść zawiera od $\lceil\frac{K}{2}\rceil - 1$ do $K-1$ kluczy
+\end{itemize}
+\end{definition}
+Zgodnie z podanymi warunkami B-drzewo jest zawsze przynajmniej do połowy wypełnione, ma kilka poziomów i jest całkowicie zrównoważone.
+\begin{figure}[!h]
+\centering
+\textbf{Przykład B-drzewa}\par
+\medskip
+\begin{tikzpicture}
+    \tikzstyle{bplus}=[rectangle split, rectangle split horizontal,rectangle split ignore empty parts,draw, fill=white]
+    \tikzstyle{every node}=[bplus]
+    \tikzstyle{level 1}=[sibling distance=60mm]
+    \tikzstyle{level 2}=[sibling distance=20mm]
+
+    \node {31 \nodepart{two}  $\times$} [->]
+      child {node {14 \nodepart{two} $\times$}
+        child {node {8 \nodepart{two} 12}}
+        child {node {19 \nodepart{two} $\times$}}
+      }
+      child {node {48 \nodepart{two} 70}
+        child {node {35 \nodepart{two} 37}}
+        child {node {55 \nodepart{two} $\times$}}
+        child {node {75 \nodepart{two} 99}}
+      };
+\end{tikzpicture}
+\bigskip
+\captionsetup{justification=centering}
+\caption{Jest tak zwane 2-3 Drzewo tzn. węzły w tym drzewie mają 1-2 klucze i 2-3 dzieci}
+\end{figure}
+\newpage
+Drugi warunek pozwala nam na posiadanie stosunkowo niewielkiej wysokości naszego B-drzewa.
+Zajmijmy się najgorszym i najlepszym przypadkiem.
+\begin{itemize}
+\item Najgorszy przypadek
+\end{itemize}
+Sytuacja najbardziej pesymistyczną zdarzy się wtedy, gdy nasze B-drzewo będzie miało najmniejszą dozwoloną liczbę wskaźników w węzłach wewnętrznych
+\begin{proof}
+Niech $q$ będzie minimalną liczbą dzieci węzła wewnętrznego drzewa.
+Z podanych wcześniej warunków, wiemy, że jest to: $\lceil\frac{K}{2}\rceil$.
+W takim przypadku zauważmy, iż:
+\begin{align*}
+\texttt{1 poziom $\mapsto$ 1 klucz} \\
+\texttt{2 poziom $\mapsto$ $2(q-1)$ kluczy} \\
+\texttt{3 poziom $\mapsto$ $2q(q-1)$ kluczy} \\
+\texttt{...} \\
+\texttt{h poziom $\mapsto$ ${2q}^{h}-2(q-1)$} \\
+\end{align*}
+Zsumujmy wyrażenie powyżej, aby otrzymać liczbę kluczy w B-drzewie, otrzymamy:
+\begin{align*}
+1 + (\sum_{i=0}^{h-2}2{q}^{i})(q-1) = 1 + 2(q-1)(\frac{{q}^{h-1}}{q-1}) = -1 + 2{q}^{h-1}
+\end{align*}
+Zatem związek między liczbą kluczy a wysokością to:
+\begin{align*}
+n \geq -1 + 2{q}^{h-1}
+\end{align*}
+Po zlogarytmowaniu otrzymamy:
+\begin{align*}
+h \leq \log_{q}{\frac{n+1}{2}} + 1
+\end{align*}
+\end{proof}
+\begin{itemize}
+\item Najlepszy przypadek
+\end{itemize}
+\begin{proof}
+Niech $h$ oznacza wysokość B-drzewa. Niech $n$ oznacza liczbę węzłów w drzewie i niech $m$ oznacza maksymalną liczbę dzieci węzła. Z warunków wymienionych wcześniej wiemy, że taki węzeł może mieć maksymalnie $m-1$ kluczy. Można pokazać poprzez indukcję, że takie B-drzewo o wysokości $h$, że każdy jego węzeł ma maksymalną liczbę dzieci, posiada ${m}^{h}-1$ kluczy, stąd w najlepszym przypadku wysokość B-drzewa to $\lceil\log_{m}{(n+1)}\rceil - 1$
+\end{proof}
+\newpage
+TO-DO: metody dodawania, usuwania etc.
