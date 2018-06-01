@@ -23,7 +23,7 @@ Algorytm zachowuje niezmiennik, że $Q = V - S$ na początku każdej iteracji p�
 Algorytm Dijkstry stosuje zachłanne podejście zawsze wybierając najbliższy wierzchołek
 w $V - S$, który dodaje do zbioru S.
 
-\section{Dowód poprawności algorytmu}
+\subsection{Dowód poprawności algorytmu}
 
 \paragraph{}Aby dowieść poprawności algorytmu Dijkstry skorzysamy z następującego niezmiennika pętli:
 Na począrku każdej iteracji pętli while $d[v] = \delta(s,v)$ dla każdego wierzchołka $v \in S$.
@@ -68,10 +68,10 @@ $d[u] = \delta(s, u)$ gdy dodamy $u$ do $S$, a własność ta jest zachowana od 
 \paragraph{Zakończenie:} Na końcu, $Q$ jest puste, co w połączeniu z naszym niezmiennikiem, że $Q = V - S$ implikuje,
 że $S = V$, zatem $d[u] = \delta(s,u)$ dla każego wierzchołka $u \in V$.
 
-\section{Analiza}
+\subsection{Analiza}
 
 Skoro wiemy już jak działa algorytm Dijkstry oraz wiemy, że działa poprawie należy
 zastanowić się z jaką prędkością on działa.
 TODO
-\section{Problemy}
+\subsection{Problemy}
 TODO
