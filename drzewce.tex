@@ -68,14 +68,15 @@ Interesuje nas zatem $(|j - i|)!$ spośród $(|j - i| + 1)!$ permutacji, czyli $
 
 A stąd oczekiwana wysokość $N_i$ to:
 $$
-\mathbf{E}\left[\text{wysokość }N_i\right]=
-\sum_{j=1, j\neq i}^{n} \frac{1}{|j-i| + 1}=
-\overbrace{
+\begin{aligned}
+\mathbf{E}\left[\text{wysokość }N_i\right]={} & \sum_{j=1, j\neq i}^{n} \frac{1}{|j-i| + 1}= \\
+& \overbrace{
 \sum_{j=1}^{i-1}\frac{1}{i-j+1}+
 \sum_{j=i+1}^{n}\frac{1}{j-i+1}
-}^\text{szeregi harmoniczne bez jedynek}<
-2ln\ n=
-O(log\ n)
+}^\text{szeregi harmoniczne bez jedynek}< \\
+& 2ln\ n= \\
+& O(log\ n)
+\end{aligned}
 $$
 \end{proof}
 
@@ -119,12 +120,13 @@ Stąd $P(X_{ik}) = \frac{(k -i - 1)!}{(k -i + 1)!} =  \frac{1}{(k-i+1)(k-i)}$.
 
 Teraz policzmy:
 $$
-\mathbf{E}\left[\sum_{i=1}^{k}X_{ik}\right]=
-\sum_{i=1}^{k}\mathbf{E}\left[X_{ik}\right]=
-\sum_{i=1}^{k}\frac{1}{(k-i+1)(k-i)}=
-\sum_{i=1}^{k}\frac{1}{i(i+1)}=
-\sum_{i=1}^{k}(\frac{1}{i}-\frac{1}{i+1})=
-1-\frac{1}{k}
+\begin{aligned}
+\mathbf{E}\left[\sum_{i=1}^{k}X_{ik}\right]={}  & \sum_{i=1}^{k}\mathbf{E}\left[X_{ik}\right]= \\
+& \sum_{i=1}^{k}\frac{1}{(k-i+1)(k-i)}= \\
+& \sum_{i=1}^{k}\frac{1}{i(i+1)}= \\
+& \sum_{i=1}^{k}(\frac{1}{i}-\frac{1}{i+1})= \\
+& 1-\frac{1}{k}
+\end{aligned}
 $$
 
 Po przeprowadzeniu analogicznego rozumowania dla lewego kręgosłupa prawego poddrzewa (klucze z $[k,n]$) otrzymujemy dla niego wartość oczekiwaną $1 - \frac{1}{n-k+1}$.
