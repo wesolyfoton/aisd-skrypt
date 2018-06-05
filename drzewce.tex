@@ -3,7 +3,7 @@
 
 \label{sec:drzewce}
 
-Podobnie jak drzewa AVL oraz drzewa czerwono-czarne drzewce rozwiązują problem potencjalnego niezrównoważenia "zwykłego" BST.
+Podobnie jak drzewa AVL oraz drzewa czerwono-czarne drzewce rozwiązują problem potencjalnego niezrównoważenia BST.
 Osiągają one jednak ten cel w zupełnie inny sposób.
 Zamiast kontrolować wysokość drzewa i jego poddrzew drzewce opierają się na randomizacji, która, jak zaraz pokażemy, zapewnia asymptotycznie równie dobre oczekiwane własności. 
 
@@ -22,11 +22,12 @@ Względem kluczy drzewiec jest drzewem przeszukiwań binarnych, a względem prio
 
 Na końcu rozdziału znajduje się pseudokod, który pokazuje, jak można zaimplementować powyższe metody i pozwala przekonać się, że jest to znacznie łatwiejsze niż w przypadku analogicznych operacji na drzewach AVL czy drzewach czerwono-czarnych.
 
-Teraz udowodnimy kilka własności drzewców.\footnote{Przy analizie drzewców zakładamy, że wszystkie priorytety są różne.}
+Teraz udowodnimy kilka własności drzewców.
+W każdym z poniższych dowodów zakładamy, że wszystkie priorytety są różne.
 
 \begin{theorem}
 \label{unique treap}
- Dla każdego zbioru par $(klucz, priorytet)$ istnieje dokładnie jeden drzewiec.
+Dla każdego zbioru par $(klucz, priorytet)$ istnieje dokładnie jeden drzewiec.
 \end{theorem}
 \begin{proof}
 Oczywiście para, w której znajduje się najwyższy priorytet, musi znajdować się w korzeniu drzewa.
@@ -67,7 +68,7 @@ Interesuje nas zatem $(|j - i|)!$ spośród $(|j - i| + 1)!$ permutacji, czyli $
 
 A stąd oczekiwana wysokość $N_i$ to:
 $$
-\mathbf{E}[\text{wysokość }N_i]=
+\mathbf{E}\left[\text{wysokość }N_i\right]=
 \sum_{j=1, j\neq i}^{n} \frac{1}{|j-i| + 1}=
 \overbrace{
 \sum_{j=1}^{i-1}\frac{1}{i-j+1}+
@@ -118,8 +119,8 @@ Stąd $P(X_{ik}) = \frac{(k -i - 1)!}{(k -i + 1)!} =  \frac{1}{(k-i+1)(k-i)}$.
 
 Teraz policzmy:
 $$
-\mathbf{E}[\sum_{i=1}^{k}X_{ik}]=
-\sum_{i=1}^{k}\mathbf{E}[X_{ik}]=
+\mathbf{E}\left[\sum_{i=1}^{k}X_{ik}\right]=
+\sum_{i=1}^{k}\mathbf{E}\left[X_{ik}\right]=
 \sum_{i=1}^{k}\frac{1}{(k-i+1)(k-i)}=
 \sum_{i=1}^{k}\frac{1}{i(i+1)}=
 \sum_{i=1}^{k}(\frac{1}{i}-\frac{1}{i+1})=
