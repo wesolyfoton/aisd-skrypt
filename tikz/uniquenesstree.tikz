@@ -22,6 +22,6 @@ child {
     edge from parent node[right,draw=none] {nie}
 };
 
-\label{uniqness-tree}
+\label{uniqueness-tree}
 
 \end{tikzpicture}
