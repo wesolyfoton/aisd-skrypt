@@ -66,15 +66,15 @@ Procedura \texttt{bitonic\_compare} ma bardzo ważną własność, którą teraz
 
 \begin{theorem}
  Jeżeli elementy tablicy \texttt{A[0..n-1]} tworzą ciąg bitoniczny, to po zakończeniu procedury \texttt{bitonic\_compare} elementy tablic \texttt{A[0..n/2-1]} oraz \texttt{A[n/2..n-1]} będą tworzyły ciągi bitoniczne.
- Ponadto jeśli wartość zmiennej \texttt{up} jest ustawiona na \texttt{true} to każdy element tablicy \texttt{A[0..n/2-1]} będzie niewiększy od każdego elementu tablicy \texttt{A[n/2..n-1]}.
- W przeciwnym przypadku będzie niemniejszy.
+ Ponadto jeśli wartość zmiennej \texttt{up} jest ustawiona na \texttt{true} to każdy element tablicy \texttt{A[0..n/2-1]} będzie nie większy od każdego elementu tablicy \texttt{A[n/2..n-1]}.
+ W przeciwnym przypadku będzie nie mniejszy.
  \label{bitonic-theorem}
 \end{theorem}
 
 Weźmy dla przykładu ciąg bitoniczny $69$, $42$, $17$, $2$, $2$, $5$, $100$, $72$.
 Po przejściu procedury \texttt{bitonic\_compare} z ustawioną zmienną \texttt{up} na wartość \texttt{true} otrzymamy ciąg $2$, $5$, $17$, $2$, $69$, $42$, $100$, $72$.
 Ciągi $2$, $5$, $17$, $2$ oraz $69$, $42$, $100$, $72$ są ciągami bitonicznymi.
-Ponadto każdy element ciągu $2$, $5$, $17$, $2$ jest niewiększy od każdego elementu ciągu $69$, $42$, $100$, $72$.
+Ponadto każdy element ciągu $2$, $5$, $17$, $2$ jest nie większy od każdego elementu ciągu $69$, $42$, $100$, $72$.
 
 Przejdźmy do dowodu powyższego twierdzenia.
 Przyda nam się do tego poniższy lemat:
@@ -108,7 +108,7 @@ Przyda nam się do tego poniższy lemat:
  
  Załóżmy, że tablica \texttt{S[0..n/2-1]} nie jest bitoniczna (przypadek kiedy druga z tablic nie jest bitoniczna, jest analogiczny).
  Załóżmy, że ciąg powstały przez przejście od najmniejszego elementu w tej tablicy do największego nie tworzy ciągu niemalejącego (przypadek gdy ciąg powstały przez przejście od największego elementu do najmniejszego nie tworzy ciągu nierosnącego jest analogiczny).
- Zatem istenieje w tablicy element \texttt{S[i]} większy od elementu \texttt{S[i+1]}.
+ Zatem istnieje w tablicy element \texttt{S[i]} większy od elementu \texttt{S[i+1]}.
  Rozważmy następują funkcję:
  \[   
   f(a) = 

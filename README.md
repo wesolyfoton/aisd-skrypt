@@ -28,7 +28,7 @@ Jednakże poprawki do tych rozdziałów nie są palące i powinniśmy się skupi
 - Sortowanie Bitoniczne
 - Fibonacci algorytm macierzowy
 - Algorytm Strassena
-- Element uniqness
+- Element uniqueness
 - Problem plecakowy
 - Lazy Select
 

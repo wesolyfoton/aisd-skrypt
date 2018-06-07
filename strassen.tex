@@ -4,7 +4,7 @@
 \label{sec:strassen}
 
 Z mnożeniem macierzy mieliście już prawdopodobnie do czynienia na Algebrze.
-\comment{Symbol mnożenia macierzy jest inny niż w rozdziale o liczbach fibonacciego.}
+\comment{Symbol mnożenia macierzy jest inny niż w rozdziale o liczbach Fibonacciego.}
 Mając dane macierze $A$ (o rozmiarze $n \times m$) oraz $B$ (o rozmiarze $m \times p$) nad ciałem liczb rzeczywistych, chcemy policzyć ich iloczyn:
 \[
  A \cdot B = C
@@ -99,7 +99,7 @@ Mnożenie podmacierzy możemy wykonać rekurencyjnie.
 Taki algorytm będzie działał w czasie $T(n) = 8\cdot T(n/2) + \Theta(n^2)$ czyli $\Theta(n^3)$.
 Osiągnęliśmy tą samą złożoność czasową jak w przypadku algorytmu liczącego iloczyn wprost z definicji.
 
-Algorytm Strassena osięga lepszą złożoność asymptotyczną przez pozbycie się jednego z mnożeń.
+Algorytm Strassena osiąga lepszą złożoność asymptotyczną przez pozbycie się jednego z mnożeń.
 Algorytm ten liczy następujące macierze:
 \begin{align*}
  M_1 &= (A_{1,1} + A_{2,2}) \cdot (B_{1,1} + B_{2,2}) \\

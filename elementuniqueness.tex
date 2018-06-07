@@ -1,9 +1,9 @@
 \section{Model afinicznych drzew decyzyjnych}
 \sectionauthor{Krzysztof Piecuch}
 
-\label{sec:elementuniqness}
+\label{sec:elementuniqueness}
 
-Zdefiniujmy następujący problem (ang. element uniqness).
+Zdefiniujmy następujący problem (ang. element uniqueness).
 Mając daną tablicę \texttt{T[0..n-1]} liczb rzeczywistych, odpowiedzieć na pytanie czy istnieją w tablicy dwa elementy, które są sobie równe.
 Pierwsze rozwiązanie jakie przychodzi wielu ludziom do głowy, to posortować tablicę \texttt{T} a następnie sprawdzić sąsiednie elementy.
 Algorytm ten rozwiązuje nasz problem w czasie $\Theta(n \log n)$.
@@ -20,17 +20,17 @@ a zbiór wszystkich punktów z $\mathbb{R}^n$, które spełniają tą nierówno�
 Jeśli na Algebrze nie wyrobiliście sobie jeszcze intuicji, to w $\mathbb{R}^2$ półprzestrzeń afiniczną otrzymujemy przez narysowanie dowolnej prostej i wzięcie wszystkich elementów z jednej ze stron.
 Podobnie w $\mathbb{R}^3$ półprzestrzeń afiniczną otrzymujemy poprzez narysowanie dowolnej płaszczyzny, a następnie wzięcia wszystkich elementów z jednej ze stron.
 W wyższych wymiarach wygląda to analogicznie.
-\tizkboxwithcaption{tikz/uniqnesstree.tikz}{
+\tizkboxwithcaption{tikz/uniquenesstree.tikz}{
 Przykład afinicznego drzewa decyzyjnego.
 W wierzchołkach wewnętrznych mamy zapytanie $(c^j, a_i^j)$.
 W zależności od tego czy $c^k + \sum_{i=0}^{n-1} a^k_i t_i \geq 0$ czy też nie, idziemy odpowiednio w lewo lub w prawo.
 Liście zawierają odpowiedź naszego algorytmu.
 }
 
-Algorytm używający tego typu porównań można zapisać za pomocą drzewa (rys. \ref{uniqness-tree}).
+Algorytm używający tego typu porównań można zapisać za pomocą drzewa (rys. \ref{uniqueness-tree}).
 Zaczynamy z korzenia tego drzewa.
 W każdym wierzchołku wewnętrznym zadajemy zapytanie.
-W zależności od tego czy odpowiedż na pytanie była pozytywna czy negatywna, idziemy w drzewie w lewo lub w prawo.
+W zależności od tego czy odpowiedź na pytanie była pozytywna czy negatywna, idziemy w drzewie w lewo lub w prawo.
 Gdy dojdziemy do liścia w drzewie otrzymujemy nasze rozwiązanie (tak lub nie).
 Takie drzewo będziemy nazywać afinicznym drzewem decyzyjnym.
 
@@ -46,7 +46,7 @@ Uzbrojeni w nowe definicje, możemy przejść do obiecanego lematu:
 
 \begin{lemma}
  Zbiór punktów osiągających liść $l$ w afinicznym drzewie decyzyjnym, jest zbiorem wypukłym.
- \label{uniqness-lemma}
+ \label{uniqueness-lemma}
 \end{lemma}
 
 \begin{proof}
@@ -68,7 +68,7 @@ Uzbrojeni w nowe definicje, możemy przejść do obiecanego lematu:
 \[
  \alpha c^w + \sum_{i=0}^{n-1} a_i^w \alpha u_i \geq 0
 \]
- a ponieważ $1 - \alpha \geq 0$ możemy drugie równanie przemnożmyć przez $1 - \alpha$:
+ a ponieważ $1 - \alpha \geq 0$ możemy drugie równanie przemnożyć przez $1 - \alpha$:
 \[
  (1 - \alpha) c^w + \sum_{i=0}^{n-1} a_i^w (1 - \alpha) v_i \geq 0
 \]
@@ -84,19 +84,19 @@ Stąd zbiór wszystkich punktów, które osiągają liść $l$ w afinicznym drze
 Wyobraźmy sobie, że na płaszczyznę $\mathbb{R}^2$ kładziemy półpłaszczyzny.
 Wtedy przecięcie dowolnej liczby półpłaszczyzn jest zbiorem wypukłym.
 Podobnie jeśli w przestrzeni $\mathbb{R}^3$ wyznaczymy sobie półprzestrzenie, to ich przecięcie będzie tworzyło zbiór wypukły.
-Lemat \ref{uniqness-lemma} mówi, że tak samo się dzieje w każdej przestrzeni $\mathbb{R}^n$.
+Lemat \ref{uniqueness-lemma} mówi, że tak samo się dzieje w każdej przestrzeni $\mathbb{R}^n$.
 
-Ten lemat za chwilę okaże się dla nas kluczowy, gdyż za jego pomocą udowodnimy, że jeśli afiniczne drzewo decyzyjne poprawnie rozwiązuje problem element uniqness to musi posiadać conajmniej $n!$ liści.
-Oznacza to, że wysokość takiego drzewa musi wynosić conajmniej $O(n \log n)$.
+Ten lemat za chwilę okaże się dla nas kluczowy, gdyż za jego pomocą udowodnimy, że jeśli afiniczne drzewo decyzyjne poprawnie rozwiązuje problem element uniqueness to musi posiadać co najmniej $n!$ liści.
+Oznacza to, że wysokość takiego drzewa musi wynosić co najmniej $O(n \log n)$.
 
 \begin{lemma}
  \label{permutation-lemma}
  Niech $\{r_0, r_1, \ldots, r_{n-1}\}$ będzie $n$ elementowym zbiorem liczb rzeczywistych i niech $(a_0, a_1, \ldots, a_{n-1})$ oraz $(b_0, b_1, \ldots, b_{n-1})$ będą dwoma różnymi permutacjami liczb z tego zbioru.
- W każdym afinicznym drzewie decyzyjnym poprawnie rozwiązującym problem element uniqness, punkty $a$ oraz $b$ osiągają różne liście w drzewie.
+ W każdym afinicznym drzewie decyzyjnym poprawnie rozwiązującym problem element uniqueness, punkty $a$ oraz $b$ osiągają różne liście w drzewie.
 \end{lemma}
 
 \begin{proof}
- Dowód niewprost.
+ Dowód nie wprost.
  Załóżmy, że $a$ oraz $b$ osiągają ten sam liść w drzewie.
  Liść ten musi odpowiadać przecząco na zadany problem, gdyż ani $a$ ani $b$ nie zawierają dwóch tych samych elementów.
  Ponieważ $a$ oraz $b$ składają się z tych samych liczb rzeczywistych i różnie się od siebie permutacją, to muszą istnieć takie indeksy $i$ oraz $j$, że $a_i > a_j$ oraz $b_i < b_j$.
@@ -105,7 +105,7 @@ Oznacza to, że wysokość takiego drzewa musi wynosić conajmniej $O(n \log n)$
   \alpha = \frac{b_j - b_i}{(a_i - a_j) + (b_j - b_i)}
  \]
  Wykonując proste przekształcenia arytmetyczne, możemy przekonać się, że $0 < \alpha < 1$.
- Oznacza to, na mocy lematu \ref{uniqness-lemma}, że punkt $\alpha a + (1 - \alpha)b$ również osiąga ten sam liść co punkty $a$ i $b$.
+ Oznacza to, na mocy lematu \ref{uniqueness-lemma}, że punkt $\alpha a + (1 - \alpha)b$ również osiąga ten sam liść co punkty $a$ i $b$.
  Ponieważ jednak zachodzi:
  \[
   \alpha a_i + (1 - \alpha) b_i = \alpha a_j + (1 - \alpha) b_j
@@ -116,6 +116,6 @@ Oznacza to, że wysokość takiego drzewa musi wynosić conajmniej $O(n \log n)$
 \end{proof}
 
 Weźmy dowolny $n$ elementowy zbiór liczb rzeczywistych.
-Na mocy Lematu \ref{permutation-lemma} każda permutacja tych liczb musi osiągać inny liść w afinicznym drzewie decyzyjnym poprawnie rozwiązującym problem element uniqness.
+Na mocy Lematu \ref{permutation-lemma} każda permutacja tych liczb musi osiągać inny liść w afinicznym drzewie decyzyjnym poprawnie rozwiązującym problem element uniqueness.
 Oznacza to, że liczba liści w takim drzewie musi wynosić przynajmniej $n!$.
-Zatem wysokość takiego drzewa musi wynosić conajmniej $\Omega(n \log n)$.
+Zatem wysokość takiego drzewa musi wynosić co najmniej $\Omega(n \log n)$.

@@ -19,10 +19,10 @@ Schemat tej metody jest przedstawiony jako Schemat \ref{recursion-example}.
   
   \For{$i \leftarrow 1$ to $a$}
   {
-   	wykonaj procedurę \texttt{Dziel\_i\_zwyciezaj} rekurencyjnie dla $i$-tego podproblemu
+   	wykonaj procedurę \texttt{Dziel\_i\_zwyciężaj} rekurencyjnie dla $i$-tego podproblemu
   }
   Połącz wyniki w czasie $P(n)$
-  \caption{Procedura \texttt{Dziel\_i\_zwyciezaj}}
+  \caption{Procedura \texttt{Dziel\_i\_zwyciężaj}}
   \label{recursion-example}
 \end{algorithm}
 
@@ -59,15 +59,15 @@ Do tego celu służy poniższe twierdzenie, znane jako Twierdzenie o rekurencji 
 
 W rozdziale \ref{sec:merge-sort} zapoznamy się z algorytmem sortowania przez scalanie.
 \comment{Nie podoba mi się to, że to jest osobny podrozdział.
-Nie wiem czy to powinnien być osobny akapit, tabelka czy może coś jeszcze innego.}
+Nie wiem czy to powinien być osobny akapit, tabelka czy może coś jeszcze innego.}
 Jego złożoność określona jest wzorem rekurencyjnym $T(n) = 2 \cdot T(n/2) + \Theta(n)$.
 W tym przypadku $a = 2$, $b = 2$, $k = 1$ oraz $p = 0$.
 Ponieważ $a = b^k$ sprawdzamy dodatkowo, że $p > -1$ i otrzymujemy, że w naszym przypadku powinniśmy skorzystać z pkt \ref{mt-2a}.
 Otrzymujemy, że złożoność naszego algorytmu jest $\Theta(n^{\log_b a} \log^{p + 1} n)$ czyli $\Theta(n\log n)$.
 
-W rodziale \ref{sec:bitoniczne} opisany został algorytm sortowania bitonicznego.
+W rozdziale \ref{sec:bitoniczne} opisany został algorytm sortowania bitonicznego.
 Jego złożoność określona jest wzorem $T(n) = 2 \cdot T(n/2) + \Theta(n \log n)$.
-W tym przypadeku $a = 2$, $b = 2$, $k=1$ i $p = 1$.
+W tym przypadku $a = 2$, $b = 2$, $k=1$ i $p = 1$.
 Ponieważ $a = b^k$ i $p > -1$ korzystamy z punktu \ref{mt-2a}.
 Otrzymujemy złożoność $\Theta(n \log^2 n)$.
 
@@ -82,7 +82,7 @@ Mamy więc $a = 1$, $b = 2$, $k = p = 0$.
 Ponieważ $a = b^k$ i $p > -1$ korzystamy z punktu \ref{mt-2a}.
 Otrzymujemy złożoność $\Theta(\log n)$.
 
-Algorytm Strassena jest opisany w rodziale \ref{sec:strassen}.
+Algorytm Strassena jest opisany w rozdziale \ref{sec:strassen}.
 Jego złożoność opisana jest rekurencyjnym wzorem $T(n) = 7 \cdot T(n/2) + \Theta(n^2)$.
 W tym przypadku mamy $a = 7$, $b = 2$, $k = 2$, $p = 0$.
 Jako, że $a > b^k$ wykorzystamy punkt \ref{mt-1}.

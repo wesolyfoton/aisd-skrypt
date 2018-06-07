@@ -8,7 +8,7 @@ W metodzie zakładamy, że każdy z $n$ elementów ciągu jest liczbą całkowit
 Sortowanie przez zliczanie działa w czasie $\Theta(n+k)$.
 Jeśli jednak założymy, że $k \in O(n)$, możemy powiedzieć, że jest to czas liniowy.
 
-Być może niektórych niepokoi fakt, że osiągnęliśmy lepszą złozoność czasową niż mówi o tym dolna granica sortowania, czyli $\Theta(n \log n)$.
+Być może niektórych niepokoi fakt, że osiągnęliśmy lepszą złożoność czasową niż mówi o tym dolna granica sortowania, czyli $\Theta(n \log n)$.
 Zauważmy jednak, że w tym wypadku mamy dodatkowe założenie.
 Do posortowania mamy liczby całkowite z danego zakresu.
 Ponadto dolna granica mówi nam o wykonywaniu algorytmu sortowaniu za pomocą porównań.
@@ -17,8 +17,8 @@ W sortowaniu przez zliczanie nie korzystamy z porównań a zatem ta granica nie 
 \textbf{Idea.} W sortowaniu przez zliczanie głównym pomysłem jest wyznaczenie dla każdego $x$ z ciągu wejściowego liczby elementów mniejszych od $x$.
 Dlaczego?
 Załóżmy, że policzyliśmy, że jest 10 elementów mniejszych od $x$.
-Z tego możemy już wywnioskować, że element $x$ będzie na 11 miescu w tablicy.
-Jeśli chcemy dopuścić powtórzenia w ciągu wejsciowym musimy dokonać drobnej modyfikacji i zamiast pamiętać liczby mniejsze od $x$, pamiętamy te mniejsze lub równe.
+Z tego możemy już wywnioskować, że element $x$ będzie na 11 miejscu w tablicy.
+Jeśli chcemy dopuścić powtórzenia w ciągu wejściowym musimy dokonać drobnej modyfikacji i zamiast pamiętać liczby mniejsze od $x$, pamiętamy te mniejsze lub równe.
 Spójrzmy na pseudokod algorytmu.
 
 \begin{algorithm}[h]
@@ -52,13 +52,13 @@ Spójrzmy na pseudokod algorytmu.
 A teraz pokażemy, czemu dokładnie służą kolejne pętle for w pseudokodzie.
 \begin{enumerate}
 \item Na początku inicjujemy tablicę $C$.
-\item W następnej pętli for przechodziy po kolei po wszytskich elementach i dla wartości $x$ danego elementu, wartość tablicy $C[x]$ zwiększamy o jeden.
+\item W następnej pętli for przechodzimy po kolei po wszystkich elementach i dla wartości $x$ danego elementu, wartość tablicy $C[x]$ zwiększamy o jeden.
       A zatem po wykonaniu drugiej pętli tablica $C$ zawiera liczbę wystąpień elementów np. $x$ występuje $C[x]$ razy.
 \item Obliczamy ile jest elementów mniejszych lub równych $x$. Odbywa się to przez sumowanie komórek $C[x]$ z wartościami mniejszych indeksów tablicy.
 \item W ostatniej pętli for umieszczamy elementy na właściwych pozycjach w tablicy wyjściowej $B$.
       Jeśli w tablicy wejściowej A nie ma powtórzeń, to dla każdego $A[j]$ wartość $C[A[j]]$ jest poprawnym ostatecznym numerem pozycji w tablicy $B$.
-      Jeśli jednak dopuszczamy powtórki musimy tę wartość rekrementować za każdym razem gdy wartość $A[j]$ jest wstawiana do tablicy $B$.
-      Dzieki temu nastęny element o tej samej wartości (jeśli istnieje) zostanie wstawiony do tablicy $B$ na pozycję o numerze o jeden mniejszym.
+      Jeśli jednak dopuszczamy powtórki musimy tę wartość dekrementować za każdym razem gdy wartość $A[j]$ jest wstawiana do tablicy $B$.
+      Dzięki temu następny element o tej samej wartości (jeśli istnieje) zostanie wstawiony do tablicy $B$ na pozycję o numerze o jeden mniejszym.
 \end{enumerate}
 
 Gdy przyjrzymy się dokładnie algorytmowi sortowania przez zliczanie możemy zastanawiać się, dlaczego postępujemy w tak dziwny sposób?
@@ -71,9 +71,9 @@ Zatem algorytm sortowania przez zliczanie wyznacza docelowe pozycje elementów n
 Następnie elementy są umieszczane na właściwym miejscu w zbiorze wyjściowym.
 
 \textbf{Złożoność.} 
-Bedziemy określać złożoność czasową po przez oszacowaniej każdej kolejenj pętli.
+Będziemy określać złożoność czasową poprzez oszacowanie każdej kolejnej pętli.
 Pierwsza działa w czasie $\Theta(k)$, druga w czasie $\Theta(n)$, kolejna w czasie $\Theta(k)$ a ostatnia w $\Theta(n)$.
-Całkowity czas działania procedury to $\Theta(k+n)$ ale w praktyce najczęściej $k \in O(n)$ a wtedy złożónośc czasowa to \textbf{$\Theta(n)$}.
+Całkowity czas działania procedury to $\Theta(k+n)$ ale w praktyce najczęściej $k \in O(n)$ a wtedy złożoność czasowa to \textbf{$\Theta(n)$}.
 
 \textbf{Stabilność.} 
 Stabilność to własność sortowania, dzięki której elementy o tych samych wartościach występują w tablicy wynikowej w takiej samej kolejności jak w ciągu wejściowym.
