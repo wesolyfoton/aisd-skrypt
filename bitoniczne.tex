@@ -53,11 +53,11 @@ Jako dane wejściowe otrzymuje ona tablicę \texttt{A}, wielkość tablicy \text
 Procedura dzieli zadaną na wejściu tablicę na dwie równe części.
 Następnie porównuje pierwszy element z pierwszej części z pierwszym elementem z drugiej części.
 Jeśli te elementy nie znajdują się w pożądanym porządku, to je przestawia.
-Następnie powtarza tą czynność z kolejnymi elementami.
+Następnie powtarza tę czynność z kolejnymi elementami.
 
 Dla przykładu, jeśli procedurę uruchomimy z tablicą \texttt{A = [2, 8, 7, 1, 4, 3, 5, 6]}, wartością \texttt{n = 8} oraz \texttt{up = true}, w wyniku otrzymamy tablicę \texttt{A = [2, 3, 5, 1, 4, 8, 7, 6]}.
 W pierwszym kroku wartość $2$ zostanie porównana z wartością $4$.
-Ponieważ chcemy otrzymać porządek rosnący (wartość zmiennej \texttt{up} jest ustawiona na \texttt{true}), to zostawiamy tą parę w spokoju.
+Ponieważ chcemy otrzymać porządek rosnący (wartość zmiennej \texttt{up} jest ustawiona na \texttt{true}), to zostawiamy tę parę w spokoju.
 W następnym kroku porównujemy wartość $8$ z wartością $3$.
 Te wartości są w złym porządku, dlatego algorytm zamienia je miejscami.
 Dalej porównujemy $7$ z $5$ i zamieniamy je miejscami i w końcu porównujemy $1$ z $6$ i te wartości zostawiamy w spokoju, gdyż są w dobrym porządku.
@@ -79,7 +79,7 @@ Ponadto każdy element ciągu $2$, $5$, $17$, $2$ jest nie większy od każdego 
 Przejdźmy do dowodu powyższego twierdzenia.
 Przyda nam się do tego poniższy lemat:
 
-\begin{lemma}[zasada zero-jeden]
+\begin{lemma}[Zasada zero-jeden]
  Twierdzenie \ref{bitonic-theorem}. jest prawdziwe dla dowolnych tablic wtedy i tylko wtedy, gdy jest prawdziwe dla tablic zero-jedynkowych.
  \label{zero-one-lemma}
 \end{lemma}
@@ -163,7 +163,7 @@ Do pełni szczęścia potrzebujemy udowodnić, że Twierdzenie \ref{bitonic-theo
 \begin{proof}
  Zakładać będziemy, że zmienna \texttt{up} jest ustawiona na \texttt{true} (dowód dla sytuacji przeciwnej jest analogiczny).
  \comment{Ten dowód jest nudny.}
- Istnieje sześć rodzai bitonicznych ciągów zero-jedynkowych : $0^n$, $0^k1^l$, $0^k1^l0^m$, $1^n$, $1^k0^l$, $1^k0^l1^m$ z czego trzy ostatnie są symetryczne do trzech pierwszych (więc zostaną pominięte w dowodzie).
+ Istnieje sześć rodzajów bitonicznych ciągów zero-jedynkowych : $0^n$, $0^k1^l$, $0^k1^l0^m$, $1^n$, $1^k0^l$, $1^k0^l1^m$ z czego trzy ostatnie są symetryczne do trzech pierwszych (więc zostaną pominięte w dowodzie).
  Rozważmy wszystkie interesujące nas przypadki:
  \begin{itemize}
   \item $0^n$.
