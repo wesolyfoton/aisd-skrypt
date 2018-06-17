@@ -21,13 +21,14 @@ Jeśli na Algebrze nie wyrobiliście sobie jeszcze intuicji, to w $\mathbb{R}^2$
 Podobnie w $\mathbb{R}^3$ półprzestrzeń afiniczną otrzymujemy poprzez narysowanie dowolnej płaszczyzny, a następnie wzięcia wszystkich elementów z jednej ze stron.
 W wyższych wymiarach wygląda to analogicznie.
 \tikzboxwithcaption{tikz/uniquenesstree.tikz}{
+\label{uniqueness-tree-example}
 Przykład afinicznego drzewa decyzyjnego.
 W wierzchołkach wewnętrznych mamy zapytanie $(c^j, a_i^j)$.
 W zależności od tego czy $c^k + \sum_{i=0}^{n-1} a^k_i t_i \geq 0$ czy też nie, idziemy odpowiednio w lewo lub w prawo.
 Liście zawierają odpowiedź naszego algorytmu.
 }
 
-Algorytm używający tego typu porównań można zapisać za pomocą drzewa (rys. \ref{uniqueness-tree}).
+Algorytm używający tego typu porównań można zapisać za pomocą drzewa (rys. \ref{uniqueness-tree-example}).
 Zaczynamy z korzenia tego drzewa.
 W każdym wierzchołku wewnętrznym zadajemy zapytanie.
 W zależności od tego czy odpowiedź na pytanie była pozytywna czy negatywna, idziemy w drzewie w lewo lub w prawo.
