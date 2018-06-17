@@ -28,7 +28,7 @@ Kopiec powinien udostępniać trzy podstawowe funkcje: \texttt{zamien\_element},
 
 \tikzboxwithcaption{tikz/kopiec-przenoszenie.tikz}{Przykład działania funkcji \texttt{zamien\_element}. a) Oryginalny kopiec. b) Zmiana wartości w wyróżnionym węźle. c) Ponieważ nowa wartość jest większa od wartości swoich dzieci, należy wykonać wywołanie funkcji \texttt{przesun\_w\_dol}. d) Po zmianie własność kopca nie jest zachowana, dlatego należy ponownie wywołać funkcję \texttt{przesun\_w\_dol}. To przywraca kopcowi jego własność.}
 
-\comment{Zamień element jest fajną funkcją, ale funkcje przesuń w dół i przesuń w górę są ważniejsze.
+\comment{Zamień element jest fajną funkcją, ale funkcje \texttt{przesun\_w\_dol} i \texttt{przesun\_w\_gore} są ważniejsze.
 Ponadto nie chcemy nazywać funkcje w języku polskim.}
 \begin{algorithm}[ht]
   \If{k[i] < v}

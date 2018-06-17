@@ -4,7 +4,7 @@
 \label{sec:dijkstra}
 
 \paragraph{}Powstało wiele algorytmów pozwalających wyznaczyć najkrótszą ścieżkę w grafie z
-krawedziami ważonymi. Wśród nich na szczególną uwagę zasługuje algorytm Dijkstry.
+krawędziami ważonymi. Wśród nich na szczególną uwagę zasługuje algorytm Dijkstry.
 
 \subsection{Działanie}
 
@@ -12,21 +12,21 @@ krawedziami ważonymi. Wśród nich na szczególną uwagę zasługuje algorytm D
 dla wszystkich krawędzi $(u, v) \in E$.
 
 Niech $S$ będzie takim zbiorem wierzchołków, których najkrótsza odległość od źródła
-s została już określona. Algorytm Dijkstry wybiera kolejne wierzchołki $u \in V - S$
-z minimalnym oszacowaniem najkrótszej ścieżki, dodaje u do S, i rozluźnia wszystkie ścieżki pozostawiając u.
+$s$ została już określona. Algorytm Dijkstry wybiera kolejne wierzchołki $u \in V - S$
+z minimalnym oszacowaniem najkrótszej ścieżki, dodaje u do S, i rozluźnia wszystkie krawędzie wychodzące z $u$.
 
 \paragraph{Pseudokod:}
 TODO
 
-Algorytm zachowuje niezmiennik, że $Q = V - S$ na początku każdej iteracji pętli while.
+Algorytm zachowuje niezmiennik, że $Q = V - S$ na początku każdej iteracji pętli \texttt{while}.
 
 Algorytm Dijkstry stosuje zachłanne podejście zawsze wybierając najbliższy wierzchołek
 w $V - S$, który dodaje do zbioru S.
 
 \subsection{Dowód poprawności algorytmu}
 
-\paragraph{}Aby dowieść poprawności algorytmu Dijkstry skorzysamy z następującego niezmiennika pętli:
-Na począrku każdej iteracji pętli while $d[v] = \delta(s,v)$ dla każdego wierzchołka $v \in S$.
+\paragraph{}Aby dowieść poprawności algorytmu Dijkstry skorzystamy z następującego niezmiennika pętli:
+Na początku każdej iteracji pętli \texttt{while} $d[v] = \delta(s,v)$ dla każdego wierzchołka $v \in S$.
 
 Wystarczy udowodnić, że dla każdego wierzchołka $u \in V$ mamy $d[u] = \delta(s, u)$ w momencie
 kiedy $u$ jest dodane do zbioru $S$. Kiedy już udowodnimy, że $d[u] = \delta(s, u)$,
@@ -36,23 +36,20 @@ polegamy na ograniczeniu górnym własności, aby pokazać, że równość jest 
 zachowany.
 
 \paragraph{Utrzymanie:} Chcemy pokazać, że z każdą iteracją zachowana jest równość $d[u] = \delta(s, u)$
-dla wszystkich wierzchołków dodanych do zbioru $S$. Załóżmy nie wprost, że u jest
-pierwszym takim wierzchołkiem, że $d[u] \ne \delta(s,u)$ w momencie go do zbioru
-$S$. Weźmy dowolny $u \ne s$, ponieważ  $s$ jest pierwszym wierzcholkiem dodanym
-do $S$ i E$d[s] = \delta(s,s) = 0$. Skoro $u \ne s$, to $S$ nie jest zbiorem pustym
-zaraz przed dodaniem $u$ do S. Musi istnieć ścieżka od $s$ do $u$ gdyż inaczej
-$d[u] = \delta(s,u) = \inf$ i doszlibyśmy do sprzeczności z naszym założeniem, że
-$d[u] \ne \delta(s, u)$. Skoro istnieje conajmniej jedna ścieżka, istnieje też ścieżka
-najkrótsza. Przed dodaniem $u$ do $S$, ścieżka p łączy wierzchołek w $S$, powiedzmy s,
-z wierzchołkeim w $V - S$, powiedzmy $u$. Rozważmy pierwszy wierzchołek y należący do p
-t. że $y \in V - S$ i niech $x \in S$ będzie poprzednikiem y. Możemy podzielić ścieżkę
-$p$ na dwie podścieżki, $p_1$ łączącą $s$ z $x$ oraz $p_2$ łączącą $y$ z $u$
-(ścieżki te mogą być pozbawione krawędzi).
+dla wszystkich wierzchołków dodanych do zbioru $S$.
+Załóżmy nie wprost, że $u$ jest pierwszym takim wierzchołkiem, że $d[u] \ne \delta(s,u)$ w momencie dodawania go do zbioru $S$.
+Weźmy dowolny $u \ne s$, ponieważ  $s$ jest pierwszym wierzchołkiem dodanym do $S$ i E$d[s] = \delta(s,s) = 0$.
+Skoro $u \ne s$, to $S$ nie jest zbiorem pustym zaraz przed dodaniem $u$ do S.
+Musi istnieć ścieżka od $s$ do $u$, gdyż inaczej $d[u] = \delta(s,u) = \inf$ i doszlibyśmy do sprzeczności z naszym założeniem, że $d[u] \ne \delta(s, u)$.
+Skoro istnieje co najmniej jedna ścieżka, istnieje też ścieżka najkrótsza.
+Przed dodaniem $u$ do $S$, ścieżka $p$ łączy wierzchołek w $S$, powiedzmy $s$, z wierzchołkiem w $V - S$, powiedzmy $u$.
+Rozważmy pierwszy wierzchołek $y$ należący do $p$ t. że $y \in V - S$ i niech $x \in S$ będzie poprzednikiem y.
+Możemy podzielić ścieżkę $p$ na dwie podścieżki, $p_1$ łączącą $s$ z $x$ oraz $p_2$ łączącą $y$ z $u$ (ścieżki te mogą być pozbawione krawędzi).
 
-Chcemy udowodnić, że $d[y] = \delta(s,y)$ gdy $u$ jest dodane do $S$. Aby to zrobić
-zauważmy, że $x \in S$. Skoro $u$ jest pierwszym wierzchołkiem, dla którego $d[u] \ne \delta(s,u)$,
-to $d[x] \delta(s,x)$ w momencie kiedy $x$ został dodany do S. Krawędź $(x, y)$
-została wtedy zrelaksowana, z czego wynika powyższa równość.
+Chcemy udowodnić, że $d[y] = \delta(s,y)$ gdy $u$ jest dodane do $S$.
+Aby to zrobić zauważmy, że $x \in S$.
+Skoro $u$ jest pierwszym wierzchołkiem, dla którego $d[u] \ne \delta(s,u)$, to $d[x] \delta(s,x)$ w momencie kiedy $x$ został dodany do S.
+Krawędź $(x, y)$ została wtedy zrelaksowana, z czego wynika powyższa równość.
 
 Możemy teraz uzyskać sprzeczność pozwalającą nam udowodnić, że $d[u] = \delta(s,u)$.
 Skoro $y$ występuje przed $u$ na najkrótszej ścieżce od $s$ do $u$, a wszystkie
@@ -62,11 +59,11 @@ TODO
 
 Ale skoro oba wierzchołki u i y były w $V - S$ gdy ustaliliśmy $u$ mamy $d[u] \le d[y]$.
 Zatem, obie nierówności są tak na prawdę równościami, dzięki którym $d[y] = \delta(s, y) = \delta(s, u) = d[u]$.
-W rezultacie $d[u] = \delta(s,u)$, co przeczy naszemu wyborowi u. Wnioskujemy, że
+W rezultacie $d[u] = \delta(s,u)$, co przeczy naszemu wyborowi $u$. Wnioskujemy, że
 $d[u] = \delta(s, u)$ gdy dodamy $u$ do $S$, a własność ta jest zachowana od tego momentu.
 
 \paragraph{Zakończenie:} Na końcu, $Q$ jest puste, co w połączeniu z naszym niezmiennikiem, że $Q = V - S$ implikuje,
-że $S = V$, zatem $d[u] = \delta(s,u)$ dla każego wierzchołka $u \in V$.
+że $S = V$, zatem $d[u] = \delta(s,u)$ dla każdego wierzchołka $u \in V$.
 
 \subsection{Analiza}
 
