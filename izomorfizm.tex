@@ -1,6 +1,121 @@
 \section{Izomorfizm drzew}
-\sectionauthor{Jeszcze Nikt}
+\sectionauthor{Dominik Bruliński}
 
-\label{sec:izomorfizm}
+Nieformalnie możemy powiedzieć, że dwa grafy są izomorficz jeżeli jeden może być przekształcony w drugi za pomocą zmiany nazwy wierzchołków.
 
-Todo, todo, todo...
+Zanim przejdziemy do sprawdzania czy dwa drzewa są izomorficzne spójrzmy na kilka definicji.
+
+\subsection{Definicje}
+
+\begin{definition}
+
+    \textbf{Izomorfizm grafów} $G_1(V_1, E_1)$ i $G_2(V_2, E_2)$ jest to bijekcja (mapowanie 1:1) między zbiorami wierzchołków $\varphi
+    : V_1 \rightarrow V_2$, taka, że:
+$$ \forall u, v \in V_1 (u, v) \in E_1 \iff (\varphi(u),\varphi(v)) \in E_2 $$
+
+
+\end{definition}
+
+\begin{definition}
+
+    \textbf{Ukorzenione drzewo} $(V, E, r)$ to drzewo $(V, E)$ z wybranym korzeniem $r \in V$.
+
+\end{definition}
+
+\begin{definition}
+    \textbf{Izomorfizm ukorzenionych drzew} $T_1(V_1, E_1, r_1)$ i $T_2(V_2, E_2, r_2)$ to bijekcja między zbiorami wierzchołków
+    $\varphi : V_1 \rightarrow V_2$, taka, że:
+    $$\forall u, v \in V_1 (u, v) \in E_1 \iff (\varphi(u),\varphi(v)) \in E_2 $$
+    oraz
+    $$\varphi(r_1) = r_2$$
+\end{definition}
+
+\begin{definition}
+    \textbf{Centroidy} to wierzchołki leżące po środku drzewa - a dokładniej takie, które dzielą je na poddrzewa o rozmiarze nie większym niż połowa całego drzewa. Innymi słowy centroid to wierzchołek v taki, że najdłuższa ścieżka z v do liścia jest minimalna z pośród wszystkich wierzchołków (połowa najdłuższej ścieżki).
+
+    \begin{algorithm}[H]
+        \DontPrintSemicolon
+        \SetAlgorithmName{Znajdowanie centroidu}{}\\
+        \KwData{ $\mathcal{T}$ - Drzewo, w którym szukamy centoridu }\\
+        \KwResult{ $\mathcal{v}$, - wierzchołek będący centroidem  }\\
+        1. Wybieramy losowy wierzchołek $r$ \\
+        2. Znajdujemy wierzchołek $v_1$ - najbardziej oddalony od $r$ \\
+        3. Znajdujemy wierzchołek $v_2$ - najbardziej oddalony od $v_1$ \\
+        4. Centrum znajduje się na środku najdłuższej ścieżki między $v_1$ i $v_2$ \\
+        \caption{Znajdowanie cetroidu}
+    \end{algorithm}
+
+Złożoność powyższego algorytmu to $O(n)$
+
+\end{definition}
+
+\begin{lemma}
+Jeżeli istnieje algorytm $O(n)$ dla izomorfizmów ukorzenionych drzew, to istnieje algorytm $O(n)$ dla nieukorzenionych drzew.
+\end{lemma}
+
+\begin{proof}
+
+Niech $A$ będzie algorytmem dla ukorzenionych drzew działającym w czasie $O(n)$, a $T_1$ i $T_2$ będą nieukorzenionymi drzewami.
+
+Znajdźmy centra tych drzew. Mamy trzy przypadki:
+\begin{itemize}
+\item obydwa drzewa mają tylko jedno centrum (odpowiednio $c_1$ i $c_2$) rozwiązaniem wtedy będzie $A(T_1, c_1, T_2, c_2)$
+\item każde drzewo ma dokładnie dwa centra (odpowiednio $c_1$, $c_1\prime$ oraz $c_2$, $c_2\prime$) rozwiązanie to $A(T_1, c_1, T_2, c_2)$ bądź $A(T1, c_1\prime,T_2, c_2\prime)$
+\item gdy drzewo ma inną liczbę centrów nie mamy rozwiązania
+
+\end{itemize}
+
+\end{proof}
+
+\subsection{Algorytm}
+
+Poniższy algorytm sprawdza czy dwa ukorzenione drzewa $T_1$ i $T_2$ o $n$ wierzchołkach są izomorficzne w czasie $O(n)$
+Algorytm przypisuje dodatkowe wartości wierzchołkom obydwu drzew zaczynając od liści i idąc w górę w taki sposób, że drzewa są izomorficzne tylko jeśli w korzeniach mają tą samą dodatkową wartość.
+
+\begin{algorithm}[H]
+    \DontPrintSemicolon
+    \SetAlgorithmName{Izomorfizm drzew}{}\\
+    \KwData{ $\mathcal{T_1}, \mathcal{T_2}$ - Ukorzenione drzewa}\\
+    \KwResult{ $true$ jeśli drzewa są izomorficzne $false$ w.p.p, - wierzchołek będący centroidem  }\\
+    wszystkim wierzchołkom z $T_1$ i $T_2$ przypisujemy wysokość w drzewie oraz pustą krotkę\\
+    do wszystkich liści dodajemy dodatkową wartość $0$\\
+    tworzymy listę $L_1$ zawierającą liście z drzewa $T_1$ na poziomie 0 \\
+    tworzymy listę $L_2$ zawierającą liście z drzewa $T_2$ na poziomie 0 \\
+    \For {wszystkie poziomy zaczynając od $1$} {
+        \For {wszystkie wierzchołki $v$ na liście $L_1$} {
+            dodaj do krotki rodzica dodatkową wartość dla $v$
+        }
+        niech $S_1$ będzie zbiorem krotek utworzonych dla nie-liści z $T_1$ na poziomie $i$ \\
+        niech $S_2$ będzie odpowiadającym zbiorem dla $T_2$\\
+        sortujemy $S_1$ i $S_2$ // bucket sort w $O(n)$ \\
+        \uIf {$S_1 \ne S_2$} {
+            return False // $T_1 i T_2$ nie są izomorficzne \\
+        } \Else {
+            czyścimy $L_1$ \\
+            \For {$k$ od 1 do liczba wszystkich krotek z $S_1$} {
+                \For {wszystkie wierzchołki $v$ z $T_1$ na poziomie $i$ reprezentowane przez $k$-tą krotkę w $S_1$} {
+                    przypisz dodatkową wartość $k$ do wierzchołka $v$ \\
+                    dodaj wierzchołek $v$ do $L_1$ \\
+                }
+            }
+            dodaj na początek $L_1$ liście z $T_1$ na poziomie $i$ \\
+            wykonaj powyższe kroki dla $L_2$ i $T_2$ \\
+        }
+    }
+    \uIf {korzenie $T_1$ i $T_2$ mają tą samą dodatkową} {
+        return True // $T_1$ i $T_2$ są izomorficzne
+    }
+    \Else {
+        return False // $T_1$ i $T_2$ \textbf{nie} są izomorficzne
+    }
+    \caption{Izomorfizm drzew}
+\end{algorithm}
+
+Uwagi:
+\begin{itemize}
+\item Jeżeli będziemy rozpatrywali najpierw wszystkie liści (niezależnie od poziomu) nie będzie potrzebne sortowanie
+\item krotki można hashować co pozwala je łatwiej dopasowywać
+\end{itemize}
+
+Powyższy algorytm nazywany jest AHU od nazwisk autorów\footnote{A. V. Aho, J. E. Hopcroft, and J. D. Ullman. The Design and Analysis of Computer Algorithms. Addison-Wesley, 1974}.
+
