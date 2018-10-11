@@ -4,15 +4,15 @@
 \label{sec:countingsort}
 
 W tym rozdziale można zapoznać się z algorytmem sortowania przez zliczanie (ang. \textit{counting sort}). 
-W metodzie zakładamy, że każdy z $n$ elementów ciągu jest liczbą całkowitą z przedziału od 0 do k.
+W metodzie tej zakładamy, że każdy z $n$ elementów ciągu jest liczbą całkowitą z przedziału od 0 do k.
 Sortowanie przez zliczanie działa w czasie $\Theta(n+k)$.
-Jeśli jednak założymy, że $k \in O(n)$, możemy powiedzieć, że jest to czas liniowy.
+Jeśli jednak $k \in O(n)$, to wtedy jest to czas liniowy.
 
 Być może niektórych niepokoi fakt, że osiągnęliśmy lepszą złożoność czasową niż mówi o tym dolna granica sortowania, czyli $\Theta(n \log n)$.
 Zauważmy jednak, że w tym wypadku mamy dodatkowe założenie.
 Do posortowania mamy liczby całkowite z danego zakresu.
 Ponadto dolna granica mówi nam o wykonywaniu algorytmu sortowaniu za pomocą porównań.
-W sortowaniu przez zliczanie nie korzystamy z porównań a zatem ta granica nie dotyczy tego algorytmu.
+W sortowaniu przez zliczanie nie korzystamy z porównań, a zatem ta granica nie dotyczy tego algorytmu.
 
 \textbf{Idea.} W sortowaniu przez zliczanie głównym pomysłem jest wyznaczenie dla każdego $x$ z ciągu wejściowego liczby elementów mniejszych od $x$.
 Dlaczego?
@@ -48,14 +48,15 @@ Spójrzmy na pseudokod algorytmu.
   \caption{Procedura \texttt{counting sort}}
   \label{alg-count}
 \end{algorithm}
-\textbf{Opis.}
-A teraz pokażemy, czemu dokładnie służą kolejne pętle for w pseudokodzie.
+
+A teraz pokażemy, czemu dokładnie służą kolejne pętle \texttt{for} w pseudokodzie.
+
 \begin{enumerate}
 \item Na początku inicjujemy tablicę $C$.
-\item W następnej pętli for przechodzimy po kolei po wszystkich elementach i dla wartości $x$ danego elementu, wartość tablicy $C[x]$ zwiększamy o jeden.
+\item W następnej pętli \texttt{for} przechodzimy po kolei po wszystkich elementach i dla wartości $x$ danego elementu, wartość tablicy $C[x]$ zwiększamy o jeden.
       A zatem po wykonaniu drugiej pętli tablica $C$ zawiera liczbę wystąpień elementów np. $x$ występuje $C[x]$ razy.
 \item Obliczamy ile jest elementów mniejszych lub równych $x$. Odbywa się to przez sumowanie komórek $C[x]$ z wartościami mniejszych indeksów tablicy.
-\item W ostatniej pętli for umieszczamy elementy na właściwych pozycjach w tablicy wyjściowej $B$.
+\item W ostatniej pętli \texttt{for} umieszczamy elementy na właściwych pozycjach w tablicy wyjściowej $B$.
       Jeśli w tablicy wejściowej A nie ma powtórzeń, to dla każdego $A[j]$ wartość $C[A[j]]$ jest poprawnym ostatecznym numerem pozycji w tablicy $B$.
       Jeśli jednak dopuszczamy powtórki musimy tę wartość dekrementować za każdym razem gdy wartość $A[j]$ jest wstawiana do tablicy $B$.
       Dzięki temu następny element o tej samej wartości (jeśli istnieje) zostanie wstawiony do tablicy $B$ na pozycję o numerze o jeden mniejszym.
@@ -63,18 +64,22 @@ A teraz pokażemy, czemu dokładnie służą kolejne pętle for w pseudokodzie.
 
 Gdy przyjrzymy się dokładnie algorytmowi sortowania przez zliczanie możemy zastanawiać się, dlaczego postępujemy w tak dziwny sposób?
 Przecież mając zliczone wystąpienia każdej wartości w licznikach, możemy je od razu przepisać do zbioru wyjściowego.
-Istotnie tak by było, gdyby chodziło jedynie o posortowanie liczb. Jest jednak inaczej.
+Istotnie tak by było, gdyby chodziło jedynie o posortowanie liczb.
+Jest jednak inaczej.
 Celem nie jest posortowanie jedynie samych wartości elementów.
-Sortowane wartości są zwykle tzw. kluczami, czyli wartościami skojarzonymi z elementami, które wyliczono na podstawie pewnego kryterium sortując klucze chcemy posortować zawierające je elementy.
+Sortowane wartości są zwykle tzw. kluczami, czyli wartościami skojarzonymi z elementami, które wyliczono na podstawie pewnego kryterium.
+Sortując klucze chcemy posortować zawierające je elementy.
 Dlatego do zbioru wynikowego musimy przepisać całe elementy ze zbioru wejściowego, gdyż w praktyce klucze stanowią jedynie część (raczej małą) danych zawartych w elementach.
 Zatem algorytm sortowania przez zliczanie wyznacza docelowe pozycje elementów na podstawie reprezentujących je kluczy, które mogą się wielokrotnie powtarzać.
 Następnie elementy są umieszczane na właściwym miejscu w zbiorze wyjściowym.
 
-\textbf{Złożoność.} 
+\textbf{Złożoność}
+
 Będziemy określać złożoność czasową poprzez oszacowanie każdej kolejnej pętli.
 Pierwsza działa w czasie $\Theta(k)$, druga w czasie $\Theta(n)$, kolejna w czasie $\Theta(k)$ a ostatnia w $\Theta(n)$.
-Całkowity czas działania procedury to $\Theta(k+n)$ ale w praktyce najczęściej $k \in O(n)$ a wtedy złożoność czasowa to \textbf{$\Theta(n)$}.
+Całkowity czas działania procedury to $\Theta(k+n)$ ale w praktyce najczęściej $k \in O(n)$, a wtedy złożoność czasowa to \textbf{$\Theta(n)$}.
 
-\textbf{Stabilność.} 
+\textbf{Stabilność}
+
 Stabilność to własność sortowania, dzięki której elementy o tych samych wartościach występują w tablicy wynikowej w takiej samej kolejności jak w ciągu wejściowym.
-Sortowanie przez zliczanie jest stabilne, co jest ważną zaletą pozwalającą wykorzystać tą procedurę w sortowaniu pozycyjnym.
+Sortowanie przez zliczanie jest stabilne, co jest ważną zaletą pozwalającą wykorzystać tę procedurę w sortowaniu pozycyjnym.

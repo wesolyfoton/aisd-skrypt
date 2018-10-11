@@ -6,21 +6,21 @@
 W tym rozdziale zajmiemy się sieciami przełączników Benesa-Waksmana. Moją one zastosowanie w sieciach komputerowych.
 
 \subsection{Budowa}
-Sieć składa się z przełączeników.
-Każdy z przełączeników ma dwa możliwe stany.
+Sieć składa się z przełączników.
+Każdy z przełączników ma dwa możliwe stany.
 \begin{itemize}
   \item W stanie 1 przełącznik przesyła dane z wejścia $i$ na wyjście $i$ ($i \in \left \{ 0, 1 \right \}$)
   \item W stanie 2 przełącznik przesyła dane z wejścia $i$ na wyjście $i + 1~mod~2$ ($i \in \left \{ 0, 1 \right \}$)
 \end{itemize}
-{\tiny<Tutaj wstawić obrazki ze stanami i jakąś przekładową sieć(wydaje mi się, że to lepiej objaśni, niż mój najlepszy opis)>}
+{\tiny<Tutaj wstawić obrazki ze stanami i jakąś przekładową sieć(wydaje mi się, że to lepiej objaśni, niż mój najlepszy opis)>}
 
-\subsection{Kontrukcja sieci tworzącej wszystkie możliwe permutacje zbioru}
+\subsection{Konstrukcja sieci tworzącej wszystkie możliwe permutacje zbioru}
 Dla ułatwienia będziemy się zajmować zbiorami w postaci $2^n$ ($n \in \mathbb{N}$).
 
 Konstrukcja będzie oparta na zasadzie dziel i zwyciężaj i będzie sprowadzała problem do rekurencyjnego zbudowania sieci wielkości $2^{n-1}$,
 a następnie odpowiedniego połączenia portów.
 \subsubsection{$n = 1$}
-Dla zbioru wielkości 2 jeden przełącznik generuje każdą możliwą permutacje; stan 1 generuje identycznośc; stan 2 drugą permutację.
+Dla zbioru wielkości 2 jeden przełącznik generuje każdą możliwą permutacje; stan 1 generuje identyczność; stan 2 drugą permutację.
 \subsubsection{$n > 1$}
 {\tiny<Tutaj znowu wstawiłbym rysunek idei algorytmu>}
 \subsection{Własności wygenerowanej sieci}
@@ -35,7 +35,7 @@ $$
 z tego wynika, że $G(n) = 2 \log n - 1$
 
 
-Ilość przełączeników w sieci wyraża się równaniem
+Ilość przełączników w sieci wyraża się równaniem
 $$
  P(2^n) = 
   \begin{cases} 

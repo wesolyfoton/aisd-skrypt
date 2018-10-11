@@ -18,7 +18,7 @@ Na początek wprowadźmy parę definicji i oznaczeń.
         \item \textbf{S} to \textbf{symbol startowy} - wyróżniony element ze zbioru produkcji.
     \end{itemize}
 \end{definition}
-Będziemy przyjmować, że elementy zbioru terminali to duże litery alfabetu angielskiego, np. $N = \{ A, B, S\}$, a elementy zbioru terminali to małe litery, np. $T = \{ a, b, c, \epsilon\}$ (z wyjątkiem epsilonu - jest to \textit{znak pusty}.
+Będziemy przyjmować, że elementy zbioru terminali to duże litery alfabetu łacińskiego, np. $N = \{ A, B, S\}$, a elementy zbioru terminali to małe litery, np. $T = \{ a, b, c, \epsilon\}$ (z wyjątkiem epsilonu - jest to \textit{znak pusty}.
 Zbiór produkcji to zbiór par $(L, R)$, gdzie L jest terminalem, a R jest ciągiem złożonym z terminiali i nieterminali. 
 Parę $(L, R)$ będziemy zapisywali w postaci $L \rightarrow R$, np.: $A \rightarrow aAb$, $A \rightarrow c$, $B \rightarrow b$,$A \rightarrow aSbB$, $S \rightarrow A$. 
 Jeżeli w zbiorze produkcji jeden terminal pojawia się "po prawej strzałki" więcej niż raz, np. $B \rightarrow ab$, $B \rightarrow b$, to zapisujemy te dwie produkcje w skrócie: $B \rightarrow ab |  b$, 
@@ -55,7 +55,7 @@ gdzie $A,B,C$ są nieterminalami i $a$ jest terminalem.
 \end{definition}
 
 Zauważmy, że każdą gramatykę bezkontekstową można przedstawić w postaci Chomsky'ego.
-Wystarczy każdą produkcję niebędącej w pożądanej postaci rozpisać na kilka innych, poprawnych produkcji. 
+Wystarczy każdą produkcję niebędącą w pożądanej postaci rozpisać na kilka innych, poprawnych produkcji. 
 
 Mając daną gramatykę $G$ w postaci Chomsky'ego oraz słowo $w$ możemy zadać pytanie: czy słowo $w = a_1a_2...a_n$ należy do języka generowanego przez tę gramatykę? 
 Jeżeli $w$ jest długości jeden, to znaczy, że $w$ jest nieterminalem i wystarczy sprawdzić, czy w $G$ istnieje produkcja $S \rightarrow w$. 
@@ -88,7 +88,7 @@ Możemy to zrobić na $j-i$ sposobów:
 &a_i|a_{i+1}a_{i+2}...a_j  &a_ia_{i+1}|a_{i+2}...a_j \\ &a_i...a_k|a_{k+1}...a_j &a_i...a_{n-1}|a_n
 \end{align*}
 
-Dla każdego podziału sprawdzamy czy zarówno prawa strona jak i lewa strona dała się wcześniej wyprowadzić - takie sprawdzenie jest darmowe, wcześniej już to policzyliśmy (albo i nie).
+Dla każdego podziału sprawdzamy czy zarówno prawa strona jak i lewa strona dała się wcześniej wyprowadzić - takie sprawdzenie ma czas stały, wcześniej już to policzyliśmy (albo i nie).
 Jeżeli te części istnieją, to wystarczy sprawdzić czy istnieje taka produkcja $X \rightarrow YZ$, że z $X$ możemy wyprowadzić pierwszą część fragmentu: $a_i...a_k$, a z $Y$ można wyprowadzić drugą: $a_{k+1}...a_j$. Jak istnieje, to zapamiętujemy nieterminale po prawej stronie produkcji.
 \item $w$ należy do języka, jeżeli okaże się, że symbol startowy wyprowadza $w$.
 
@@ -129,9 +129,9 @@ Teraz fragmenty długości $2$: $aa, ab, bb, ba, ab$.
 \item Fragment $w_{1,2} = aa$ można tylko na jeden sposób podzielić na dwie części: $a$ oraz $a$. 
 Z poprzedniego kroku wiemy, że $a$ dało się już wyprowadzić z nieterminala $A$.
 Istnieje produkcja $A \rightarrow AA$, więc do komórki (1,2) wpisujemy $A$.
-\item $w_{2,3} = ab$. Dzielimy na pół. Z poprzeniej iteracji wiemy, że da się wyprowadzić słowo $a$ oraz $b$ z kolejno terminala $A$ oraz $B$. Istnieje produkcja $S\rightarrow AB$, więc do komórki (2,3) wpisujemy $S$.
+\item $w_{2,3} = ab$. Dzielimy na pół. Z poprzedniej iteracji wiemy, że da się wyprowadzić słowo $a$ oraz $b$ z kolejno terminala $A$ oraz $B$. Istnieje produkcja $S\rightarrow AB$, więc do komórki (2,3) wpisujemy $S$.
 \item Analogicznie wypełniamy resztę przyprzekątnej. 
-Zauważmy jednak, że np. przy $w_{4,5}$ istnieją nietermianle, z których da się wyprowadzić $b$ oraz $a$, ale nie istnieje produkcja, która wyprowadza te nieterminale (nie ma produkcji postaci: $ X \rightarrow BA$). 
+Zauważmy jednak, że np. przy $w_{4,5}$ istnieją nieterminale, z których da się wyprowadzić $b$ oraz $a$, ale nie istnieje produkcja, która wyprowadza te nieterminale (nie ma produkcji postaci: $ X \rightarrow BA$). 
 Zatem do komórki (4,5) nic nie wpisujemy:
 \end{itemize}
 

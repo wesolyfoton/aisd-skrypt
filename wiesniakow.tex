@@ -10,7 +10,7 @@ W celu obliczenia $a \cdot b$ tworzymy tabelkę i liczby $a$ i $b$ zapisujemy w 
 Kolumnę $a$ wypełniamy następująco: w $i+1$ wierszu wpisujemy wartość z wiersza $i$ podzieloną całkowicie przez 2.
 W kolumnie $b$ kolejne wiersze tworzą ciąg geometryczny o ilorazie równym 2.
 Wypełnianie tabelki kończymy wtedy, gdy w kolumnie $a$ otrzymamy wartość 1.
-Na koniec sumujemy wartości w kolumine $b$ z tych wierszy dla których wartości w kolumine $a$ są nieparzyste.
+Na koniec sumujemy wartości w kolumnie $b$ z tych wierszy dla których wartości w kolumnie $a$ są nieparzyste.
 Uzyskany wynik to $a \cdot b$.
 
 W poniższym przykładzie obliczymy $42 \cdot 17$.
@@ -55,7 +55,7 @@ a \cdot b &= 17\cdot2 + 17\cdot2^3 + 17\cdot2^5 \\
 Przypomnij sobie algorytm zamiany liczby w systemie dziesiętnym na system binarny.
 Okazuje się, że algorytm rosyjskich wieśniaków "po cichu" wylicza tę reprezentację $a$.
 
-W kolejnych paragrafach podamy algorytm i w celu jego udowodnienia sformułujmy \textit{niezmiennik} oraz wykażemy jego prawdziwośc.
+W kolejnych paragrafach podamy algorytm i w celu jego udowodnienia sformułujmy \textit{niezmiennik} oraz wykażemy jego prawdziwość.
 
 \begin{algorithm}[h]
   \DontPrintSemicolon
@@ -150,13 +150,13 @@ Podstawiając do niezmiennika okazuje się, że faktycznie algorytm rosyjskich w
 \end{proof}
 
 \begin{lemma}
-Algorytm sie kończy.
+Algorytm się kończy.
 \end{lemma}
 \begin{proof}
 Skoro $a_i \in \mathbb{N} $ oraz $\mathbb{N}$ jest dobrze uporządkowany, to połowiąc $a_i$ po pewnej liczbie iteracji otrzymamy 0.
 \end{proof}
 
-Z powyższych lematów wynika, że niemiennik spełniony jest zarówno przed, w trakcie jak i po zakończeniu algorytmu. 
+Z powyższych lematów wynika, że niezmiennik spełniony jest zarówno przed, w trakcie, jak i po zakończeniu algorytmu. 
 Algorytm rosyjskich wieśniaków jest poprawny.
 
 \paragraph{Złożoność}

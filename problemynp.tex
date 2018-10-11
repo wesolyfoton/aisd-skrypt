@@ -12,7 +12,7 @@ Zamiast tego będziemy chcieli nabrać trochę intuicji co do tego czy w ogóle 
 Problemem decyzyjnym nazywamy problem którego rozwiązanie przyjmuje jedną z dwóch wartości - $TAK, NIE$
 \end{definition}
 \noindent
-Zauważmy że problemy decyzyjne możemy utożsamiać z podzbiorami pewnego uniwersumi, w ten sposób że problem jest zbiorem wartości, dla których odpowiedź to $TAK$.
+Zauważmy że problemy decyzyjne możemy utożsamiać z podzbiorami pewnego uniwersum, w ten sposób, że problem jest zbiorem wartości, dla których odpowiedź to $TAK$.
 \\ \noindent
 \b{PRZYKŁAD}. Problem polegający na rozstrzygnięciu czy dana liczba naturalna $p$ jest liczbą pierwszą utożsamilibyśmy ze zbiorem liczb pierwszych.
 
@@ -23,7 +23,7 @@ Dla danej funkcji kosztu $f$, problemem optymalizacyjnym nazywamy problem które
 \b{PRZYKŁAD}. Dla danego grafu $G$ oraz wierzchołków $u$ i $v$, wyznaczyć najkrótszą drogę między $u$ i $v$. 
 Naszą funkcją kosztu jest długość drogi,a uniwersum to wszystkie drogi łączące $u$ i $v$.
 
-% TODO napisać cos o związkach między problemami decyzyjnymi i optymalizacyjnymi
+% TODO napisać coś o związkach między problemami decyzyjnymi i optymalizacyjnymi
 
 \begin{definition}[Klasa $NP$]
 Klasą $NP$ nazywamy zbiór problemów decyzyjnych $L$ t. że istnieje algorytm wielomianowy $A$ dla którego prawdziwe jest następujące zdanie:
@@ -33,19 +33,19 @@ $x \in L \iff $ istnieje $y$ t. że $|y| < |x|^c$ oraz $A$ akceptuje $(x,y)$
 \end{definition}
 \noindent
 W powyższej definicji możemy myśleć o $y$ jako o podpowiedzi dla algorytmu, lub nawet gotowym rozwiązaniu, natomiast $A$ jest weryfikatorem, który używając podpowiedzi próbuje udzielić odpowiedzi, gdzie $A$ akceptuje $(x,y)$ oznacza że odpowiedź dla danych wejściowych $x$ to $TAK$.
-% TODO dodać cos o długości, bądź też rozmiarze wejścia (|.|)
+% TODO dodać coś o długości, bądź też rozmiarze wejścia (|.|)
 \\
 \\ \noindent
 \b{PRZYKŁAD}. Pokażmy że problem decyzyjny, polegający na sprawdzeniu czy w grafie $G$ istnieje cykl Hamiltona jest w $NP$.
 \begin{proof}
 Najpierw musimy wymyślić weryfikator, tzn. wielomianowy algorytm sprawdzający istnienie cyklu Hamiltona w grafie. 
-Nasz będzie dość prosty - dla danego grafu $x$, oraz $y$ - pewnej drogi w $x$, zwyczajnie sprawdzimy czy $y$ jest cyklem hamiltona, a jeśli tak to zwrócimy $TAK$(to znaczy nasz algorytm będzie akceptować parę ($x$, $y$)). 
-Łatwo zauważyć że czas działania algorymtu jest ograniczony przez $O(|V| + |E|)$.
+Nasz będzie dość prosty - dla danego grafu $x$, oraz $y$ - pewnej drogi w $x$, zwyczajnie sprawdzimy czy $y$ jest cyklem Hamiltona, a jeśli tak to zwrócimy $TAK$(to znaczy nasz algorytm będzie akceptować parę ($x$, $y$)). 
+Łatwo zauważyć że czas działania algorytmu jest ograniczony przez $O(|V| + |E|)$.
 \\
 \\ \noindent
 Dowód $\Rightarrow$ \\ \noindent
 Niech $x$ będzie grafem zawierającym cykl Hamiltona. 
-Wówczas naszym $y$ bedzie właśnie ten cykl. 
+Wówczas naszym $y$ będzie właśnie ten cykl. 
 Wtedy $|y|$ jest ograniczona przez $O(|V| + |E|)$ oraz zgodnie z opisem działania naszego algorytmu, $A$ zaakceptuje $(x, y)$. 
 \\ \noindent
 Dowód w drugą stronę jest równie prosty, więc go pominiemy.
@@ -53,7 +53,7 @@ Dowód w drugą stronę jest równie prosty, więc go pominiemy.
 
 \noindent
 Zauważmy że podpowiedź nie zawsze jest potrzebna. 
-Np. w przypadku problemu polegającym na sprawdzeniu czy liczba jest podzielna przez $2$, możemy wziąć jakąkolwiek podowiedź, zignorować ją a następnie udzielić odpowiedzi w czasie wielomianowym. O takich problemach mówimy że są klasy $P$. 
+Np. w przypadku problemu polegającego na sprawdzeniu czy liczba jest podzielna przez $2$, możemy wziąć jakąkolwiek podpowiedź, zignorować ją a następnie udzielić odpowiedzi w czasie wielomianowym. O takich problemach mówimy że są klasy $P$. 
 \\
 \\ \noindent
 
@@ -67,7 +67,7 @@ Mówimy że problem $L$ jest wielomianowo redukowalny do problemu $Q$ jeśli:
 \noindent
 Mimo że na pierwszy rzut oka może się to wydać niezrozumiałe, sens intuicyjny jest bardzo prosty. 
 Chcielibyśmy "przetłumaczyć" problem $L$ na problem $Q$, to znaczy użyć rozwiązania problemu $Q$ tak abyśmy mogli za jego pomocą rozwiązać problem $L$. 
-Jeśli uda nam się znaleźć taką funkcję(o której myślimy jak o algorytmie) to znaczy że znaleźliśmy redukcję problemu $L$ do problemu $Q$. 
+Jeśli uda nam się znaleźć taką funkcję(o której myślimy jak o algorytmie) to znaczy, że znaleźliśmy redukcję problemu $L$ do problemu $Q$. 
 Aby redukcja była wielomianowa, musi być spełniony drugi warunek, tzn. musimy umieć obliczyć tę funkcję w czasie wielomianowym.
 % TODO pokazać jakiś przykład redukcji
 
@@ -89,9 +89,9 @@ Jeśli $L$, jest problemem $NP$, $Q$ jest problemem $NP$-zupełnym oraz $L$ jest
 Weźmy dowolny problem $A \in NP$, zredukujmy go do $Q$ a następnie do $L$. Czas obliczeń jest wówczas ograniczony przez sumę wielomianów, a więc przez wielomian.
 \end{proof}
 \noindent
-Jednak aby skorzystać z tego lematu trzeba najpierw znaleźć problem który jest $NP$-zupełny. 
+Jednak aby skorzystać z tego lematu trzeba najpierw znaleźć problem, który jest $NP$-zupełny. 
 Jednym z pierwszych takich problemów którego $NP$-zupełność udowodniono był problem $SAT$(spełnialność formuł logicznych), a jak się później okazało, 
-wiele innych problemów możana do niego zredukować. 
+wiele innych problemów można do niego zredukować. 
 My zostawimy to bez dowodu. 
 \\ 
 \\ \noindent
@@ -105,7 +105,7 @@ Ogólnie rzecz biorąc, są to problemy bardzo trudne obliczeniowo, dla których
 Morał z tego jest taki, że jeśli wiemy że dany problem jest $NP$-zupełny, to raczej nie warto tracić czasu na rozwiązywanie go.
 \\ 
 \\ \noindent
-Jako dodatek, poniżej prezentujemy liste najbardziej znanych problemów $NP$-zupełnych(lub $NP$-trudnych):
+Jako dodatek, poniżej prezentujemy listę najbardziej znanych problemów $NP$-zupełnych(lub $NP$-trudnych):
 \begin{enumerate}
 \item Problem SAT
 \item Problem cyklu Hamiltona

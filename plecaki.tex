@@ -4,7 +4,7 @@
 \label{sec:plecaki}
 
 Wyobraźmy sobie, że jesteśmy złodziejem.
-Pod przykryciem nocy, udało nam się dotrzeć w ustalone miejsce.
+Pod przykryciem nocy udało nam się dotrzeć w ustalone miejsce.
 Wszystko idzie wyjątkowo gładko.
 Wpisujemy kod, który otrzymaliśmy od sprzątaczki i jesteśmy już w środku.
 Wtem okazuje się, że zapomnieliśmy listy przedmiotów, które mieliśmy ukraść.
@@ -21,17 +21,17 @@ W zależności od tego do jakiego sklepu się włamaliśmy, rozróżniamy nastę
   \item Galeria sztuki.
   W tym przypadku mamy dodatkowe ograniczenie: $x_i \in \left \{ 0, 1 \right \}$.
   Każde dzieło sztuki jest unikalne i nie możemy z galerii wynieść dwóch takich samych waz ani obrazów.
-  Wersję tą nazywamy czasem dyskretnym $0$/$1$ problemem plecakowym.
+  Wersję tę nazywamy czasem dyskretnym lub $0$/$1$ problemem plecakowym.
   \item Sklep RTV.
   Tym razem ukraść możemy dwa takie same telewizory.
-  Ale wciąż ilość przedmiotu danego typu jest ograniczona: $x_i \in \mathbb{N}$, $x_i \leq c_i$.
-  Problem ten nazywamy czasem ograniczonym, dyskretnym problemem plecakowym.
+  Ale wciąż ilość przedmiotów danego typu jest ograniczona: $x_i \in \mathbb{N}$, $x_i \leq c_i$.
+  Problem ten nazywamy czasem ograniczonym dyskretnym problemem plecakowym.
   \item Cyberprzestrzeń.
-  W tym przypadku możemy ukraść dowolną ilość przedmiotu danego typu (np. klucze aktywacji).
+  W tym przypadku możemy ukraść dowolną ilość przedmiotów danego typu (np. klucze aktywacji).
   Wtedy $x_i \in \mathbb{N}$.
-  Problem ten można znaleźć w literaturze pod hasłem: nieograniczony, dyskretny problem plecakowy.
+  Problem ten można znaleźć w literaturze pod hasłem: nieograniczony dyskretny problem plecakowy.
   \item Laboratorium chemiczne.
-  W tym przypadku, ilość chemikaliów, które kradniemy, jest ograniczona ($0 \leq x_i \leq c_i$).
+  W tym przypadku ilość chemikaliów, które kradniemy, jest ograniczona ($0 \leq x_i \leq c_i$).
   Ponieważ chemikalia możemy przelewać, ilość chemikaliów nie musi wyrażać się liczbą naturalną ($x_i \in \mathbb{R}$).
   Jest to ciągły problem plecakowy.
 \end{itemize}
@@ -41,8 +41,8 @@ Następnie wzięcie w pierwszej kolejności przedmiotów o większej wartości t
 Taki zachłanny algorytm sprawdza się w przypadku ciągłego problemu plecakowego (TODO: dowód).
 Złożoność tego algorytmu to $\Theta(n \log n)$, gdyż potrzebujemy posortować tablicę ilorazów.
 
-Nie jest jednak poprawnym algorytmem dla wersji dyskretnych.
-Kontrprzykładem będzie sytuacja, w której plecak ma wielkość $W = 10$ i do dyspozycji mamy $M = 3$ przedmioty: $v_1=9$, $v_2=v_3=5$, $w_1=6$, $w_2=w_3=5$.
+Algorytm ten nie jest jednak poprawny dla wersji dyskretnych.
+Kontrprzykładem niech będzie sytuacja, w której plecak ma wielkość $W = 10$ i do dyspozycji mamy $M = 3$ przedmioty: $v_1=9$, $v_2=v_3=5$, $w_1=6$, $w_2=w_3=5$.
 W każdym z wariantów problemu postępując w sposób zachłanny, wybierzemy w pierwszym kroku przedmiot $1$.
 Otrzymamy w ten sposób plecak o wartości $9$, do którego nie jesteśmy w stanie już wstawić kolejnego przedmiotu.
 Wybierając przedmioty $2$ i $3$ otrzymujemy plecak o wartości $10$.
@@ -72,14 +72,14 @@ W tym wariancie problemu, będziemy potrzebowali tablicy dwuwymiarowej \texttt{T
 W komórce \texttt{T[w][m]} będziemy trzymać optymalne rozwiązanie w sytuacji w którym ograniczamy się do plecaka rozmiaru $w$ oraz rozważamy tylko $m$ pierwszych typów przedmiotów.
 \begin{equation*}
   T[w][m] = \begin{cases}
-    0, & \text{jeśli $w = 0$ lub $m = 0$}\\
+    0, & \text{jeśli $w = 0 \lor m = 0$}\\
     T[w][m-1], & \text{jeśli $w_m > w$}\\
     max\{v_m + T[w - w_m][m-1], T[w][m-1]\}, & \text{wpp}
   \end{cases}
 \end{equation*}
 Pierwsza linijka wzoru to przypadek bazowy rekurencji - wtedy gdy plecak jest pusty lub nie mamy do wyboru żadnego przedmiotu.
 Teraz gdy wiemy, że nie jesteśmy w przypadku bazowym, bierzemy do ręki przedmiot typu $m$ i kontemplujemy nad tym czy wziąć ten przedmiot czy nie.
-Linijka druga wzoru rozwiewa nasz problem w momencie w którym przedmiot ten i tak nie zmieściłby się nam do plecaka (nie bierzemy go w takiej sytuacji; duh...).
+Linijka druga wzoru rozwiewa nasz problem w momencie, w którym przedmiot ten i tak nie zmieściłby się nam do plecaka (nie bierzemy go w takiej sytuacji; duh...).
 Jeśli jednak by się zmieścił to liczymy potencjalną wartość plecaka wraz z tym przedmiotem oraz bez tego przedmiotu.
 Jako wynik bierzemy maksimum - o czym mówi linijka trzecia.
 Tym razem do policzenia mamy $\Theta(W \cdot M)$ komórek.
@@ -93,13 +93,13 @@ w sytuacji w którym ograniczamy się do plecaka rozmiaru $w$ oraz rozważamy ty
 Również wzór rekurencyjny będzie wyglądał bardzo podobnie.
 \begin{equation*}
   T[w][m] = \begin{cases}
-    0, & \text{jeśli $w = 0$ lub $m = 0$}\\
+    0, & \text{jeśli $w = 0 \lor m = 0$}\\
     max_{0 \leq c \leq c_m, c \cdot w_m \leq w}\{c \cdot v_m + T[w - c \cdot w_m][m-1]\}, & \text{wpp}
   \end{cases}
 \end{equation*}
-\comment{Tu i we wzorze wyżej wyjechałem na margines :C}
+\comment{Wyjechałem na margines :C}
 Różnica polega na tym, że gdy rozważamy przedmiot typu $m$ to rozważamy każdą jego dostępną ilość, która mieści się w plecaku.
-Dla każdej ilości liczymy potencjalną wartość plecaka w którym wzięliśmy daną ilość przedmiotów tego typu.
+Dla każdej ilości liczymy potencjalną wartość plecaka, w którym wzięliśmy daną ilość przedmiotów tego typu.
 Z wszystkich wartości bierzemy maksimum jako wynik.
 Do policzenia zostaje nam $\Theta(W \cdot M)$ komórek.
 Każda komórka \texttt{T[..][m]} wymaga $O(c_m)$ operacji.

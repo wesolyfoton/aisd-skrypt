@@ -19,16 +19,16 @@ W przypadku kopca typu \emph{min} ścieżka prowadząca od dowolnego liścia do 
 
 Kopce można w prosty sposób reprezentować w tablicy jednowymiarowej \textendash kolejne poziomy drzewa zapisywane są po sobie.
 
-\tizkboxwithcaption{tikz/kopiec-warstwy.tikz}{Reprezentacja kolejnych warstw kopca w tablicy jednowymiarowej.}
+\tikzboxwithcaption{tikz/kopiec-warstwy.tikz}{Reprezentacja kolejnych warstw kopca w tablicy jednowymiarowej.}
 
 Warto zauważyć, że tak reprezentowane drzewo pozwala na łatwy dostęp do powiązanych węzłów.
 Synami węzła o indeksie $i$ są węzły $2i+1$ oraz $2i + 2$, natomiast jego ojcem jest $\left\lfloor \frac{i-1}{2} \right\rfloor$.
 
 Kopiec powinien udostępniać trzy podstawowe funkcje: \texttt{zamien\_element}, która podmienia wartość w konkretnym węźle kopca, \texttt{przesun\_w\_gore} oraz \texttt{przesun\_w\_dol}, które zamieniają odpowiednie elementy pilnując przy tym, aby własność kopca została zachowana.
 
-\tizkboxwithcaption{tikz/kopiec-przenoszenie.tikz}{Przykład działania funkcji \texttt{zamien\_element}. a) Oryginalny kopiec. b) Zmiana wartości w wyróżnionym węźle. c) Ponieważ nowa wartość jest większa od wartości swoich dzieci, należy wykonać wywołanie funkcji \texttt{przesn\_w\_dol}. d) Po zmianie własność kopca nie jest zachowana, dlatego należy ponownie wywołać funkcję \texttt{przesn\_w\_dol}. To przywraca kopcowi jego własność.}
+\tikzboxwithcaption{tikz/kopiec-przenoszenie.tikz}{Przykład działania funkcji \texttt{zamien\_element}. a) Oryginalny kopiec. b) Zmiana wartości w wyróżnionym węźle. c) Ponieważ nowa wartość jest większa od wartości swoich dzieci, należy wykonać wywołanie funkcji \texttt{przesun\_w\_dol}. d) Po zmianie własność kopca nie jest zachowana, dlatego należy ponownie wywołać funkcję \texttt{przesun\_w\_dol}. To przywraca kopcowi jego własność.}
 
-\comment{Zamień element jest fajną funkcją, ale funkcje przesun w dol i przesun w gore są ważniejsze.
+\comment{Zamień element jest fajną funkcją, ale funkcje \texttt{przesun\_w\_dol} i \texttt{przesun\_w\_gore} są ważniejsze.
 Ponadto nie chcemy nazywać funkcje w języku polskim.}
 \begin{algorithm}[ht]
   \If{k[i] < v}
