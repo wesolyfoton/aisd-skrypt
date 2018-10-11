@@ -6,12 +6,12 @@
 
 Rozważmy następujący problem (ang. \textit{string searching}). Dla zadanych dwóch ciągów
 znaków, tekstu i wzorca, odpowiedzieć na pytanie, czy wzorzec zawiera się w tekście.
-Mówiąc inaczej, czy tekst zwiera spójny podciąg znaków, który jest równy wzorcowi.
-Zdefiniujmy problem bardziej formalnie. \\
+Mówiąc inaczej, czy tekst zwiera podsłowo równe wzorcowi. Zdefiniujmy problem bardziej
+formalnie. \\
 
 Niech $\Sigma$ będzie skończonym alfabetem. Dla zadanego $\mathcal{T},\mathcal{P} \in \Sigma^*$
-takiego, że $|\mathcal{P}| \le |\mathcal{T}|$ (zwykle $|\mathcal{P}| \ll |\mathcal{T}|$), chcemy
-odpowiedzieć na pytanie, czy
+takiego, że $|\mathcal{P}| \le |\mathcal{T}|$ (zwykle $|\mathcal{P}|$ jest znacznie mniejsza od $|\mathcal{T}|$),
+chcemy odpowiedzieć na pytanie, czy
 
 \begin{equation}
     \label{eq:stringSearchingDefinition}
@@ -28,9 +28,9 @@ w masce bitowej $\mathcal{D} = d_m..d_1$ ($\forall_{1 \leq i \leq m} d_{i} \in \
  \label{eq:invariant}
  \mathcal{D}[i] =
   \begin{cases}
-      1 & \textit{\textsf{jeśli}} \enspace \mathcal{P}[0..i] = \mathcal{T}[j-i..j]
+      1 & \textit{jeśli} \enspace \mathcal{P}[0..i] = \mathcal{T}[j-i..j]
             \quad\quad dla \enspace i=0..m \\
-      0 & w.p.p
+      0 & w.p.p.
   \end{cases}
 \end{equation}
 
@@ -43,8 +43,8 @@ $$
 $$
     \mathcal{B}[x][i] =
      \begin{cases}
-         1 & \textit{\textsf{jeśli}} \enspace \mathcal{P}[i] = c \quad\quad dla \enspace i=0..m \\
-         0 & w.p.p
+         1 & \textit{jeśli} \enspace \mathcal{P}[i] = c \quad\quad dla \enspace i=0..m \\
+         0 & w.p.p.
      \end{cases}
 $$
 
