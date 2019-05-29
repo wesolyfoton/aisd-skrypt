@@ -49,7 +49,7 @@ Następnie możemy zacząć sortowanie -- załóżmy, że nasze ciągi zostały 
 
 Widzimy, że ciąg nr 4 nie musi brać udziału w sortowaniu aż do 6-tej iteracji, natomiast ciąg nr 3 -- do 8-mej itd. (technicznie ciągu nr 6 w ogóle nie musielibyśmy wcześniej sortować tylko z samym sobą, ale to szczegół niemający wpływu na złożoność asymptotyczną).
 
-Zatem działanie algorytmu ostatecznie przedstawia się następująco (niech $U$ - ciągi biorące udział w sortowaniu, $T$ - tablica list ciągów biorących udział w sortowaniu od danej iteracji):
+Zatem działanie algorytmu ostatecznie przedstawia się następująco (niech $T$ - ciągi biorące udział w sortowaniu, $U$ - tablica list ciągów biorących udział w sortowaniu od danej iteracji):
 
 \begin{algorithm}[h]
   \DontPrintSemicolon
